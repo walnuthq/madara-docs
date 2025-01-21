@@ -34,15 +34,12 @@ const config: Config = {
 
   presets: [
     [
-      'classic',
+      '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/walnuthq/madara-docs',
+          routeBasePath: '/'
         },
+        blog: false,
         
         theme: {
           customCss: './src/css/custom.css',
