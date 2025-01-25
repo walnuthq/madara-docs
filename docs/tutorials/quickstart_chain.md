@@ -58,17 +58,52 @@ Notes about the parameters:
 1. All data is stored in a new database folder denoted by `base-path` parameter. Use a suitable location.
 1. It is important to NOT use an overriding chain ID that's being utilized by some [existing Starknet network](https://github.com/starknet-io/starknet.js/blob/8fb2193462b5bb743f551cdec631d5923f09e657/src/constants.ts#L44). Otherwise you are free to use any hexadecimal ID you want.
 
+Leave the devnet running in one terminal window and open another one for interaction.
+
 ### If using Docker
 
 TODO
 
+## Install tooling for Starknet interaction
+
+To deploy and interact with Starknet smart contracts we're going to use [Starkli](https://book.starkli.rs/).
+
+### Install Starkli
+
+Install a Starkli manager with:
+```bash
+curl https://get.starkli.sh | sh
+```
+
+Restart your terminal. After that, you can install Starkli with:
+```bash
+starkliup
+```
+
+### Configure your account and signer
+
+Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+
+Pick the last given account and copy its private key somewhere - you'll need it for each contract interaction a bit later.
+
+### Install Scarb
+
+### Save an example contract locally
+
+### Compile the example contract
+
 ## Deploy a contract
 
-TODO
+### Declare your contract
+
+### Deploy it
+
+- Use Starkli or Scarb for deployment
 
 ## Issue transactions
 
-TODO
+- Remember to use your private key
+- ...
 
 ## Next steps
 
