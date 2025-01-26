@@ -20,7 +20,7 @@ There are two ways to install Madara:
 
 Please choose the one that fits you best.
 
-### Build from source
+### Option 1: Build from source
 
 First, make sure you have all the required dependencies installed:
 
@@ -32,18 +32,24 @@ First, make sure you have all the required dependencies installed:
 
 Next, clone the repository:
 ```bash
-cd <your-destination-path>
-git clone https://github.com/madara-alliance/madara .
+git clone https://github.com/madara-alliance/madara
+cd madara
 ```
 
-Then you are ready to build the project. This may take some minutes:
+Then you are ready to build the project. This will take some minutes:
 ```bash
 cargo build
 ```
 
-### Install with Docker
+### Option 2: Install with Docker
 
-TODO: add docker instructions from [README](https://github.com/madara-alliance/madara), test them and modify if needed.
+Download the required Docker images.
+
+```bash
+docker pull ghcr.io/madara-alliance/madara:latest
+docker tag ghcr.io/madara-alliance/madara:latest madara:latest
+docker rmi ghcr.io/madara-alliance/madara:latest
+```
 
 ## Start the chain
 
@@ -56,13 +62,28 @@ cargo run -- --name Madara --devnet --base-path ../madara_db --chain-config-over
 
 Notes about the parameters:
 1. All data is stored in a new database folder denoted by `base-path` parameter. Use a suitable location.
-1. It is important to NOT use an overriding chain ID that's being utilized by some [existing Starknet network](https://github.com/starknet-io/starknet.js/blob/8fb2193462b5bb743f551cdec631d5923f09e657/src/constants.ts#L44). Otherwise you are free to use any hexadecimal ID you want.
+1. It is important to NOT use a chain ID that's being utilized by some [existing Starknet network](https://github.com/starknet-io/starknet.js/blob/8fb2193462b5bb743f551cdec631d5923f09e657/src/constants.ts#L44). Otherwise you are free to use any hexadecimal ID you want.
 
 Leave the devnet running in one terminal window and open another one for interaction.
 
 ### If using Docker
 
-TODO
+Run Madara with:
+```bash
+docker run -p 9944:9944  --name Madara madara:latest --devnet --rpc-external
+```
+
+To make sure that Madara is running correctly, you can check its logs with:
+```bash
+docker logs -f -n 100 Madara
+```
+
+#### Restart
+
+If you need to restart Madara, you should first remove its Docker container with:
+```bash
+docker rm -f Madara
+```
 
 ## Install tooling for Starknet interaction
 
