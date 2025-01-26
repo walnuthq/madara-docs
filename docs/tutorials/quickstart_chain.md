@@ -105,15 +105,84 @@ starkliup
 
 Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
-Pick the last given account and copy its private key somewhere - you'll need it for each contract interaction a bit later.
+However, you still need to store the account in a format understood by Starkli. You can do this by (replace the address with one you chose from the list):
+```bash
+starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+```
 
-### Install Scarb
+### Install and configure Scarb
 
+We will utilize (Scarb)[https://docs.swmansion.com/scarb/docs] to compile our contract code. You can install Scarb with:
+```
+curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
+```
+
+Next you should instantiate a new Scarb project. You can do this with:
+```
+scarb init --no-vcs --test-runner cairo-test
+```
 ### Save an example contract locally
+
+We will use a very simple counter contract as an example. Replace the contents of `src/lib.cairo` with:
+
+```rust
+#[starknet::interface]
+trait IBalance<T> {
+    // Returns the current balance.
+    fn get(self: @T) -> u128;
+    // Increases the balance by the given amount.
+    fn increase(ref self: T, a: u128);
+}
+
+#[starknet::contract]
+mod Balance {
+    use traits::Into;
+
+    #[storage]
+    struct Storage {
+        value: u128, 
+    }
+
+    #[constructor]
+    fn constructor(ref self: ContractState, value_: u128) {
+        self.value.write(value_);
+    }
+
+    #[abi(embed_v0)]
+    impl Balance of super::IBalance<ContractState> {
+        fn get(self: @ContractState) -> u128 {
+            self.value.read()
+        }
+        fn increase(ref self: ContractState, a: u128)  {
+            self.value.write( self.value.read() + a );
+        }
+    }
+}
+```
+
+Next, replace the contents of `Scarb.toml` with:
+```rust
+[package]
+name = "madara_example"
+version = "0.1.0"
+
+[dependencies]
+starknet = "=2.9.2"
+
+[[target.starknet-contract]]
+```
+TODO: document to fix the version to one we have installed
 
 ### Compile the example contract
 
-## Deploy a contract
+Compile and declare the contract
+
+```bash
+scarb build
+starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_SimpleStorage.contract_class.json
+```
+
+## Deploy the contract
 
 ### Declare your contract
 
