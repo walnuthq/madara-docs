@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-This quick-start guide helps you start your own, local chain with Madara. Furthermore, it instructs you to run some actual transactions on the chain to verify its functionality.
+This quick-start guide helps you start your own, local chain with Madara. Furthermore, it instructs you to deploy a contract and run transactions on the chain to verify its functionality.
 
 The used chain is only available locally and is meant for testing purposes.
 
@@ -73,7 +73,7 @@ Run Madara with:
 docker run -p 9944:9944  --name Madara madara:latest --devnet --rpc-external
 ```
 
-To make sure that Madara is running correctly, you can check its logs with:
+To make sure that Madara is running correctly, you can check its logs, in another terminal, with:
 ```bash
 docker logs -f -n 100 Madara
 ```
@@ -91,7 +91,7 @@ To deploy and interact with Starknet smart contracts we're going to use [Starkli
 
 ### Install Starkli
 
-Install a Starkli manager with:
+Install the Starkli manager with:
 ```bash
 curl https://get.starkli.sh | sh
 ```
@@ -105,14 +105,16 @@ starkliup
 
 Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
-However, you still need to store the account in a format understood by Starkli. You can do this by (replace the address with one you chose from the list):
+However, you still need to store the account in a format understood by Starkli. 
+
+Choose an account from the list displayed upon running the devnet. Store it with (replace the address with one you chose from the list):
 ```bash
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
 
 ### Install and configure Scarb
 
-We will utilize (Scarb)[https://docs.swmansion.com/scarb/docs] to compile our contract code. You can install Scarb with:
+We will utilize [Scarb](https://docs.swmansion.com/scarb/docs) to compile our contract code. You can install Scarb with:
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
 ```
@@ -123,7 +125,7 @@ scarb init --no-vcs --test-runner cairo-test
 ```
 ### Save an example contract locally
 
-We will use a very simple counter contract as an example. Replace the contents of `src/lib.cairo` with:
+We will use a very simple balance contract as an example. Replace the contents of `src/lib.cairo` with:
 
 ```rust
 #[starknet::interface]
@@ -175,25 +177,35 @@ TODO: document to fix the version to one we have installed
 
 ### Compile the example contract
 
-Compile and declare the contract
+Compile the contract with:
 
 ```bash
 scarb build
-starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_SimpleStorage.contract_class.json
 ```
 
 ## Deploy the contract
 
 ### Declare your contract
 
+Before deployment, the contract needs to be declared to the network. Declare it with (remember to use the private key you chose from the devnet list):
+```bash
+starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_SimpleStorage.contract_class.json
+```
+
+Note the resulting class hash.
+
 ### Deploy it
 
-- Use Starkli or Scarb for deployment
+You are now ready to deploy the contract. Remember to replace the class hash and private key - you can then deploy with:
+```bash
+starkli deploy 0x002ce0e27907ab2c71ca9baf8e414589ae631c3b0e48abcfce4b193ae2cffebd --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account
+```
+
+Note the resulting contract address.
 
 ## Issue transactions
 
-- Remember to use your private key
-- ...
+TODO
 
 ## Next steps
 
