@@ -165,7 +165,3 @@ starkli invoke --account account --rpc http://localhost:9944 --private-key 0x041
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
-
-## Next steps
-
-TODO
