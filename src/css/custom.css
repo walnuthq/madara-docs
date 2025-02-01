@@ -17,6 +17,7 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-link-color: red;
   --ifm-breadcrumb-color-active: black;
+  --ifm-footer-padding-vertical: 10px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
