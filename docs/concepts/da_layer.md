@@ -2,6 +2,6 @@
 sidebar_position: 6
 ---
 
-# DA Layer
+# Data Availability Layer
 
 TODO

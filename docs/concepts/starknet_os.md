@@ -2,6 +2,6 @@
 sidebar_position: 4
 ---
 
-# CairoVM
+# Starknet OS
 
 TODO
