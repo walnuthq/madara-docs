@@ -14,22 +14,19 @@ The used chain is only available locally and is meant for testing purposes.
 
 These installation instructions assume you are using a Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
 
-Before installing specific tooling, make sure your system is up to date:
-1. `sudo ap update`
-1. `sudo apt upgrade`
-
-TODO: what about updates for macOS?
-
-Then continue with the specific tooling:
-1. Install [Starkli](https://book.starkli.rs) CLI: Run `curl https://get.starkli.sh | sh` to install `starkliup`. Then restart your terminal and run `starkliup` to install the CLI.
-1. Install [Scarb](https://docs.swmansion.com/scarb/) CLI: Run `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`. Then restart your terminal.
-
 ### Install Madara CLI
 
-Furthermore, you will need to install Madara CLI:
+You should start by installing the main tool for running Madara, the Madara CLI:
 1. Clone its repository with: `git clone https://github.com/madara-alliance/madara-cli.git`
-1. Enter the new foler with: `cd madara-clì`
+1. Enter the new folder with: `cd madara-clì`
 1. Initialize its Git submodules with: `git submodule update --init --recursive`
+
+### Install specific tooling
+
+Then continue with the specific tooling used in this tutorial (and in others):
+1. Install [Starkli](https://book.starkli.rs) CLI: Run `curl https://get.starkli.sh | sh` to install `starkliup`.
+1. Install [Scarb](https://docs.swmansion.com/scarb/) CLI: Run `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`. 
+1. Restart your terminal and finish installing the tools by running `starkliup`.
 
 ## Run a devnet chain with Madara CLI
 
@@ -37,7 +34,7 @@ You are now ready to run your own Madara devnet chain. If you're not in the Mada
 1. Select Madara mode: Devnet
 1. Input DB path: keep the default
 
-It will take a while to prepare everything. TODO: how long?
+It may take half an hour to prepare the image the first time. Once the devnet is ready, leave it running and open a new terminal for the rest of this tutorial.
 
 ## Configure
 
@@ -54,7 +51,7 @@ Before you can interact with the network you need an account. Luckily, running t
 
 However, you still need to store the account in a format understood by Starkli. 
 
-Choose an account from the list displayed upon running the devnet. Store it with (replace the address with one you chose from the list):
+Choose an account from the list displayed upon running the devnet. Store it with:
 ```bash
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
@@ -129,7 +126,6 @@ Compile the contract with:
 scarb build
 ```
 
-
 ## Contract interaction
 
 We are now ready to start deploying our contract and interacting with it.
@@ -138,7 +134,7 @@ We are now ready to start deploying our contract and interacting with it.
 
 #### Declare your contract
 
-Before deployment, the contract needs to be declared to the network. Declare it with (remember to use the private key you chose from the devnet list):
+Before deployment, the contract needs to be declared to the network. Declare it with:
 ```bash
 starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_Balance.contract_class.json
 ```
@@ -168,7 +164,7 @@ Let's try to increase this value by a transaction. Run:
 starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6def83bef293f23a420 increase 3
 ```
 
-If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract state!
+If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
 
 ## Next steps
 
