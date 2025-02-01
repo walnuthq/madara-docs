@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Quickstart: start your own chain
+# Quickstart: Run transactionss against a devnet
 
 ## Overview
 
@@ -18,14 +18,35 @@ Before installing specific tooling, make sure your system is up to date:
 1. `sudo ap update`
 1. `sudo apt upgrade`
 
+TODO: what about updates for macOS?
+
 Then continue with the specific tooling:
-1. Install Madara CLI: Run `curl -L https://install.madara.build | bash` to install `madaraup`. Then restart your terminal and run `madaraup` to install the CLI.
 1. Install [Starkli](https://book.starkli.rs) CLI: Run `curl https://get.starkli.sh | sh` to install `starkliup`. Then restart your terminal and run `starkliup` to install the CLI.
 1. Install [Scarb](https://docs.swmansion.com/scarb/) CLI: Run `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`. Then restart your terminal.
 
-TODO: fix Madara installation and chain setup.
+### Install Madara CLI
+
+Furthermore, you will need to install Madara CLI:
+1. Clone its repository with: `git clone https://github.com/madara-alliance/madara-cli.git`
+1. Enter the new foler with: `cd madara-clì`
+1. Initialize its Git submodules with: `git submodule update --init --recursive`
+
+## Run a devnet chain with Madara CLI
+
+You are now ready to run your own Madara devnet chain. If you're not in the Madara CLI's folder, go there and run `cargo run create`. It will prompt you for various options. You should choose the following:
+1. Select Madara mode: Devnet
+1. Input DB path: keep the default
+
+It will take a while to prepare everything. TODO: how long?
 
 ## Configure
+
+### Values to be replaced
+
+The rest of these instructions may require you to replace some of the values in the commands in the following way:
+- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key everywhere. You may choose whicheven private key from the list of keys given upon launching the devnet
+- Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
+- Value `0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6d` is used as the contract's address. Use the one given upon deploying the contract.
 
 ### Configure your account and signer
 
@@ -112,13 +133,6 @@ scarb build
 ## Contract interaction
 
 We are now ready to start deploying our contract and interacting with it.
-
-### Values to be replaced
-
-The rest of these instructions may require you to replace some of the values in the commands in the following way:
-- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key everywhere. You may choose whicheven private key from the list of keys given upon launching the devnet
-- Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
-- Value `0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6d` is used as the contract's address. Use the one given upon deploying the contract.
 
 ### Deploy the contract
 
