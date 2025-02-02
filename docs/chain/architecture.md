@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Architecture
@@ -19,6 +19,10 @@ Furthermore, the following parties should be present:
 - A settlement layer
 - A prover
 
+## L2 or L3
+
+Madara can launch either a Starknet clone (a L2 network) or a new network on top of a Starknet network, which is also called an Application Chain (App Chain, L3). The basic functionality remains mostly the same, the main difference is the settlement layer.
+
 ## Transaction flow
 
 When a user issues a transaction it goes through the components in the following way:
@@ -34,3 +38,4 @@ When a user issues a transaction it goes through the components in the following
 
 TODO: add a flowchart for the above
 
+What else?
