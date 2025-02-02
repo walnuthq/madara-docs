@@ -29,7 +29,8 @@ When a user issues a transaction it goes through the components in the following
 1. The sequencer publishes the block's transaction data and state diffs to a Data Availability (DA) layer.
 1. Once a block is ready, the sequencer forwards it and its execution trace to a prover
 1. The prover generates a cryptographic proof of correctness of the block. 
-1. The proof is sent to the L1 Settlement Layer verifier contract that finalizes the block
+1. The proof is sent to the L1 Settlement Layer verifier contract for verification.
+1. The orchestrator monitors the L1 verifier contract and finalizes the block, if the proof is valid.
 
-TODO: add a flowchart for a transaction
+TODO: add a flowchart for the above
 
