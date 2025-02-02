@@ -42,8 +42,9 @@ It may take half an hour to prepare the image the first time. Once the devnet is
 
 The rest of these instructions may require you to replace some of the values in the commands in the following way:
 - Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key everywhere. You may choose whicheven private key from the list of keys given upon launching the devnet
+- Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
-- Value `0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6d` is used as the contract's address. Use the one given upon deploying the contract.
+- Value `0x0111e1cba573924d336ec11dfb6fcb20131ec79bd72b3026a31803caaa4ac439` is used as the contract's address. Use the one given upon deploying the contract.
 
 ### Configure your account and signer
 
@@ -154,14 +155,14 @@ Note the resulting contract address.
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6def83bef293f23a420 get
+starkli call --rpc http://localhost:9944 0x0111e1cba573924d336ec11dfb6fcb20131ec79bd72b3026a31803caaa4ac439 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x0709ad164816e9d9f5eaf0d50fdc671bf6d683d9dc36b6def83bef293f23a420 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x0111e1cba573924d336ec11dfb6fcb20131ec79bd72b3026a31803caaa4ac439 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
