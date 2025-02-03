@@ -73,7 +73,10 @@ const config: Config = {
     },
     footer: {
       style: 'dark',
-      copyright: `MIT 2025 © Madara - Cairo-Powered Chains`,
+      links: [
+       { html: `MIT 2025 © Madara - Cairo-Powered Chains. With ❤️ by <a href='https://walnut.dev/'>Walnut</a>`}
+      ],
+      
     },
     prism: {
       theme: prismThemes.github,
