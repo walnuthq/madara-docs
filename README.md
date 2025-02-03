@@ -39,3 +39,10 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+
+## Updating search index
+
+The search bar utilizes a local search index with [a plugin ](https://github.com/praveenn77/docusaurus-lunr-search).
+
+Whenever needed, the index can be manually updated by: `npm run build`. To see the changes in local development, use `npm run serve`.
