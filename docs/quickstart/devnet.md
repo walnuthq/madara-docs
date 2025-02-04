@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Quickstart: Run transactionss against a devnet
+# Quickstart: Run transactions on a devnet
 
 ## Overview
 
@@ -14,34 +14,55 @@ The used chain is only available locally and is meant for testing purposes.
 
 These installation instructions assume you are using Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
 
+### Prerequisites
+
+You will need to have the following system components installed:
+- Rust. Please see [here](https://www.rust-lang.org/tools/install) for instructions.
+- Docker. Please see [here](https://docs.docker.com/engine/install/) for instructions. Remember to install also `docker-compose`.
+
 ### Install Madara CLI
 
 You should start by installing the main tool for running Madara, the Madara CLI:
-1. Clone its repository with: `git clone https://github.com/madara-alliance/madara-cli.git`
-1. Enter the new folder with: `cd madara-clì`
-1. Initialize its Git submodules with: `git submodule update --init --recursive`
+```bash
+git clone https://github.com/madara-alliance/madara-cli.git
+cd madara-cli
+git submodule update --init --recursive --jobs=4 --remote
+```
+The above will clone the repository into a new folder, enter the folder and initialize the repository's Git submodules.
 
 ### Install specific tooling
 
 Then continue with the specific tooling used in this tutorial (and in others):
-1. Install [Starkli](https://book.starkli.rs) CLI: Run `curl https://get.starkli.sh | sh` to install `starkliup`.
-1. Install [Scarb](https://docs.swmansion.com/scarb/) CLI: Run `curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh`. 
-1. Restart your terminal and finish installing the tools by running `starkliup`.
+```bash
+curl https://get.starkli.sh | sh
+curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
+```
+The above will install [Starkli](https://book.starkli.rs) CLI and [Scarb](https://docs.swmansion.com/scarb/) CLI.
+
+Now restart your terminal and finish the installation with:
+```bash
+starkliup
+```
 
 ## Run a devnet chain with Madara CLI
 
-You are now ready to run your own Madara devnet chain. If you're not in the Madara CLI's folder, go there and run `cargo run create`. It will prompt you for various options. You should choose the following:
-1. Select Madara mode: Devnet
+You are now ready to run your own local Madara chain. If you're not in the Madara CLI's folder, go there and run:
+
+```bash
+cargo run create
+```
+The above will prompt you for various options. You should choose the following:
+1. Select Madara mode: `Devnet`
 1. Input DB path: keep the default
 
-It may take half an hour to prepare the image the first time. Once the devnet is ready, leave it running and open a new terminal for the rest of this tutorial.
+It may take half an hour to prepare the image for the first time. Once the devnet is ready, leave it running and open a new terminal for the rest of this guide.
 
 ## Configure
 
 ### Values to be replaced
 
 The rest of these instructions may require you to replace some of the values in the commands in the following way:
-- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key everywhere. You may choose whicheven private key from the list of keys given upon launching the devnet
+- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the devnet
 - Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
 - Value `0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24` is used as the contract's address. Use the one given upon deploying the contract.
