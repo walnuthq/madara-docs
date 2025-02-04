@@ -4,8 +4,6 @@ sidebar_position: 2
 
 # Architecture
 
-## Overview
-
 A Madara blockchain consists of the following components:
 - A gateway
 - A sequencer
@@ -18,10 +16,6 @@ Furthermore, the following parties should be present:
 - A data availability layer
 - A settlement layer
 - A prover
-
-## L2 or L3
-
-Madara can launch either a Starknet clone (a L2 network) or a new network on top of a Starknet network, which is also called an Application Chain (App Chain, L3). The basic functionality remains mostly the same, the main difference is the settlement layer.
 
 ## Transaction flow
 
@@ -66,5 +60,3 @@ sequenceDiagram
     Orchestrator ->> Orchestrator: Finalize block if valid
 
 ```
-
-What else?
