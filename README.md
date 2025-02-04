@@ -13,7 +13,7 @@ The documentation explains all of the functionality of Madara, both from full no
 ## Installation
 
 ```
-$ npm i
+npm i
 ```
 
 ## Local Development
@@ -26,9 +26,13 @@ This command starts a local development server and opens up a browser window. Mo
 
 ## Deployment
 
+Note that you will need push access to the [repository](https://github.com/walnuthq/madara-docs) to deploy to a live environment (dev or prod).
+
 ### To dev site
 
-You can deploy the site to a development site with:
+First create a [personal access token](https://github.com/settings/tokens). Either a fine-grained one (if you have access to create one for the repository) or a global one. The token needs access only to public repositories.
+
+After that, you can deploy the site to a development site with:
 
 ```bash
 GIT_USER=<Your GitHub username> npm run deploy
@@ -37,7 +41,7 @@ GIT_USER=<Your GitHub username> npm run deploy
 This will:
 1. Build the site
 1. Push the changes to GitHub branch `gh-pages`
-1. Publish the generated contents to https://walnuthq.github.io/madara-docs
+1. Publish the generated contents to the development site at https://walnuthq.github.io/madara-docs
 
 ### To production
 
@@ -48,3 +52,9 @@ TODO
 The search bar utilizes a local search index with [a plugin ](https://github.com/praveenn77/docusaurus-lunr-search).
 
 Whenever needed, the index can be manually updated by: `npm run build`. To see the changes in local development, use `npm run serve`.
+
+## 🤝 Contributions
+
+Contributions from the community are warmly welcomed!
+
+If you find an issue with the documentation, please open an issue in the [repo](https://github.com/walnuthq/madara-docs). You are also welcome to open a PR to fix any found issues.
