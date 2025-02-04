@@ -1,45 +1,47 @@
-# Website
+# Madara documentation contents
+
+This repository contains material used to generate the [Madara documentation](https://docs.madara.build) website.
 
 This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
-### Installation
+## Overview
+
+Madara is both a Starknet full node and an appchain (L3).
+
+The documentation explains all of the functionality of Madara, both from full node perspective and appchain perspective. The documentation is still under development: new sections get added all the time and existing ones get appended to.
+
+## Installation
 
 ```
-$ yarn
+$ npm i
 ```
 
-### Local Development
+## Local Development
 
 ```
-$ yarn start
+npm run start
 ```
 
 This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
 
-### Build
+## Deployment
 
-```
-$ yarn build
-```
+### To dev site
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+You can deploy the site to a development site with:
 
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
+```bash
+GIT_USER=<Your GitHub username> npm run deploy
 ```
 
-Not using SSH:
+This will:
+1. Build the site
+1. Push the changes to GitHub branch `gh-pages`
+1. Publish the generated contents to https://walnuthq.github.io/madara-docs
 
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
+### To production
 
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
-
+TODO
 
 ## Updating search index
 
