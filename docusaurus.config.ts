@@ -56,7 +56,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/Madara logomark - Red - Duotone.png',
     navbar: {
       title: 'Docs --- DRAFT CONTENTS - Please note the contents here are under heavy construction',
       logo: {
@@ -74,7 +74,7 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
-       { html: `MIT 2025 © Madara - Cairo-Powered Chains. With ❤️ by <a href='https://walnut.dev/'>Walnut</a>`}
+       { html: `MIT 2025 © Madara - Cairo-Powered Chains. With ❤️ by <a href='https://walnut.dev/' target='_blank'>Walnut</a>`}
       ],
       
     },
