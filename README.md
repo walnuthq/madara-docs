@@ -26,22 +26,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ## Deployment
 
-### To dev site
-
-You can deploy the site to a development site with:
-
-```bash
-GIT_USER=<Your GitHub username> npm run deploy
-```
-
-This will:
-1. Build the site
-1. Push the changes to GitHub branch `gh-pages`
-1. Publish the generated contents to https://walnuthq.github.io/madara-docs
-
-### To production
-
-TODO
+The main branch of the repository is automatically deployed to [madara-docs.pages.dev](https://madara-docs.pages.dev/). Additionally, previews are deployed automatically for all PRs, allowing you to review changes before they are merged.
 
 ## Updating search index
 
