@@ -10,16 +10,16 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://walnuthq.github.io/',
+  url: 'https://madara-docs.pages.dev/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/madara-docs/',
+  baseUrl: '/',
   trailingSlash: false,
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'walnuthq', // Usually your GitHub org/user name.
-  projectName: 'madara-docs', // Usually your repo name.
+  // organizationName: 'walnuthq', // Usually your GitHub org/user name.
+  // projectName: 'madara-docs', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
