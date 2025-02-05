@@ -58,7 +58,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/Madara logomark - Red - Duotone.png',
     navbar: {
-      title: 'Docs --- DRAFT CONTENTS - Please note the contents here are under heavy construction',
+      title: 'Docs',
       logo: {
         alt: 'Madara logo',
         src: 'img/Madara logomark - Red - Duotone.png',

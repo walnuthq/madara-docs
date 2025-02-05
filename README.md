@@ -13,7 +13,7 @@ The documentation explains all of the functionality of Madara, both from full no
 ## Installation
 
 ```
-$ npm i
+npm i
 ```
 
 ## Local Development
@@ -33,3 +33,9 @@ The main branch of the repository is automatically deployed to [madara-docs.page
 The search bar utilizes a local search index with [a plugin ](https://github.com/praveenn77/docusaurus-lunr-search).
 
 Whenever needed, the index can be manually updated by: `npm run build`. To see the changes in local development, use `npm run serve`.
+
+## 🤝 Contributions
+
+Contributions from the community are warmly welcomed!
+
+If you find an issue with the documentation, please open an issue in the [repo](https://github.com/walnuthq/madara-docs). You are also welcome to open a PR to fix any found issues.
