@@ -5,10 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Madara docs',
-  tagline: 'Madara Documentation',
+  title: 'Madara Docs: Welcome to the Docs',
   favicon: 'img/favicon.ico',
-
+  
   // Set the production url of your site here
   url: 'https://madara-docs.pages.dev/',
   // Set the /<baseUrl>/ pathname under which your site is served
@@ -68,10 +67,6 @@ const config: Config = {
       {
         name: 'og:image:height', 
         content: '309'
-      },
-      {
-        name: 'og:title',
-        content: 'Madara Docs: Welcome to the Docs'
       },
       {
         name: 'og:description',
