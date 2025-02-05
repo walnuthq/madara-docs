@@ -63,11 +63,11 @@ const config: Config = {
       },
       {
         name: 'og:image:width',
-        content: '1200'
+        content: '2800'
       },
       {
         name: 'og:image:height', 
-        content: '630'
+        content: '720'
       },
       {
         name: 'og:title',
