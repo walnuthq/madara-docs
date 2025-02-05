@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Quickstart: Run transactions on a devnet
+# Quickstart: Run transactions on a local chain
 
 ## Overview
 
@@ -44,7 +44,7 @@ Now restart your terminal and finish the installation with:
 starkliup
 ```
 
-## Run a devnet chain with Madara CLI
+## Run a local chain with Madara CLI
 
 You are now ready to run your own local Madara chain. If you're not in the Madara CLI's folder, go there and run:
 
@@ -52,17 +52,17 @@ You are now ready to run your own local Madara chain. If you're not in the Madar
 cargo run create
 ```
 The above will prompt you for various options. You should choose the following:
-1. Select Madara mode: `Devnet`
+1. Select Madara mode: `Devnet`. This is a local chain
 1. Input DB path: keep the default
 
-It may take half an hour to prepare the image for the first time. Once the devnet is ready, leave it running and open a new terminal for the rest of this guide.
+It may take half an hour to prepare the image for the first time. Once the local chain is ready, leave it running and open a new terminal for the rest of this guide.
 
 ## Configure
 
 ### Values to be replaced
 
 The rest of these instructions may require you to replace some of the values in the commands in the following way:
-- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the devnet
+- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the chain
 - Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
 - Value `0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24` is used as the contract's address. Use the one given upon deploying the contract.
@@ -78,11 +78,11 @@ scarb init --no-vcs --test-runner cairo-test
 
 ### Configure your account and signer
 
-Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
 However, you still need to store the account in a format understood by Starkli. 
 
-Choose an account from the list displayed upon running the devnet. Store it with:
+Choose an account from the list displayed upon running the chain. Store it with:
 ```bash
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
