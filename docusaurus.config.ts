@@ -74,9 +74,40 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
-       { html: `MIT 2025 © Madara - Cairo-Powered Chains. With ❤️ by <a href='https://walnut.dev/' target='_blank'>Walnut</a>`}
+        { html: `
+          <div class='footer-wrapper'>
+            <div class='footer-content'>
+              <div class='footer-love'>
+                Built with <span class='heart'>❤️</span> by
+                <a href='https://walnut.dev/' target='_blank' rel="noopener noreferrer">Walnut</a>
+              </div>
+              <div class='footer-socials'>
+                <a href="https://github.com/madara-alliance/madara" 
+                   target='_blank' 
+                   rel="noopener noreferrer"
+                   aria-label="GitHub"
+                   class='social-link'>
+                  <img class="social-icon" src="img/github-logo.svg" alt="GitHub"/>
+                </a>
+                <a href="https://t.me/MadaraStarknet" 
+                   target='_blank' 
+                   rel="noopener noreferrer"
+                   aria-label="Telegram"
+                   class='social-link'>
+                  <img class="social-icon" src="img/telegram-logo.svg" alt="Telegram"/>
+                </a>
+                <a href="https://x.com/MadaraStarknet" 
+                   target='_blank' 
+                   rel="noopener noreferrer"
+                   aria-label="Twitter"
+                   class='social-link'>
+                  <img class="social-icon" src="img/twitter-logo.svg" alt="Twitter"/>
+                </a>
+              </div>
+            </div>
+          </div>`
+        }
       ],
-      
     },
     prism: {
       theme: prismThemes.github,

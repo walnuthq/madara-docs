@@ -40,3 +40,77 @@
 .table-of-contents__link:hover  {
   color: red;
 }
+
+
+/* Footer Styles */
+.footer-wrapper {
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-love {
+  font-size: 1rem;
+  color: var(--ifm-color-gray-300);
+}
+
+.footer-love a {
+  color: var(--ifm-color-gray-300); 
+  text-decoration: none; 
+  transition: color 0.2s ease;
+}
+
+.footer-love a:hover {
+  color: red; 
+  text-decoration: none;
+}
+
+
+.footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-socials {
+    margin-top: 1rem;
+  }
+}
