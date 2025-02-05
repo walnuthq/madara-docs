@@ -59,15 +59,15 @@ const config: Config = {
     metadata: [
       {
         name: 'og:image',
-        content: '/img/Madara logomark - Red - Duotone.png'
+        content: '/img/metadata-preview.png'
       },
       {
         name: 'og:image:width',
-        content: '2800'
+        content: '1200'
       },
       {
         name: 'og:image:height', 
-        content: '720'
+        content: '309'
       },
       {
         name: 'og:title',
