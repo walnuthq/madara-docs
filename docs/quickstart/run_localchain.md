@@ -6,7 +6,7 @@ sidebar_position: 1
 
 ## Overview
 
-This quick-start guide helps you start your own, local chain with Madara. Furthermore, it instructs you to deploy a contract and run transactions on the chain to verify its functionality.
+This quick-start guide helps you start your own, local chain with Madara.
 
 The used chain is only available locally and is meant for testing purposes.
 
