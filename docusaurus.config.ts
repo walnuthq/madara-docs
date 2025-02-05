@@ -56,7 +56,28 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/Madara logomark - Red - Duotone.png',
+    metadata: [
+      {
+        name: 'og:image',
+        content: '/img/Madara logomark - Red - Duotone.png'
+      },
+      {
+        name: 'og:image:width',
+        content: '1200'
+      },
+      {
+        name: 'og:image:height', 
+        content: '630'
+      },
+      {
+        name: 'og:title',
+        content: 'Madara Docs: Welcome to the Docs'
+      },
+      {
+        name: 'og:description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
+      }
+    ],
     navbar: {
       title: 'Docs',
       logo: {
