@@ -6,5 +6,3 @@ sidebar_position: 2
 - What is a sequencer
 - How it connects to other components
 - What else?
-
-TODO

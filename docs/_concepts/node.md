@@ -7,5 +7,3 @@ sidebar_position: 5
 - What does it mean run run a node
 - Node types offered by Madara (full node / Sequencer)
 - What else?
-
-TODO
