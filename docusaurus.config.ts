@@ -42,12 +42,13 @@ const config: Config = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          routeBasePath: '/'
+          routeBasePath: '/',
+          
         },
         blog: false,
-        
         theme: {
           customCss: './src/css/custom.css',
+          
         },
       } satisfies Preset.Options,
     ],
@@ -56,8 +57,6 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     metadata: [
-      { property: 'title', content: 'Madara docs: %s' },
-      { property: 'og:title', content: 'Madara docs: %s' }, 
       {
         property: 'og:image',
         content: '/img/metadata-preview.png'
@@ -75,7 +74,7 @@ const config: Config = {
         content: '309'
       },
       {
-        property: 'description',
+        name: 'description',
         content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
       },
       {
