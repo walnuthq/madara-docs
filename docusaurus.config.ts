@@ -14,6 +14,22 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
   trailingSlash: false,
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+      },
+    },
+  ],
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -55,6 +71,22 @@ const config: Config = {
   ],
 
   themeConfig: {
+    headTags: [
+      {
+        tagName: 'meta',
+        attributes: {
+          name: 'description',
+          content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+        },
+      },
+      {
+        tagName: 'meta',
+        attributes: {
+          property: 'og:description',
+          content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+        },
+      },
+    ],
     // Replace with your project's social card
     metadata: [
       {
@@ -73,14 +105,6 @@ const config: Config = {
         property: 'og:image:height', 
         content: '309'
       },
-      {
-        name: 'description',
-        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
-      },
-      {
-        property: 'og:description',
-        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
-      }
     ],
     navbar: {
       title: 'Docs',
