@@ -54,33 +54,32 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: '/img/metadata-preview.png',
     // Replace with your project's social card
     metadata: [
-      { name: 'title', content: 'Madara docs: %s' },
-      { name: 'og:title', content: 'Madara docs: %s' }, 
-      // {
-      //   name: 'og:image',
-      //   content: '/img/metadata-preview.png'
-      // },
-      // {
-      //   name: 'og:image:alt',
-      //   content: 'Madara logo'
-      // },
-      // {
-      //   name: 'og:image:width',
-      //   content: '1200'
-      // },
-      // {
-      //   name: 'og:image:height', 
-      //   content: '309'
-      // },
+      { property: 'title', content: 'Madara docs: %s' },
+      { property: 'og:title', content: 'Madara docs: %s' }, 
       {
-        name: 'description',
+        property: 'og:image',
+        content: '/img/metadata-preview.png'
+      },
+      {
+        name: 'og:image:alt',
+        content: 'Madara logo'
+      },
+      {
+        name: 'og:image:width',
+        content: '1200'
+      },
+      {
+        name: 'og:image:height', 
+        content: '309'
+      },
+      {
+        property: 'description',
         content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
       },
       {
-        name: 'og:description',
+        property: 'og:description',
         content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
       }
     ],
