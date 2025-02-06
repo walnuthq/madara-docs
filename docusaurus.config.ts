@@ -59,7 +59,7 @@ const config: Config = {
       { name: 'title', content: 'Madara docs: %s' },
       { name: 'og:title', content: 'Madara docs: %s' }, 
       {
-        name: 'image',
+        name: 'og:image',
         content: '/img/metadata-preview.png'
       },
       {
