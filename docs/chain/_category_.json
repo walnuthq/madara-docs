@@ -1,8 +1,8 @@
 {
-  "label": "Chain operators",
+  "label": "Madara components",
   "position": 4,
   "link": {
     "type": "generated-index",
-    "description": "Documentation related to running a separate appchain with Madara."
+    "description": "Documentation related to Madara components."
   }
 }
