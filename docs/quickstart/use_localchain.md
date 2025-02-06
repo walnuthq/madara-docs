@@ -35,14 +35,14 @@ The rest of these instructions may require you to replace some of the values in 
 - Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the chain
 - Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
-- Value `0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24` is used as the contract's address. Use the one given upon deploying the contract.
+- Value `0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450` is used as the contract's address. Use the one given upon deploying the contract.
 
 ### Initiate a Scarb project
 
 You should instantiate a new Scarb project in a new folder:
 ```bash
-mkdir madara-quickstart
-cd madara-quickstart
+mkdir madara_quickstart
+cd madara_quickstart
 scarb init --no-vcs --test-runner cairo-test
 ```
 
@@ -146,14 +146,14 @@ Note the resulting contract address.
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24 get
+starkli call --rpc http://localhost:9944 0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
