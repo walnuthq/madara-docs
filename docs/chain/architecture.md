@@ -19,17 +19,17 @@ Furthermore, the following parties should be present:
 
 ## Transaction flow
 
-TODO: the text is incorrect, the image is closer to reality. fix the text
-
 When a user issues a transaction it goes through the components in the following way:
-1. The transaction is received by the gateway and is forwarded to the orchestrator
+1. The transaction is received by the orchestrator
 1. The orchestrator assigns the transaction to the sequencer
-1. The sequencer adds the transaction to a block
-1. Once a block is ready, the sequencer executes the block using Starknet OS (SNOS), which generates an execution trace and state diffs (depicting what state changes the block's transactions caused in the blockchain)
-1. The sequencer publishes the block's transaction data and state diffs to a Data Availability (DA) layer.
-1. The sequencer forwards the block's execution trace to a prover
-1. The prover generates a cryptographic proof of correctness of the block. 
-1. The proof is sent to the L1 Settlement Layer verifier contract for verification.
+1. The sequencer executes the transaction and generates a state diff (depicting what state changes the transaction causes in the blockchain)
+1. The sequencer waits until enough transactions have been received to formalize a block
+1. The sequencer assigns "Accepted in L2" status to all of the block's transactions
+1. Meanwhile, the Orchestrator requests proof inputs from the Starknet OS (SNOS)
+1. When receiving such request, the SNOS starts polling the sequencer for a ready block and its related data
+1. Once the block data has been handed to SNOS, it generates input for the validity proof for the orchestrator
+1. The orchestrator forwards the proof inputs to the prover
+1. The prover generates a validity proof and forwards this to the settlement layer (Layer 1, Ethereum) verifier contract
 1. The orchestrator monitors the L1 verifier contract and finalizes the block if the proof is valid.
 
 ```mermaid
@@ -45,7 +45,7 @@ sequenceDiagram
 
     Orchestrator ->> Sequencer: Receive transactions
     Sequencer ->> Sequencer: Execute transactions & generate state diff
-    Sequencer ->> Sequencer: Assemble full block
+    Sequencer ->> Sequencer: Assemble block
     Sequencer ->> Sequencer: Add block to L2 (Accepted in L2)
 
     Note over Orchestrator: SNOS is only used in Appchain mode
