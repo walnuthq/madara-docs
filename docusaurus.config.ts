@@ -63,15 +63,15 @@ const config: Config = {
         content: '/img/metadata-preview.png'
       },
       {
-        name: 'og:image:alt',
+        property: 'og:image:alt',
         content: 'Madara logo'
       },
       {
-        name: 'og:image:width',
+        property: 'og:image:width',
         content: '1200'
       },
       {
-        name: 'og:image:height', 
+        property: 'og:image:height', 
         content: '309'
       },
       {
