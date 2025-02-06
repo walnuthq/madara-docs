@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Madara Docs: Welcome to the Docs',
+  title: 'Madara docs',
   favicon: 'img/favicon.ico',
   
   // Set the production url of your site here
@@ -56,8 +56,10 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     metadata: [
+      { name: 'title', content: 'Madara docs: %s' },
+      { name: 'og:title', content: 'Madara docs: %s' }, 
       {
-        name: 'og:image',
+        name: 'image',
         content: '/img/metadata-preview.png'
       },
       {
@@ -67,6 +69,10 @@ const config: Config = {
       {
         name: 'og:image:height', 
         content: '309'
+      },
+      {
+        name: 'description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
       },
       {
         name: 'og:description',
