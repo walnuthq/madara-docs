@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
+  --ifm-color-primary: red;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
@@ -22,7 +22,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: red;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -42,7 +42,8 @@
 }
 
 .footer {
-  background: #f7f7f7;
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.1);;
+  background: white;
 }
 [data-theme='dark'] .footer {
   background-color: #232323; 
@@ -68,7 +69,7 @@
 }
 
 .footer-love {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: var(--ifm-color-gray-700);
 }
 
@@ -94,29 +95,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  padding: 6px;
   border-radius: 50%;
-  background: rgba(103, 103, 103, 0.4);
+  background: var(--ifm-color-gray-300);
   transition: all 0.3s ease;
 }
 
 .social-link:hover {
-  background: rgba(66, 66, 66, 0.4);
+  background: var(--ifm-color-gray-400);
   transform: translateY(-2px);
+}
+[data-theme='dark'] .social-link {
+  background: rgb(255 255 255 / 10%);
+}
+
+[data-theme='dark'] .social-link:hover {
+  background: rgb(255 255 255 / 15%);
 }
 
 .social-icon {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   filter: brightness(0) invert(1);
   transition: transform 0.3s ease;
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 997px) {
   .footer-content {
     flex-direction: column;
+    align-items: start;
     text-align: center;
   }
   
