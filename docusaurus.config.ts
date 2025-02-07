@@ -90,6 +90,10 @@ const config: Config = {
     // Replace with your project's social card
     metadata: [
       {
+        name: 'image',
+        content: '/img/metadata-preview.png'
+      },
+      {
         property: 'og:image',
         content: '/img/metadata-preview.png'
       },
