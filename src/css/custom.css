@@ -6,7 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
+  --ifm-color-primary: red;
   --ifm-color-primary-dark: #29784c;
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
@@ -22,7 +22,7 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary: red;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
@@ -39,4 +39,96 @@
 .table-of-contents__link--active,
 .table-of-contents__link:hover  {
   color: red;
+}
+
+.footer {
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.1);;
+  background: white;
+}
+[data-theme='dark'] .footer {
+  background-color: #232323; 
+}
+
+/* Footer Styles */
+.footer-wrapper {
+  width: 100%;
+}
+
+.footer__links{
+  margin-bottom: 0 !important;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.footer-love {
+  font-size: 0.9rem;
+  color: var(--ifm-color-gray-700);
+}
+
+.footer-love a {
+  color: var(--ifm-color-gray-700); 
+  text-decoration: none; 
+  transition: color 0.2s ease;
+}
+
+.footer-love a:hover {
+  color: red; 
+  text-decoration: none;
+}
+
+
+.footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  background: var(--ifm-color-gray-300);
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: var(--ifm-color-gray-400);
+  transform: translateY(-2px);
+}
+[data-theme='dark'] .social-link {
+  background: rgb(255 255 255 / 10%);
+}
+
+[data-theme='dark'] .social-link:hover {
+  background: rgb(255 255 255 / 15%);
+}
+
+.social-icon {
+  width: 15px;
+  height: 15px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+
+@media (max-width: 997px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: start;
+    text-align: center;
+  }
+  
+  .footer-socials {
+    margin-top: 1rem;
+  }
 }
