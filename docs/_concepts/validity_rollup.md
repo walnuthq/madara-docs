@@ -7,5 +7,3 @@ sidebar_position: 1
 - Briefly about ZK functionality
 - How does it differ from OP
 - What else?
-
-TODO

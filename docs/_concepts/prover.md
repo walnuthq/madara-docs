@@ -8,5 +8,3 @@ sidebar_position: 8
 - What's done once a proof is generated (sent to SL)
 - Links to starknet prover stuff
 - What else?
-
-TODO

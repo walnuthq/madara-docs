@@ -7,5 +7,3 @@ sidebar_position: 6
 - What tasks does it do
 - How it connects to other components
 - What else?
-
-TODO

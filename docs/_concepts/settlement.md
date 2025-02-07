@@ -8,5 +8,3 @@ sidebar_position: 10
 - How there can be different SLs
 - What options for SL does Madara support
 - What else?
-
-TODO
