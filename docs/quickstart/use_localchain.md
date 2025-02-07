@@ -1,39 +1,20 @@
 ---
-sidebar_position: 1
-# description: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
+sidebar_position: 2
 ---
 
-# Quickstart: Run transactions on a devnet
+# Use a running local chain
 
 ## Overview
 
-This quick-start guide helps you start your own, local chain with Madara. Furthermore, it instructs you to deploy a contract and run transactions on the chain to verify its functionality.
-
-The used chain is only available locally and is meant for testing purposes.
+This quick-start guide helps you interact with a local chain. Please make sure you are [running a local Madara chain](run_localchain) before continuing.
 
 ## Installation
 
 These installation instructions assume you are using Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
 
-### Prerequisites
+### Install tooling for interaction
 
-You will need to have the following system components installed:
-- Rust. Please see [here](https://www.rust-lang.org/tools/install) for instructions.
-- Docker. Please see [here](https://docs.docker.com/engine/install/) for instructions. Remember to install also `docker-compose`.
-
-### Install Madara CLI
-
-You should start by installing the main tool for running Madara, the Madara CLI:
-```bash
-git clone https://github.com/madara-alliance/madara-cli.git
-cd madara-cli
-git submodule update --init --recursive --jobs=4 --remote
-```
-The above will clone the repository into a new folder, enter the folder and initialize the repository's Git submodules.
-
-### Install specific tooling
-
-Then continue with the specific tooling used in this tutorial (and in others):
+Start by installing the specific tooling used in this tutorial:
 ```bash
 curl https://get.starkli.sh | sh
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
@@ -41,49 +22,37 @@ curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh
 The above will install [Starkli](https://book.starkli.rs) CLI and [Scarb](https://docs.swmansion.com/scarb/) CLI.
 
 Now restart your terminal and finish the installation with:
+
 ```bash
 starkliup
 ```
-
-## Run a devnet chain with Madara CLI
-
-You are now ready to run your own local Madara chain. If you're not in the Madara CLI's folder, go there and run:
-
-```bash
-cargo run create
-```
-The above will prompt you for various options. You should choose the following:
-1. Select Madara mode: `Devnet`
-1. Input DB path: keep the default
-
-It may take half an hour to prepare the image for the first time. Once the devnet is ready, leave it running and open a new terminal for the rest of this guide.
 
 ## Configure
 
 ### Values to be replaced
 
 The rest of these instructions may require you to replace some of the values in the commands in the following way:
-- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the devnet
+- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the chain
 - Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
-- Value `0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24` is used as the contract's address. Use the one given upon deploying the contract.
+- Value `0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450` is used as the contract's address. Use the one given upon deploying the contract.
 
 ### Initiate a Scarb project
 
 You should instantiate a new Scarb project in a new folder:
 ```bash
-mkdir madara-quickstart
-cd madara-quickstart
+mkdir madara_quickstart
+cd madara_quickstart
 scarb init --no-vcs --test-runner cairo-test
 ```
 
 ### Configure your account and signer
 
-Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
 However, you still need to store the account in a format understood by Starkli. 
 
-Choose an account from the list displayed upon running the devnet. Store it with:
+Choose an account from the list displayed upon running the chain. Store it with:
 ```bash
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
@@ -177,14 +146,14 @@ Note the resulting contract address.
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24 get
+starkli call --rpc http://localhost:9944 0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x07197883a42e89ae1a057e2bc3953508558d1864b7700556f897d3520e81db24 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
