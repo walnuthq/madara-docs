@@ -6,9 +6,9 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 
 ## Overview
 
-Madara is both a Starknet full node and an appchain (L3).
+Madara is an official implementation of the [SN Stack](https://www.starknet.io/sn-stack/). It allows anyone to start a new appchain that settles either to Ethereum or to Starknet.
 
-The documentation explains all of the functionality of Madara, both from full node perspective and appchain perspective. The documentation is still under development: new sections get added all the time and existing ones get appended to.
+The documentation is still under development: new sections get added all the time and existing ones get appended to.
 
 ## Installation
 
