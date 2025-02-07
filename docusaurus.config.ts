@@ -148,21 +148,21 @@ const config: Config = {
                    rel="noopener noreferrer"
                    aria-label="GitHub"
                    class='social-link'>
-                  <img class="social-icon" src="img/github-logo.svg" alt="GitHub"/>
+                  <img class="social-icon" src="/img/github-logo.svg" alt="GitHub"/>
                 </a>
                 <a href="https://t.me/MadaraStarknet" 
                    target='_blank' 
                    rel="noopener noreferrer"
                    aria-label="Telegram"
                    class='social-link'>
-                  <img class="social-icon" src="img/telegram-logo.svg" alt="Telegram"/>
+                  <img class="social-icon" src="/img/telegram-logo.svg" alt="Telegram"/>
                 </a>
                 <a href="https://x.com/MadaraStarknet" 
                    target='_blank' 
                    rel="noopener noreferrer"
                    aria-label="Twitter"
                    class='social-link'>
-                  <img class="social-icon" src="img/twitter-logo.svg" alt="Twitter"/>
+                  <img class="social-icon" src="/img/twitter-logo.svg" alt="Twitter"/>
                 </a>
               </div>
             </div>
