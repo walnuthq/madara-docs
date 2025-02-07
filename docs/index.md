@@ -1,5 +1,8 @@
 ---
 sidebar_position: 1
+title: 'Welcome to the Madara Docs'
+description: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
+hide_title: true
 ---
 
 # Welcome to the Madara Docs

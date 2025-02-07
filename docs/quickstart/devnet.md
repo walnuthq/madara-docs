@@ -1,5 +1,6 @@
 ---
 sidebar_position: 1
+# description: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology'
 ---
 
 # Quickstart: Run transactions on a devnet
