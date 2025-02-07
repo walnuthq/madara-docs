@@ -121,6 +121,42 @@
 }
 
 
+.support-social-container {
+  display: flex;
+  gap: 16px; 
+  margin-top: 16px;
+  margin-bottom: 24px; 
+}
+
+.support-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 12px 24px;
+  border: 1px solid var(--ifm-color-gray-300);
+  border-radius: 10px;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+  text-align: center;
+}
+
+.support-social-link:hover {
+  background-color: var(--ifm-color-gray-100);
+
+  text-decoration: none;
+}
+
+.support-social-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(22%) sepia(96%) saturate(7485%) hue-rotate(0deg) brightness(92%) contrast(105%);
+}
+
 @media (max-width: 997px) {
   .footer-content {
     flex-direction: column;
