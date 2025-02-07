@@ -5,17 +5,13 @@ sidebar_position: 2
 # Architecture
 
 A Madara blockchain consists of the following components:
-- A gateway
-- A sequencer
 - An orchestrator
-- Nodes
+- A sequencer
 - Starknet OS (SNOS)
-
-Furthermore, the following parties should be present:
-- Users issuing transactions
-- A data availability layer
-- A settlement layer
 - A prover
+- A settlement layer
+
+Note that some components are left out, for now, for simplicity.
 
 ## Transaction flow
 
@@ -29,8 +25,8 @@ When a user issues a transaction it goes through the components in the following
 1. When receiving such request, the SNOS starts polling the sequencer for a ready block and its related data
 1. Once the block data has been handed to SNOS, it generates input for the validity proof for the orchestrator
 1. The orchestrator forwards the proof inputs to the prover
-1. The prover generates a validity proof and forwards this to the settlement layer (Layer 1, Ethereum) verifier contract
-1. The orchestrator monitors the L1 verifier contract and finalizes the block if the proof is valid.
+1. The prover generates a validity proof and forwards this to the settlement layer verifier contract
+1. The orchestrator monitors the verifier contract and finalizes the block if the proof is valid.
 
 ```mermaid
 sequenceDiagram
@@ -47,8 +43,6 @@ sequenceDiagram
     Sequencer ->> Sequencer: Execute transactions & generate state diff
     Sequencer ->> Sequencer: Assemble block
     Sequencer ->> Sequencer: Add block to L2 (Accepted in L2)
-
-    Note over Orchestrator: SNOS is only used in Appchain mode
 
     Orchestrator ->> SNOS: Request proof for block N
     SNOS ->> Sequencer: Query block data, transactions, state diffs, state roots
