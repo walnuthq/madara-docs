@@ -93,6 +93,10 @@ const config: Config = {
         name: 'type',
         content: 'website' 
       },
+      {
+        property: 'fb:app_id',
+        content: '' 
+      },
       {          
         property: 'og:type',
         content: 'website' 
