@@ -95,7 +95,7 @@ const config: Config = {
       },
       {
         property: 'fb:app_id',
-        content: '' 
+        content: ' ' 
       },
       {          
         property: 'og:type',
