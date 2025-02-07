@@ -75,6 +75,13 @@ const config: Config = {
       {
         tagName: 'meta',
         attributes: {
+          property: 'og:type',
+          content: 'website' 
+        },
+      },
+      {
+        tagName: 'meta',
+        attributes: {
           name: 'description',
           content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
         },
