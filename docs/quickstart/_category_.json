@@ -2,6 +2,7 @@
   "label": "Quickstart",
   "position": 3,
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "description": "This section provides quick-start guides to get you started with Madara."
   }
 }
