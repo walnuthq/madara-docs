@@ -21,14 +21,14 @@ When a user issues a transaction it goes through the components in the following
 1. The sequencer waits until enough transactions have been received to assemble a block
 1. Meanwhile, the Orchestrator polls the sequencer for new, unprocessed blocks
 1. Once a new, unprocessed block is available, a request is sent to SNOS to process the block number
-1. SNOS queries the sequencer based on the block number
+1. SNOS queries the sequencer for block data (transactions, state diff, old state root, new state root), based on the block number
 1. The sequencer returns block data for the SNOS
 1. The SNOS generates and sends validity proof input for the orchestrator
 1. The orchestrator forwards the validity proof inputs to the prover
 1. The prover generates a validity proof and forwards this to the settlement layer verifier contract
 1. The orchestrator monitors the verifier contract for block verification
-1. Once the block has been verified, the orchestrator asks the settlement layer's core contracts to update the network state
-1. The sequencer monitors the core contracts for a new, updated state and update their own state accordingly
+1. Once the block has been verified, the orchestrator requests the settlement layer's core contracts to update the network state
+1. The sequencer monitors the core contracts for a new, updated state and updates its own state accordingly
 
 ```mermaid
 sequenceDiagram
