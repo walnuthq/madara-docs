@@ -8,7 +8,8 @@ sidebar_position: 17
 
 - A core components of the rollup
 - A Cairo Zero program
-- SNOS is not needed if you run Madara in sequencer mode, because txs are executed by the sequencer
+- SNOS is not needed if you run Madara in sequencer mode, because txs are executed by the sequencer/blockifier
+- How does this relate to CairoVM? Should CairoVM have its own page?
 
 ## Responsibilities
 
