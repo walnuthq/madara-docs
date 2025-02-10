@@ -14,6 +14,11 @@ sidebar_position: 30
 - Own rules, own tradeoffs
 - Examples: decentralization tradeoffs, different performance, different consensus, different progamming capabilities, ...
 
+## Components of an appchain
+
+- What components are typically required (or with Madara)
+- Which components are optional and which not
+
 ## Requires work
 
 - It needs work to start and configure an appchain
