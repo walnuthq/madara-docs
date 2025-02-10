@@ -18,6 +18,7 @@ sidebar_position: 30
 
 - What components are typically required (or with Madara)
 - Which components are optional and which not
+- Shortly: what do the components do. Link to component pages
 
 ## Requires work
 
