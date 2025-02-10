@@ -43,4 +43,4 @@ The above will prompt you for various options. You should choose the following:
 
 It may take half an hour to prepare the image for the first time. Wait for that to finish.
 
-After that, congratulations, you now have a fully functioning local chain running! Next, you may want to [interact](use_localchain) with the chain.
+Congratulations, you now have a fully functioning local chain running! Next, you may want to [interact](use_localchain) with the chain.
