@@ -33,4 +33,6 @@ The above will prompt you for various options. You should choose the following:
 
 It may take half an hour to prepare the image for the first time. The AppChain is ready once you see logs about producing blocks.
 
-## Query the Appchain
+## TODO
+
+- What should we do next? Query something? Deploy something (could just point to the existing quickstart tutorial)?
