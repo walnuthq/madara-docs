@@ -41,6 +41,6 @@ The above will prompt you for various options. You should choose the following:
 1. Select Madara mode: `Devnet`. This is a local chain
 1. Input DB path: keep the default
 
-It may take half an hour to prepare the image for the first time. Once the local chain is ready, leave it running and open a new terminal for the rest of this guide.
+It may take half an hour to prepare the image for the first time. Wait for that to finish.
 
 Congratulations, you now have a fully functioning local chain running! Next, you may want to [interact](use_localchain) with the chain.
