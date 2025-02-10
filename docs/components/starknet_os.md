@@ -1,5 +1,5 @@
 ---
-sidebar_position: 17
+sidebar_position: 14
 ---
 
 # Starknet Operating System (SNOS)
