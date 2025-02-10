@@ -31,4 +31,6 @@ The above will prompt you for various options. You should choose the following:
 1. Select Madara mode: `AppChain`
 1. Select Prover: `Dummy`
 
-It may take half an hour to prepare the image for the first time. Once the AppChain is ready, leave it running and open a new terminal for the rest of this guide.
+It may take half an hour to prepare the image for the first time. The AppChain is ready once you see logs about producing blocks.
+
+## Query the Appchain
