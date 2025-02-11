@@ -147,7 +147,7 @@ Note the declared class hash.
 
 You are now ready to deploy the contract. Deploy with:
 ```bash
-starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account
+starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account --salt 1
 ```
 
 ![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
@@ -158,14 +158,14 @@ Note the deployed contract's address.
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x043da9dc733a83ff57963a957d6adaa88b9ce986250185202310bee134fc4b6c get
+starkli call --rpc http://localhost:9944 0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x043da9dc733a83ff57963a957d6adaa88b9ce986250185202310bee134fc4b6c increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
