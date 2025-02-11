@@ -41,7 +41,7 @@ The rest of these instructions may require you to replace some of the values in 
 
 ### Initiate a Scarb project
 
-You should instantiate a new Scarb project in a new folder:
+You should instantiate a new Scarb project with default settings in a new folder:
 ```bash
 mkdir madara_quickstart
 cd madara_quickstart
