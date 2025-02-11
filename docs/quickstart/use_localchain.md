@@ -39,7 +39,7 @@ The rest of these instructions may require you to replace some of the values in 
 - Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
 - Value `0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450` is used as the contract's address. Use the one given upon deploying the contract.
 
-### Initiate a Scarb project
+### Initializing a Scarb project
 
 You should instantiate a new Scarb project with default settings in a new folder:
 ```bash
@@ -52,18 +52,24 @@ scarb init --no-vcs --test-runner cairo-test
 
 Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
-However, you still need to store the account in a format understood by Starkli. 
+However, you still need to store the account in a format understood by Starkli. First, make sure you are still in the `madara_quickstart` folder.
 
-Choose an account from the list displayed upon running the chain. Store it with:
+The local blockchain is running at address `http://localhost:9944`. Choose an account from the list displayed upon running the chain. Store it with:
 ```bash
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
+
+:::warning
+
+Do not use the provided accounts in a production environment. They are only for local testing.
+
+:::
 
 ## Declare and deploy a contract
 
 ### Save an example contract locally
 
-We will use a very simple balance contract as an example. Creating a Scarb project generated a dummy contract in a new folder called `src`. Now replace the contents of `src/lib.cairo` with:
+We will use a very simple balance contract as an example. Initializing a Scarb project, as we did above, generated a dummy contract `lib.cairo` in a new folder called `src`. Now replace the contents of `src/lib.cairo` with:
 
 ```rust
 #[starknet::interface]
