@@ -16,12 +16,14 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 Start by installing the specific tooling used in this tutorial:
 ```bash
-curl https://get.starkli.sh | sh
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
+curl https://get.starkli.sh | sh
 ```
-The above will install [Starkli](https://book.starkli.rs) CLI and [Scarb](https://docs.swmansion.com/scarb/) CLI.
+The above will install:
+- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager
+- [Starkli](https://book.starkli.rs), a CLI interaction tool with Starknet contracts
 
-Now restart your terminal and finish the installation with:
+Now restart your terminal to reload new environment variables and finish the installation with:
 
 ```bash
 starkliup
@@ -57,11 +59,11 @@ Choose an account from the list displayed upon running the chain. Store it with:
 starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
 
-## Deploy a contract
+## Declare and deploy a contract
 
 ### Save an example contract locally
 
-We will use a very simple balance contract as an example. Replace the contents of `src/lib.cairo` with:
+We will use a very simple balance contract as an example. Creating a Scarb project generated a dummy contract in a new folder called `src`. Now replace the contents of `src/lib.cairo` with:
 
 ```rust
 #[starknet::interface]
@@ -98,7 +100,7 @@ mod Balance {
 }
 ```
 
-Next, replace the contents of `Scarb.toml` with:
+Next, replace the contents of `Scarb.toml` in the root of the project with:
 ```rust
 [package]
 name = "madara_example"
@@ -131,7 +133,9 @@ Before deployment, the contract needs to be declared to the network. Declare it 
 starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_Balance.contract_class.json
 ```
 
-Note the resulting class hash.
+![Class hash](/img/quickstart-local-classhash.png "Resulting class hash")
+
+Note the declared class hash.
 
 #### Deploy it
 
@@ -140,20 +144,22 @@ You are now ready to deploy the contract. Deploy with:
 starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account
 ```
 
-Note the resulting contract address.
+![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
+
+Note the deployed contract's address.
 
 ### Issue transactions
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 get
+starkli call --rpc http://localhost:9944 0x054420a74cc0b612fe2e6e7644df46ea0c3265db5de0f91029ecb11a9cab4486 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x054420a74cc0b612fe2e6e7644df46ea0c3265db5de0f91029ecb11a9cab4486 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
