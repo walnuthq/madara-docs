@@ -152,14 +152,14 @@ Note the deployed contract's address.
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
 ```bash
-starkli call --rpc http://localhost:9944 0x054420a74cc0b612fe2e6e7644df46ea0c3265db5de0f91029ecb11a9cab4486 get
+starkli call --rpc http://localhost:9944 0x043da9dc733a83ff57963a957d6adaa88b9ce986250185202310bee134fc4b6c get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x054420a74cc0b612fe2e6e7644df46ea0c3265db5de0f91029ecb11a9cab4486 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x043da9dc733a83ff57963a957d6adaa88b9ce986250185202310bee134fc4b6c increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
