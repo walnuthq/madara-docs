@@ -1,8 +1,0 @@
-{
-  "label": "Chain operators",
-  "position": 4,
-  "link": {
-    "type": "generated-index",
-    "description": "Documentation related to running a separate appchain with Madara."
-  }
-}

@@ -1,0 +1,8 @@
+{
+  "label": "Madara components",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "This section provides resources to learn about different Madara components. It starts with an architectural overview and later expands into deep-dive component documentation."
+  }
+}

@@ -1,13 +1,15 @@
 ---
 sidebar_position: 1
+title: 'Welcome to the Madara Docs'
+hide_title: true
 ---
 
-# Welcome to the Madara Docs
+# Overview
 
-Welcome to the Madara documentation, a unified resource for documentation related to the Madara node and appchain.
+Welcome to the Madara documentation, a unified resource for documentation related to the Madara appchain.
 
-## Starknet node or a new chain
+## What is Madara
 
-Madara has two main purposes: to run a regular node in Starknet or to launch a new appchain, based on Starknet technology.
+Madara is an official implementation of the [SN Stack](https://www.starknet.io/sn-stack/). It allows anyone to start a new appchain that settles either to Ethereum or to Starknet.
 
-In this site you can find all the needed information for both use cases.
+The live Starknet chain utilizes closed source components, while Madara is fully open source. Anyone is free to customize anything with Madara as they see fit and contributions are very welcome.
