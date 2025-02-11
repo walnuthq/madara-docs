@@ -18,7 +18,7 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 You will need to have the following system components installed:
 - Rust. Please see [here](https://www.rust-lang.org/tools/install) for instructions.
-- Docker. Please see [here](https://docs.docker.com/engine/install/) for instructions. Remember to install also `docker-compose`.
+- Docker. Please see [here](https://docs.docker.com/engine/install/) for instructions. Remember to also install `docker-compose`.
 
 ### Install Madara CLI
 
@@ -39,8 +39,10 @@ cargo run create
 ```
 The above will prompt you for various options. You should choose the following:
 1. Select Madara mode: `Devnet`. This is a local chain
-1. Input DB path: keep the default
+1. Input DB path: keep default
 
 It may take half an hour to prepare the image for the first time. Wait for that to finish.
+
+![Local chain running](/img/quickstart-local-start.png "Local chain is running")
 
 Congratulations, you now have a fully functioning local chain running! Next, you may want to [interact](use_localchain) with the chain.
