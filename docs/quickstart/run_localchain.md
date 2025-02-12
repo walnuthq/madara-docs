@@ -26,7 +26,7 @@ You should start by installing the main tool for running Madara, the Madara CLI:
 ```bash
 git clone https://github.com/madara-alliance/madara-cli.git
 cd madara-cli
-git submodule update --init --recursive --jobs=4 --remote
+git submodule update --init --recursive --jobs=4
 ```
 The above will clone the repository into a new folder, enter the folder and initialize the repository's Git submodules.
 
