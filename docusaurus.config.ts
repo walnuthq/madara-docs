@@ -85,6 +85,13 @@ const config: Config = {
           content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
         },
       },
+      {
+        tagName: 'meta',
+        attributes: {
+          property: 'og:image',
+          content: '/img/metadata-preview.png',
+        },
+      }
     ],
     metadata: [
       {          
