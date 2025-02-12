@@ -15,7 +15,22 @@ const config: Config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
   trailingSlash: false,
-
+  headTags: [
+    {
+      tagName: 'meta',
+      attributes: {
+        name: 'description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+      },
+    },
+    {
+      tagName: 'meta',
+      attributes: {
+        property: 'og:description',
+        content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+      },
+    },
+  ],
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   // organizationName: 'walnuthq', // Usually your GitHub org/user name.
@@ -55,8 +70,52 @@ const config: Config = {
   ],
 
   themeConfig: {
-    // Replace with your project's social card
-    image: 'img/Madara logomark - Red - Duotone.png',
+    headTags: [
+      {
+        tagName: 'meta',
+        attributes: {
+          name: 'description',
+          content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+        },
+      },
+      {
+        tagName: 'meta',
+        attributes: {
+          property: 'og:description',
+          content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
+        },
+      },
+    ],
+    metadata: [
+      {          
+        name: 'type',
+        content: 'website' 
+      },
+      {          
+        property: 'og:type',
+        content: 'website' 
+      },
+      {
+        name: 'image',
+        content: '/img/metadata-preview.png'
+      },
+      {
+        property: 'og:image',
+        content: '/img/metadata-preview.png'
+      },
+      {
+        property: 'og:image:alt',
+        content: 'Madara logo'
+      },
+      {
+        property: 'og:image:width',
+        content: '1200'
+      },
+      {
+        property: 'og:image:height', 
+        content: '309'
+      },
+    ],
     navbar: {
       title: 'Docs',
       logo: {
