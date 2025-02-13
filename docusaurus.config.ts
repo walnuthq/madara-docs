@@ -3,14 +3,14 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
+const siteUrl = process.env.SITE_URL || 'https://madara-docs.pages.dev/';
 const config: Config = {
   title: 'Madara docs',
   tagline: 'Madara Documentation',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://madara-docs.pages.dev/',
+  url:  siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -89,7 +89,7 @@ const config: Config = {
         tagName: 'meta',
         attributes: {
           property: 'og:image',
-          content: '/img/metadata-preview.png',
+          content: `${siteUrl}img/metadata-preview.png`,
         },
       }
     ],
@@ -104,11 +104,11 @@ const config: Config = {
       },
       {
         name: 'image',
-        content: '/img/metadata-preview.png'
+        content: 'img/metadata-preview.png'
       },
       {
         property: 'og:image',
-        content: '/img/metadata-preview.png'
+        content: `${siteUrl}img/metadata-preview.png`
       },
       {
         property: 'og:image:alt',
