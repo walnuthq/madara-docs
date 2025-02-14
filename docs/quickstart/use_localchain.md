@@ -40,6 +40,14 @@ cd madara_quickstart
 scarb init --no-vcs --test-runner cairo-test
 ```
 
+This will give you the following tree structure in folder `madara_quickstart`:
+```
+.
+├── Scarb.toml
+└── src
+    └── lib.cairo
+```
+
 ### Save an example contract locally
 
 We will use a very simple balance contract as an example. Initializing a Scarb project, as we did above, generated a dummy contract `lib.cairo` in a new folder called `src`. Now replace the contents of `src/lib.cairo` with:
