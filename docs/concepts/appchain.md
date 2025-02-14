@@ -1,12 +1,16 @@
 ---
-sidebar_position: 30
+sidebar_position: 4
 ---
 
 # Appchain
 
 ## Overview
 
-- What is an appchain
+- A L3 (or L4, ...) scaling solution: moves computation off-chain
+- Explain the role of L2 and L1 here
+- Transactions are batched and then 'summarized'
+- Explain prover/verifier cooperation
+- Blocks are accepted based on verified proofs
 
 ## Why an appchain
 
@@ -20,6 +24,16 @@ sidebar_position: 30
 - Which components are optional and which not
 - Shortly: what do the components do. Link to component pages
 
+## Also known as a ZK-rollup
+
+- Also known as a Zero Knowledge rollup (but explain a bit why that term is misleading)
+
+## Appchain rollup security
+
+- Mathematics guarantees integrity. No invalid state transitions possible
+- Malicious actors can only censor
+- Escape hatch: users can always (in theory) bypass all components and reclaim assets on the SL
+
 ## Requires work
 
 - It needs work to start and configure an appchain
@@ -29,4 +43,5 @@ sidebar_position: 30
 ## Read more
 
 - Starknet docs
+- https://ethereum.org/en/developers/docs/scaling/zk-rollups/
 - Any other relevant links?
