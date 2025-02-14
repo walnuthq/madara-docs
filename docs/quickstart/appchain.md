@@ -2,15 +2,18 @@
 sidebar_position: 3
 ---
 
-# Using an appchain
+# Run an appchain
 
 ## Overview
 
 This guide will help you run an Appchain with Madara.
 
-## 
+The deployed components are only available locally and are meant for testing purposes.
 
-1. Go run the [local chain](/quickstart/run_localchain) guide. Instead of choosing "Devnet", choose "Appchain"
-1. The CLI will ask you for SL. Do blah blah
-1. The CLI will ask you for prover. Do blah blah
-1. Once it's running, continue with the [use local chain](/quickstart/use_localchain) guide.
+## Install Madara CLI and run the Appchain
+
+Go run the [local chain](/quickstart/run_localchain) guide. When prompted for "Madara mode", instead of choosing `Devnet` choose `Appchain`.
+
+After you've chosen `AppChain`, the CLI will ask to choose the prover. You should choose `Dummy` - this will essentially skip proving transactions completely.
+
+Congratulations, you now have a functioning Appchain running!
