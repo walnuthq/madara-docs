@@ -99,8 +99,8 @@ const Search = props => {
     [props.isSearchBarExpanded]
   );
 
-  let placeholder = 'Loading...';
-  if (isBrowser && indexReady) {
+  let placeholder;
+  if (isBrowser) {
     // Check if user is on mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
     
@@ -135,7 +135,7 @@ const Search = props => {
       <input
         id="search_input_react"
         type="search"
-        placeholder={placeholder}
+        placeholder={indexReady ? placeholder : 'Loading...'}
         aria-label="Search"
         className={clsx(
           "navbar__search-input",
