@@ -6,9 +6,9 @@ sidebar_position: 1
 
 ## Overview
 
-This quick-start guide helps you start your own, local chain with Madara.
+This quick-start guide helps you start your own, local chain with Madara. 
 
-The used chain is only available locally and is meant for testing purposes.
+The chain is lightweight and does not settle its transactions on any underlying chain. Therefore, it does not inherit security from the other chain. If you'd prefer to start an Appchain with settlement, please see [this guide](/quickstart/appchain) instead.
 
 ## Installation
 
