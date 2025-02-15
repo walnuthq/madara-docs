@@ -31,9 +31,8 @@ const Search = props => {
         // Alternatively, we can use new URL(suggestion.url) but its not supported in IE
         const a = document.createElement("a");
         a.href = url;
-        _input.setVal(''); // clear value
-        _event.target.blur(); // remove focus
-
+        _input.setVal('');
+        _event.target.blur();
         // Get the highlight word from the suggestion.
         let wordToHighlight = '';
         if (options.highlightResult) {
@@ -99,19 +98,25 @@ const Search = props => {
     [props.isSearchBarExpanded]
   );
 
-  let placeholder;
-  if (isBrowser) {
-    // Check if user is on mobile
+  let placeholder = 'Loading...';
+  if (isBrowser && indexReady) {
+     // Check if user is on mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
     
     if (isMobile) {
       placeholder = 'Search';
     } else {
-      // Desktop - check for Mac vs Windows/Linux
+       // Desktop - check for Mac vs Windows/Linux
       placeholder = window.navigator.platform.startsWith("Mac") ? 
         'Search ⌘+K' : 'Search Ctrl+K';
     }
   }
+
+  useEffect(() => {
+    if (isBrowser) {
+      loadAlgolia();
+    }
+  }, [isBrowser]);
 
   // auto focus search bar on page load
   useEffect(() => {
@@ -135,15 +140,13 @@ const Search = props => {
       <input
         id="search_input_react"
         type="search"
-        placeholder={indexReady ? placeholder : 'Loading...'}
+        placeholder={placeholder}
         aria-label="Search"
         className={clsx(
           "navbar__search-input",
           { "search-bar-expanded": props.isSearchBarExpanded },
           { "search-bar": !props.isSearchBarExpanded }
         )}
-        onClick={loadAlgolia}
-        onMouseOver={loadAlgolia}
         onFocus={toggleSearchIconClick}
         onBlur={toggleSearchIconClick}
         ref={searchBarRef}
