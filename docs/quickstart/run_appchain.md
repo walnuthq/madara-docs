@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Run an appchain
+# Run a local appchain
 
 ## Overview
 
@@ -12,9 +12,9 @@ The deployed components are only available locally and are meant for testing pur
 
 ### What is an Appchain
 
-An Appchain is a blockchain built for a single application. It runs all of the required components for a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
+An Appchain is a blockchain built for a single purpose. It runs all of the required components for a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
 
-Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum.
+Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and settle their transactions there, for added security.
 
 ## Install Madara CLI and run the appchain
 
@@ -34,7 +34,7 @@ The CLI starts all of the required components automatically. Some of the main co
 - Madara sequencer. Your node for receiving transactions and building blocks
 - Orchestrator. This manages a lot of the communications forward from your sequencer
 - A mock prover. This generates (mock) proofs for your blocks. This is explained in more detail below.
-- A local Ethereum blockchain. This is the settlement layer used for your you Appchain. This is explained in more detail below.
+- A local Ethereum blockchain. This is the settlement layer used for your Appchain. This is explained in more detail below.
 
 ### Prover
 
@@ -46,9 +46,9 @@ For a real Appchain, a real prover is needed. Currently, you can utilize [Atlant
 
 ### Settlement layer
 
-All of our Appchain's transactions are secured by another, underlying blockchain. This other chain is called the Settlement Layer.
+All of our Appchain's transactions are secured by another, underlying blockchain. This other chain is called the settlement layer.
 
-The settlement layer's is used to secure the Appchain. If, for whatever reason, the Appchain stops functioning, all of its assets can be recovered in the settlement layer.
+The settlement layer is used to secure the Appchain. If, for whatever reason, the Appchain stops functioning, all of its assets can be recovered in the settlement layer.
 
 Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
 
