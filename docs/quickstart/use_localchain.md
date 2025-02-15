@@ -16,52 +16,41 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 Start by installing the specific tooling used in this tutorial:
 ```bash
-curl https://get.starkli.sh | sh
 curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
+curl https://get.starkli.sh | sh
 ```
-The above will install [Starkli](https://book.starkli.rs) CLI and [Scarb](https://docs.swmansion.com/scarb/) CLI.
+The above will install:
+- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager
+- [Starkli](https://book.starkli.rs), a CLI interaction tool with Starknet contracts
 
-Now restart your terminal and finish the installation with:
+Now restart your terminal to reload new environment variables. THen finish the installation with:
 
 ```bash
 starkliup
 ```
 
-## Configure
+## Prepare your contract
 
-### Values to be replaced
+### Initialize a Scarb project
 
-The rest of these instructions may require you to replace some of the values in the commands in the following way:
-- Value `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2` is used as a private key. You may choose whicheven private key from the list of keys given upon launching the chain
-- Value `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493` is used as your public account contract address. Make sure this corresponds to the chosen private key.
-- Value `0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab` is used as the contract's class hash value. Use the one given upon declaring the contract.
-- Value `0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450` is used as the contract's address. Use the one given upon deploying the contract.
-
-### Initiate a Scarb project
-
-You should instantiate a new Scarb project in a new folder:
+You should initialize a new Scarb project with default settings in a new folder:
 ```bash
 mkdir madara_quickstart
 cd madara_quickstart
 scarb init --no-vcs --test-runner cairo-test
 ```
 
-### Configure your account and signer
-
-Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
-
-However, you still need to store the account in a format understood by Starkli. 
-
-Choose an account from the list displayed upon running the chain. Store it with:
-```bash
-starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+This will give you the following tree structure in folder `madara_quickstart`:
 ```
-
-## Deploy a contract
+.
+├── Scarb.toml
+└── src
+    └── lib.cairo
+```
 
 ### Save an example contract locally
 
-We will use a very simple balance contract as an example. Replace the contents of `src/lib.cairo` with:
+We will use a very simple balance contract as an example. Initializing a Scarb project, as we did above, generated a dummy contract `lib.cairo` in a new folder called `src`. Now replace the contents of `src/lib.cairo` with:
 
 ```rust
 #[starknet::interface]
@@ -98,7 +87,7 @@ mod Balance {
 }
 ```
 
-Next, replace the contents of `Scarb.toml` with:
+Next, replace the contents of `Scarb.toml` in the root of the project with:
 ```rust
 [package]
 name = "madara_example"
@@ -118,42 +107,80 @@ Compile the contract with:
 scarb build
 ```
 
+## Configure your account and signer
+
+Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+
+However, you still need to store the account in a format understood by Starkli. First, make sure you are still in the `madara_quickstart` folder.
+
+The local blockchain should be running at address `http://localhost:9944`. Store an account with:
+
+:::info
+The account parameter for the command below should be some of the public account addresses given upon starting the local chain.
+:::
+
+```bash
+starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+```
+
+:::warning
+Do not use the provided accounts in a production environment. They are only for local testing.
+:::
+
 ## Contract interaction
 
 We are now ready to start deploying our contract and interacting with it.
 
-### Deploy the contract
-
-#### Declare your contract
+### Declare your contract
 
 Before deployment, the contract needs to be declared to the network. Declare it with:
+
+:::info
+The private key parameter for the command below should correspond to the chosen account when storing it locally.
+:::
+
 ```bash
 starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_Balance.contract_class.json
 ```
 
-Note the resulting class hash.
+![Class hash](/img/quickstart-local-classhash.png "Resulting class hash")
 
-#### Deploy it
+Note the declared class hash.
+
+### Deploy it
 
 You are now ready to deploy the contract. Deploy with:
+:::info
+The private key parameter for the command below should correspond to the chosen account when storing it locally. The parameter after `deploy` command should be the declared class hash.
+:::
 ```bash
-starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account
+starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account --salt 1
 ```
 
-Note the resulting contract address.
+![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
+
+Note the deployed contract's address.
 
 ### Issue transactions
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
+:::info
+The address parameter for the command below should be the deployed contract's address.
+:::
 ```bash
-starkli call --rpc http://localhost:9944 0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 get
+starkli call --rpc http://localhost:9944 0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 get
 ```
 
 You should see value `5` as the initial value (prefixed by a lot of zeros).
 
 Let's try to increase this value by a transaction. Run:
+:::info
+The private key parameter for the command below should correspond to the chosen account when storing it locally. The address parameter after the private key should be the deployed contract's address.
+:::
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x002ece8d68885ec17d221e089670631b892c7f9e426ea6f707b9d6a20f99e450 increase 3
+starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 increase 3
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
+
+Note that if you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail.

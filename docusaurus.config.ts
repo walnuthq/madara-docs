@@ -3,13 +3,14 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
+const siteUrl = process.env.SITE_URL || 'https://madara-docs.pages.dev/';
 const config: Config = {
   title: 'Madara docs',
+  tagline: 'Madara Documentation',
   favicon: 'img/favicon.ico',
-  
+
   // Set the production url of your site here
-  url: 'https://madara-docs.pages.dev/',
+  url:  siteUrl,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -30,7 +31,6 @@ const config: Config = {
       },
     },
   ],
-
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   // organizationName: 'walnuthq', // Usually your GitHub org/user name.
@@ -58,13 +58,12 @@ const config: Config = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          routeBasePath: '/',
-          
+          routeBasePath: '/'
         },
         blog: false,
+        
         theme: {
           customCss: './src/css/custom.css',
-          
         },
       } satisfies Preset.Options,
     ],
@@ -86,8 +85,14 @@ const config: Config = {
           content: 'Madara is an open source stack that allows you to build app chains powered by Cairo and Starknet technology',
         },
       },
+      {
+        tagName: 'meta',
+        attributes: {
+          property: 'og:image',
+          content: `${siteUrl}img/metadata-preview.png`,
+        },
+      }
     ],
-    // Replace with your project's social card
     metadata: [
       {          
         name: 'type',
@@ -99,11 +104,11 @@ const config: Config = {
       },
       {
         name: 'image',
-        content: '/img/metadata-preview.png'
+        content: 'img/metadata-preview.png'
       },
       {
         property: 'og:image',
-        content: '/img/metadata-preview.png'
+        content: `${siteUrl}img/metadata-preview.png`
       },
       {
         property: 'og:image:alt',
