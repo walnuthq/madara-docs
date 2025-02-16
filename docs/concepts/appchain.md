@@ -5,6 +5,15 @@ draft: true
 
 # Appchain
 
+
+
+- single purpose
+- 
+
+An Appchain is a blockchain built for a single purpose. It runs all of the required components for a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
+
+Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and settle their transactions there, for added security.
+
 ## Overview
 
 - A L3 (or L4, ...) scaling solution: moves computation off-chain
