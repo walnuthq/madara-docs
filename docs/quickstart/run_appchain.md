@@ -12,7 +12,7 @@ The deployed components are only available locally and are meant for testing pur
 
 ### What is an Appchain
 
-An Appchain is a blockchain built for a single purpose. It runs all of the required components for a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
+An Appchain is a blockchain built for a single purpose. It runs all of the required components of a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
 
 Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and settle their transactions there, for added security.
 
