@@ -24,6 +24,11 @@ draft: true
 - Or use a different layer if building Appchain
 - Could even use multiple SLs, but this opens up various questions
 
+## Notes
+
+- Escape hatch mechanism
+- Which assets can be recovered in the SL. Does it make sense to recover non-bridged ones.
+
 ## Read more
 
 - Github links
