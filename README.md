@@ -26,7 +26,7 @@ This command starts a local development server and opens up a browser window. Mo
 
 ## Deployment
 
-The main branch of the repository is automatically deployed to [madara-docs.pages.dev](https://madara-docs.pages.dev/). Additionally, previews are deployed automatically for all PRs, allowing you to review changes before they are merged.
+The main branch of the repository is automatically deployed to [docs.madara.build](https://docs.madara.build/). Additionally, previews are deployed automatically for all PRs, allowing you to review changes before they are merged.
 
 ## Updating search index
 
