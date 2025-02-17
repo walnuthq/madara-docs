@@ -23,7 +23,7 @@ The above will install:
 - [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager
 - [Starkli](https://book.starkli.rs), a CLI interaction tool with Starknet contracts
 
-Now restart your terminal to reload new environment variables. THen finish the installation with:
+Now restart your terminal to reload new environment variables. Then finish the installation with:
 
 ```bash
 starkliup
@@ -116,7 +116,7 @@ However, you still need to store the account in a format understood by Starkli. 
 The local blockchain should be running at address `http://localhost:9944`. Store an account with:
 
 :::info
-The account parameter for the command below should be some of the public account addresses given upon starting the local chain.
+The account parameter for the command below should be one of the public account addresses given upon starting the local chain.
 :::
 
 ```bash

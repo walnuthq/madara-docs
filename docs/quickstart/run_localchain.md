@@ -41,7 +41,7 @@ The above will prompt you for various options. You should choose the following:
 1. Select Madara mode: `Devnet`. This is a local chain
 1. Input DB path: keep default
 
-It may take half an hour to prepare the image for the first time. Wait for that to finish.
+It may take half an hour to prepare the image for the first time, depending on your system performance. Wait for that to finish.
 
 ![Local chain running](/img/quickstart-local-start.png "Local chain is running")
 
