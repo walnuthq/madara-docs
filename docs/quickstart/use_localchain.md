@@ -104,9 +104,9 @@ scarb build
 
 Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
-However, you still need to store the account in a format understood by Starknet tooling. 
+However, to use these accounts with Starknet tooling, they must be stored in the correct format.
 
-First, make sure you are still in the `madara_quickstart` folder. The local blockchain should be running at address `http://localhost:9944`. Store an account with:
+First, make sure you are still in the `madara_quickstart` folder. Since the local blockchain should be running at address `http://localhost:9944`, you can now store an account with:
 
 :::info
 If needed, remember to replace the following values in the command below:
@@ -143,7 +143,7 @@ sncast --account account-1 declare --url http://localhost:9944 --contract-name B
 
 ![Class hash](/img/quickstart-local-classhash.png "Resulting class hash")
 
-Note the declared class hash.
+Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
 
 ### Deploy it
 
@@ -159,7 +159,7 @@ sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-h
 
 ![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
 
-Note the deployed contract's address. It may take up to a minute for the declaration to be available in the blockchain.
+Note the deployed contract's address.
 
 ### Issue transactions
 
