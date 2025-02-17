@@ -19,6 +19,7 @@ These installation instructions assume you are using Linux or macOS. For Windows
 You will need to have the following system components installed:
 - Rust. Please see [here](https://www.rust-lang.org/tools/install) for instructions.
 - Docker. Please see [here](https://docs.docker.com/engine/install/) for instructions.
+- A C compiler (such as GCC or Clang) and `make`.
 
 ### Install Madara CLI
 
