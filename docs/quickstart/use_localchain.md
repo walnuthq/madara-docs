@@ -18,6 +18,7 @@ Start by installing the specific tooling used in this tutorial (answer yes if it
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
 ```
+Because of issues in the installation, you now have to restart your terminal and run the same installation command again.
 
 The above will install:
 - [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development
@@ -119,6 +120,7 @@ If needed, remember to replace the following values in the command below:
 ```bash
 sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
+Note the created account name.
 
 :::warning
 Do not use the provided accounts in a production environment. They are only for local testing.
@@ -133,7 +135,8 @@ We are now ready to start deploying our contract and interacting with it.
 Before deployment, the contract needs to be declared to the network. Declare it with:
 
 :::info
-Your account name may be different if you have previous imported other accounts. You can check your accounts in file `~/.starknet_accounts/starknet_open_zeppelin_accounts.json`
+If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
 :::
 
 ```bash
@@ -148,14 +151,17 @@ Note the declared class hash.
 
 You are now ready to deploy the contract. Deploy with:
 :::info
-The private key parameter for the command below should correspond to the chosen account when storing it locally. The parameter after `deploy` command should be the declared class hash.
+If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
+- `class-hash`: the declared class hash
 :::
 ```bash
-sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab
+sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x000021c5ab1ee26d82392d9d157f78f8fab4a8ac501d65b531e74366bc88eb82
 ```
 
 ![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
 0x075e6f6ea13abce9a093c36bac1f6cbdc74839ec71ad9eedbd98d81446baa5f8
+0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
 
 Note the deployed contract's address.
 
@@ -169,7 +175,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast call --url http://localhost:9944 --function get --contract-address 0x075e6f6ea13abce9a093c36bac1f6cbdc74839ec71ad9eedbd98d81446baa5f8
+sncast call --url http://localhost:9944 --function get --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
 ```
 
 You should see value `5` as the initial value (in hexadecimal format).
@@ -182,7 +188,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x075e6f6ea13abce9a093c36bac1f6cbdc74839ec71ad9eedbd98d81446baa5f8 --function increase --arguments "3"
+sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950 --function increase --arguments "3"
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
