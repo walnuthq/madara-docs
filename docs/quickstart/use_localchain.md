@@ -18,12 +18,9 @@ Start by installing the specific tooling used in this tutorial (answer yes if it
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
 ```
-Because of issues in the installation, you now have to restart your terminal and run the same installation command again.
+Because of temporary issues in the tool's installation, you now have to restart your terminal and run the same installation command again.
 
-The above will install:
-- [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development
-
-Now restart your terminal to reload new environment variables.
+The above will install [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. Now restart your terminal again to reload new environment variables.
 
 ## Prepare your contract
 
@@ -120,7 +117,8 @@ If needed, remember to replace the following values in the command below:
 ```bash
 sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
-Note the created account name.
+![Account creation](/img/quickstart-local-import.png "Account creation")
+Note the imported account name.
 
 :::warning
 Do not use the provided accounts in a production environment. They are only for local testing.
@@ -160,10 +158,8 @@ sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-h
 ```
 
 ![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
-0x075e6f6ea13abce9a093c36bac1f6cbdc74839ec71ad9eedbd98d81446baa5f8
-0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
 
-Note the deployed contract's address.
+Note the deployed contract's address. It may take up to a minute for the declaration to be available in the blockchain.
 
 ### Issue transactions
 
@@ -184,6 +180,7 @@ Let's try to increase this value by a transaction. Run:
 
 :::info
 If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
 - `contract-address`: the deployed contract address
 :::
 
@@ -193,4 +190,6 @@ sncast --account account-1 invoke --url http://localhost:9944 --contract-address
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
 
-Note that if you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
+## Rerunning this quickstart
+
+If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
