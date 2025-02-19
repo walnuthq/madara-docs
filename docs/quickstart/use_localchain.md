@@ -18,7 +18,6 @@ Start by installing the specific tooling used in this tutorial (answer yes if it
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
 ```
-Because of temporary issues in the tool's installation, you now have to restart your terminal and run the same installation command again.
 
 The above will install [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. Now restart your terminal again to reload new environment variables.
 
