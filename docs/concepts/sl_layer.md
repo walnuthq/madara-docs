@@ -1,5 +1,5 @@
-@ -3,10 +3,35 @@ sidebar_position: 6
-draft: true
+---
+sidebar_position: 6
 ---
 
 # Settlement Layer
@@ -20,7 +20,32 @@ For Starknet, the underlying blockchain is Ethereum. In this setting, Starknet i
 
 Settlement layer provides security for the Appchain. 
 
+## Required components in the settlement layer
 
+The settlement layer requires a few key components to serve Madara appchains. The components are:
+
+- A Zero Knowledge proof verifier contract
+- A starknet core contract that manages state updates. Either on [Ethereum](https://docs.starknet.io/architecture-and-concepts/network-architecture/os/#os-and-core-contract) or on [Starknet](https://github.com/keep-starknet-strange/piltover/).
+
+## Madara flow
+
+With Madara, the settlement layer is utilized directly by the prover and the orchestrator.
+
+```mermaid
+sequenceDiagram
+
+    participant Orchestrator
+    participant Prover
+    participant Verifier as Settlement Layer
+
+    Prover ->> Verifier: Send proof for verification
+    Verifier ->> Orchestrator: Proof verification result
+    Orchestrator ->> Verifier: Update state
+```
+
+1. The used prover sends a validity proof to the settlement layer
+1. The settlement layer's verifier program verifies the proof. If valid, adds a record to an on-chain proof registry.
+1. The orchestartor monitors for new verifications. Once it sees one, it asks settlement layer's core contracts to update their network state.
 
 
 # Settlement layer requirements
@@ -30,17 +55,18 @@ Requirements for a good settlement layer are:
 - Programmability. The blockchain has to be able to run the settlement logic.
 - Governance & development stability. The chain should be stable enough to support ongoing settlement.
 
-
+hmm
 
 
 - A regular blockchain mainly used for totally unrelated purposes
 - Some secure blockchain
 - Contains smart contracts that contain a ZK verifier for proofs generates by the prover
-@ -28,6 +53,7 @@ draft: true
+
 
 - Escape hatch mechanism
 - Which assets can be recovered in the SL. Does it make sense to recover non-bridged ones.
 - security tradeoffs
+- OP or ZK
 
 ## Read more
 
