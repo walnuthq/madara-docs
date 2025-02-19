@@ -7,6 +7,8 @@ draft: true
 
 ## Overview
 
+A settlement layer is a blockchain where transactions are settled from an [Appchain](/concepts/appchain).
+
 - A regular blockchain mainly used for totally unrelated purposes
 - Some secure blockchain
 - Contains smart contracts that contain a ZK verifier for proofs generates by the prover
