@@ -1,6 +1,5 @@
 ---
 sidebar_position: 8
-draft: true
 ---
 
 # Orchestrator
@@ -53,22 +52,6 @@ sequenceDiagram
 1. The prover sends ready proofs to the Settlement Layer. The orchestrator polls the Settlement Layer for new, verified proofs.
 1. Once the orchestrator detects a new, verified proof in the Settlement Layer, the orchestator updates its state and sends the new state to the Settlement Layer's core contracts for updating their network state.
 
-
-
-
-### Communication
-
-- Acts as a sort of an indirect relayer between sequencer and SNOS
-- Sits between sequencer and SNOS, but doesn't relay real data between them - more about hinting the SNOS to ask the sequencer about a new block
-- Asks the sequencer about new, unprocessed blocks
-- Issues proof generation requests
-- Asks core contracts to update state, once proof is verified
-
-## Components
-
 ## Read more
 
-- https://github.com/madara-alliance/madara-orchestrator
-- Github links
-- Starknet docs
-- Any other relevant links?
+- [Orchestrator Github](https://github.com/madara-alliance/madara-orchestrator)
