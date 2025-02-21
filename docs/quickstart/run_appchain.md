@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## Overview
 
-This guide will help you run an Appchain with Madara.
+This guide will help you run an [Appchain](/concepts/appchain) with Madara.
 
 The deployed components are only available locally and are meant for testing purposes.
 
@@ -14,7 +14,7 @@ The deployed components are only available locally and are meant for testing pur
 
 An Appchain is a blockchain built for a single purpose. It runs all of the required components of a real blockchain, but is meant to serve a single use case. This is unlike general-purpose blockchain that are meant for a variety of use cases.
 
-Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and settle their transactions there, for added security.
+Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and [settle](/concepts/settlement) their transactions there, for added security.
 
 ## Install Madara CLI and run the appchain
 
@@ -32,7 +32,7 @@ Next we'll go through some of the components in more detail, to better understan
 
 The CLI starts all of the required components automatically. Some of the main components are:
 - Madara sequencer. Your node for receiving transactions and building blocks
-- Orchestrator. This manages a lot of the communications forward from your sequencer
+- [Orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer
 - A mock prover. This generates (mock) proofs for your blocks. This is explained in more detail below.
 - A local Ethereum blockchain. This is the settlement layer used for your Appchain. This is explained in more detail below.
 

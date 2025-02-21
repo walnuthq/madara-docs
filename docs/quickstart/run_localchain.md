@@ -8,7 +8,7 @@ sidebar_position: 1
 
 This quick-start guide helps you start your own, local chain with Madara. 
 
-The chain is lightweight and does not settle its transactions on any underlying chain. Therefore, it does not inherit security from the other chain. If you'd prefer to start an Appchain with settlement, please see [this guide](/quickstart/run_appchain) instead.
+The chain is lightweight and does not settle its transactions on any underlying chain. Therefore, it does not inherit security from the other chain. If you'd prefer to start an [Appchain](/concepts/appchain) with [settlement](/concepts/settlement), please see [this guide](/quickstart/run_appchain) instead.
 
 ## Installation
 

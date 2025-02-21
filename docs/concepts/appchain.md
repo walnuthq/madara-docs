@@ -13,10 +13,10 @@ An Appchain is built on top of some existing blockchain. Madara's Appchains run 
 An Appchain is formed by multiple components. In Madara, the main components are:
 - A gateway. Receives user transactions and forward these to a sequencer.
 - A sequencer. Forms blocks of transactions and provides access to the blockchain for users.
-- An orchestrator. Coordinates communication between entities.
+- An [orchestrator](/components/orchestrator). Coordinates communication between entities.
 - A prover. Generates cryptographic proofs of a block's validity.
 - A verifier. Verifies generated proofs.
-- A settlement layer. Records verified proofs and their data, providing security for the Appchain.
+- A [settlement layer](/concepts/settlement). Records verified proofs and their data, providing security for the Appchain.
 
 ## Why use an Appchain
 
