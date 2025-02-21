@@ -13,9 +13,15 @@ In Madara, the prover calculates cryptographic validity proof for a block, provi
 
 ## Responsibilities
 
+The responsibilities of a Madara prover are the following:
+1. Generate valid proofs for the given input
+1. Post the proofs in the Settlement Layer for verification
+
 ## Prover and verifier
 
-Generating a proof is an expensive operation, in terms of computational complexity and required hardware resources.
+
+
+Generating a proof is an expensive operation, in terms of computational complexity and required hardware resources. Depending on the input size and proof complexity, generating a proof may take anything between a second and a day.
 
 ## Security
 
@@ -38,9 +44,6 @@ Verifying that the on-chain verifier does what it should do is generally achieve
 
 ## Prover options
 
-
-
-- Proving is an expensive and lengthy operation
 - The actual size of the block to be proven affects the proving costs, but not as much as one might imagine
 
 ### Prover options
