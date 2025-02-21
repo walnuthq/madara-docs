@@ -40,8 +40,9 @@ sequenceDiagram
     SNOS ->> Orchestrator: Return proof input
     
     Orchestrator ->> Prover: Send proof input for proving
-    Verifier ->> Orchestrator: Proof verification result
+    Prover ->> Verifier: Send proof for verification
 
+    Verifier ->> Orchestrator: Proof verification result
     Orchestrator ->> Verifier: Update state
 ```
 
