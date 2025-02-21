@@ -24,7 +24,7 @@ Without a settlement layer, if the Appchain becomes unavailable, users may lose 
 
 ## Madara flow
 
-With Madara, the settlement layer is utilized directly by the prover and the orchestrator.
+With Madara, the settlement layer is utilized directly by the prover and the [orchestrator](/components/orchestrator).
 
 ```mermaid
 sequenceDiagram

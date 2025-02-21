@@ -17,7 +17,7 @@ The orchestrator has four main responsibilities:
 1. SNOS communication. Asks SNOS to process ready blocks and retrieve results.
 1. Proof coordination. Sends the required data to the prover and monitors for ready proofs.
 1. DA communication. Submits data for Data Availability Layer (currently Ethereum or Starknet).
-1. SL communication. Submits data for Settlement Layer: proofs and state updates.
+1. SL communication. Submits data for [Settlement Layer](/concepts/settlement): proofs and state updates.
 
 All of the responsibilities are handled through a individual queues: jobs enter the appropriate queue and are processed in the order they arrived. Possible retries are also managed through the queues.
 
