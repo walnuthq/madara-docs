@@ -8,19 +8,19 @@ sidebar_position: 6
 
 In the context of [Appchains](/concepts/appchain), settlement refers to finalizing transactions on a secure blockchain. Settled transactions are verified and their integrity is guaranteed by the blockchain where settlement happens.
 
-Because settlement happens on another blockchain, outside the Appchain itself, the other blockchais is said to be the *settlement layer* for the Appchain.
+Because settlement happens on another blockchain, outside the Appchain itself, this blockchain is referred to as the *settlement layer*.
 
 ## Settling transactions
 
 Appchains typically inherit security from the settlement layer blockchain. For Madara, this blockchain is either Ethereum or Starknet.
 
-For Starknet, the underlying blockchain is Ethereum. In this setting, Starknet is called a Layer 2 (L2) blockchain, while Ethereum is Layer 1 (L1). It's also equally possible to create an Appchain on top of Starknet - then your new layer becomes a L3 and your transactions are settled on Starknet L2, which again settles transactions on Ethereum L1.
+For Starknet, the underlying blockchain is Ethereum. In this setting, Starknet is called a Layer 2 (L2) blockchain, while Ethereum is Layer 1 (L1). It's also possible to create an Appchain on top of Starknet - then your new layer becomes a L3 and your transactions are settled on Starknet L2, which again settles transactions on Ethereum L1.
 
 ### Provided security
 
 Settlement layer provides security for the Appchain. This means that even if the Appchain becomes unavailable or malicious, users can retrieve their funds using the [state diff](https://docs.starknet.io/architecture-and-concepts/network-architecture/data-availability/#introduction) and ZK proof stored on the settlement layer.
 
-Without a settlement layer user assets could some day disappear with the Appchain.
+Without a settlement layer, if the Appchain becomes unavailable, users may lose access to their assets.
 
 ## Madara flow
 
@@ -41,12 +41,12 @@ sequenceDiagram
 ```
 
 1. The used prover sends a validity proof to the settlement layer
-1. The settlement layer's verifier program verifies the proof. If valid, adds a record to an on-chain proof registry.
+1. The settlement layer's verifier program verifies the proof. If valid, the verifier program records it in an on-chain proof registry.
 1. The orchestrator monitors for new verifications. Once it sees one, it asks settlement layer's core contracts to update their network state.
 
 ## Cost tradeoffs
 
-A very secure settlement layer blockchain makes fraud very difficult. One would either need to infiltrate the settlement layer or to break the underlying cryptography. If the settlement layer is Ethereum, fraud requires controlling over 33% of its nodes. And breaking the cryptographic principles may not be possible even in theory.
+A very secure settlement layer blockchain makes fraud very difficult. One would either need to infiltrate the settlement layer or to break the underlying cryptography. If the settlement layer is Ethereum, disrupting finality would require controlling at least 33% of the total staked ETH, making fraud prohibitively expensive. And breaking the cryptographic principles may not be possible even in theory.
 
 On the other hand, very secure chains are usually expensive to use.
 
@@ -69,10 +69,9 @@ While Madara and Starknet rely on validity proofs (with ZK), some other appchain
 
 Requirements for a good settlement layer network are:
 - Secure. The used network has to be financially secure and trusted by all involved parties.
-- Availability. The used network has remain operational and available.
+- Availability. The used network must remain operational and available.
 - Programmability. The used network has to be able to run the settlement logic.
 - Finality guarantees. The used network must provide strong finality guarantees to prevent state rollbacks.
-- Governance & development stability. The used network should be stable enough to support ongoing settlement.
 
 For convenience, the settlement layer is often a multipurpose blockchain. But, as noted earlier, it can also be a specialized network.
 
