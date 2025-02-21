@@ -24,7 +24,15 @@ The prover's job is to generate proofs. These proofs are, at some point, fed to 
 
 Typically, when one writes a prover program, they also generate a verifier program for it. One verifier can often verify proofs only from one prover program - the programs are tightly coupled.
 
-## Proving process
+### Prover options
+
+In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
+
+Madara highly encourages using a prover that is compatible with existing tooling. Currently the main, compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
+
+To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the [settlement layer](/concepts/settlement) automatically. Madara suggests Atlantic when starting an [Appchain](/concepts/appchain).
+
+### Proving process
 
 Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program, through the [orchestrator](/components/orchestrator). This execution stores a record of all operations performed by the code - this record is usually called a *trace*.
 
@@ -56,16 +64,6 @@ The verifier program is often deployed on a blockchain to be immutable. This bri
 Verifying that the on-chain verifier does what it should do is generally achieved in one of two ways:
 1. Audit the verifier's code to ensure correctness. This is very costly.
 1. Social consensus. Once enough users have used the verifier for long enough with no problems users start to trust it.
-
-## Prover options
-
-In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
-
-Madara highly encourages using a prover that is compatible with existing tooling. Currently the main, compatible prover is called [Stone](https://github.com/starkware-libs/stone-prover). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
-
-Starknet has also a shared proving service called [SHARP](https://starkware.co/blog/joining-forces-sharp/) but it is currently not integrated into Madara.
-
-To utilize the Stone prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the [settlement layer](/concepts/settlement) automatically. Madara suggests Atlantic when starting an [Appchain](/concepts/appchain).
 
 ## Read more
 
