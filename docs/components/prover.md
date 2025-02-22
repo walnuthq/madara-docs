@@ -126,6 +126,6 @@ Verifying that the on-chain verifier does what it should do is generally achieve
 
 ## Read more
 
-- [Ethereum knowledge base](https://ethereum.org/en/zero-knowledge-proofs/)
-- [Starknet docs](https://docs.starknet.io/architecture-and-concepts/provers-overview/)
+- [About ZK proofs](https://ethereum.org/en/zero-knowledge-proofs/)
+- [About Starknet provers](https://docs.starknet.io/architecture-and-concepts/provers-overview/)
 - [About recursion](https://www.starknet.io/blog/recursive-starks/)
