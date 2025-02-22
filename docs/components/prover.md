@@ -35,6 +35,15 @@ Once the trace is generated, the prover should complete these steps for each blo
 1. Calculate a cryptographic proof for the block.
 1. Submit the proof to the settlement layer for verification.
 
+### Proofs in Madara
+
+While proofs provide many guarantees, some key examples include:
+- The trace followed all of the network's rules. For example, a smart contract is only allowed to modify its own storage.
+- The network state after the block's execution is correctly derived from both the previous state and the trace execution.
+- Every transaction in the block was executed exactly once and in the correct order.
+
+Therefore, the prover is the entity guaranteeing the blockchain's integrity - it's there to make sure everyone follows the rules.
+
 ## How proofs help chains scale
 
 Blockchains are typically secure because every node verifies each transaction. However, this does not scale well - you can't expect each node to keep up with an ever increasing amount of transactions.
@@ -42,7 +51,6 @@ Blockchains are typically secure because every node verifies each transaction. H
 To circumvent this issue, we generate a proof of the transaction's (and block's) execution and let each node verify this proof instead of re-executing each transaction. Verifying a proof is a lot faster process.
 
 This technique is especially well suited for [Appchains](/concepts/appchain) since we can do the heavy operations (the proving) off-chain and only verify proofs on-chain, in the settlement layer.
-
 
 ## Proof posting frequency
 
@@ -62,10 +70,12 @@ This is where proof recursion is utilized. The process works like the following:
 1. Normal proofs are generated individually for multiple, consecutive blocks.
 1. Once enough proofs are generated, they are divided into batches. Batch size depends, but is typically something between 2 and 32 proofs.
 1. A new proof is generated for each batch. This new proof proves, recursively, that each underlying proof is correct.
-1. New batches are formed and proved until there is only 1 final proof left.
+1. New batches are formed and proved until there is only one final proof left.
+
+This final proof is then sent to the settlement layer for verification. Naturally, the settlement layer verifier needs to support verifying recursive proofs.
 
 ```mermaid
-graph TD;
+flowchart TD;
     B1["Block 1"] --> P1["Proof 1"];
     B2["Block 2"] --> P2["Proof 2"];
     B3["Block 3"] --> P3["Proof 3"];
@@ -92,24 +102,11 @@ graph TD;
     R5 --> FINAL["Final Proof"];
     R6 --> FINAL;
 ```
+*A recursive proof chart with batch size 2*
 
-This final proof is then sent to the settlement layer for verification. Naturally, the settlement layer verifier needs to support verifying recursive proofs.
+## Proof system security
 
-## Security
-
-While proofs provide many guarantees, some key examples include:
-- The trace followed all of the network's rules. For example, a smart contract is only allowed to modify its own storage.
-- The network state after the block's execution is correctly derived from both the previous state and the trace execution.
-- Every transaction in the block was executed exactly once and in the correct order.
-
-
-
-The used provers are built with Zero Knowledge technology. Such provers have the following basic characteristics:
-- A correctly implemented prover can't generate invalid proofs.
-- A correctly implemented verifier doesn't accept invalid proofs.
-- It is not possible to modify a valid proof to prove things it shouldn't prove.
-
-Therefore, the prover is the entity guaranteeing the blockchain's integrity - it's there to make sure everyone follows the rules.
+The prover utilizes Zero Knowledge technology to generate proofs. The benefits of this approach were discussed earlier, but there are additional security and liveness considerations to consider.
 
 ### How many provers are needed
 
