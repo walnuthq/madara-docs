@@ -13,10 +13,10 @@ In Madara, the prover calculates validity proofs for a block, providing mathemat
 ## Responsibilities
 
 The responsibilities of a Madara prover are the following:
-1. Generate valid proofs for the given input
-1. Post the proofs to the Settlement Layer for verification
+1. Generate valid proofs for the given input.
+1. Post the proofs to the [Settlement Layer](/concepts/settlement) for verification.
 
-Generating a proof is an expensive operation, in terms of computational complexity and required hardware resources. Depending on the input size and proof complexity, generating a proof may take anything between a second and a day.
+Generating a proof is an expensive operation in terms of computational complexity and required hardware resources. Depending on the input size and proof complexity, generating a proof may take anything between a second and a day.
 
 ## A prover requires a verifier
 
@@ -30,13 +30,13 @@ While proof generation can be a very costly operation, proof verification is ver
 
 In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
 
-Madara highly encourages using a prover that is compatible with existing tooling. Currently the main, compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
+Madara highly encourages using a prover that is compatible with existing tooling. Currently the main compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
 
-To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the [settlement layer](/concepts/settlement) automatically. Madara suggests Atlantic when starting an [Appchain](/concepts/appchain).
+To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the settlement layer automatically. Madara suggests Atlantic when starting an [Appchain](/concepts/appchain).
 
 ### Proving process
 
-Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program, through the [orchestrator](/components/orchestrator). This execution stores a record of all operations performed by the code - this record is usually called a *trace*.
+Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program through the [orchestrator](/components/orchestrator). This execution stores a record of all operations performed by the code - this record is usually called a *trace*.
 
 Once the trace is generated, the prover should complete these steps for each block:
 1. It receives the trace and other metadata as input.
@@ -52,14 +52,14 @@ A valid proof for a trace proves at least that:
 
 If I send a transaction on my Appchain, the transaction gets finalized only when its proof is verified on the settlement layer. Unfortunately, proofs are typically not posted on the settlement layer once per block.
 
-Sending data to the settlement layer is expensive, and a single proof requires quite much data. It would cost a lot to post a proof once per block. Therefore, a tradeoff needs to be made: proofs are posted only every X blocks. This affects transactions finality and costs directly: the longer this delay is, the longer it takes to finalize transactions but the cheaper they become.
+Sending data to the settlement layer is expensive, and a single proof requires quite much data. It would cost a lot to post a proof once per block. Therefore, a tradeoff needs to be made: proofs are posted only every X blocks. This affects transaction finality and costs directly: the longer this delay is, the longer it takes to finalize transactions, but the cheaper they become.
 
 ### Recursive proofs
 
 A typical proof includes data only for a single block. A different mechanism is needed to aggregate multiple proofs to be sent simultaneously to the settlement layer.
 
 This is where proof recursion is utilized. The process works like the following:
-1. Normal proofs are generated individually for multiple, consecutive blocks
+1. Normal proofs are generated individually for multiple, consecutive blocks.
 1. Once enough proofs are generated, they are divided into batches. Batch size depends, but is typically something between 2 and 32 proofs.
 1. A new proof is generated for each batch. This new proof proves, recursively, that each underlying proof is correct.
 1. New batches are formed and proved until there is only 1 final proof left.
@@ -98,15 +98,15 @@ This final proof is then sent to the settlement layer for verification. Naturall
 ## Security
 
 The used provers are built with Zero Knowledge technology. Such provers have the following basic characteristics:
-- A correctly implemented prover can't generate invalid proofs
-- A correctly implemented verifier doesn't accept invalid proofs
-- It is not possible to modify a valid proof to prove things it shouldn't prove
+- A correctly implemented prover can't generate invalid proofs.
+- A correctly implemented verifier doesn't accept invalid proofs.
+- It is not possible to modify a valid proof to prove things it shouldn't prove.
 
-Therefore, prover is the entity guaranteeing the blockchain's integrity - it's there to make sure everyone follows the rules.
+Therefore, the prover is the entity guaranteeing the blockchain's integrity - it's there to make sure everyone follows the rules.
 
 ### How many provers are needed
 
-In a fully decentralized blockchain there is no single point of failure. The same applies for the provers: there should be more than one.
+In a fully decentralized blockchain, there is no single point of failure. The same applies for the provers: there should be more than one.
 
 However, having just a single prover is not very dangerous either. One prover is a single point of failure because it may just go offline. But that's the worst that can happen: it may just stop producing new proofs, halting the network.
 
@@ -117,8 +117,8 @@ A malicious prover (or provers) can't do any real harm to the network. They can 
 In the end, a lot of the security depends on correct implementations of the prover and verifier.
 
 The verifier program is often deployed on a blockchain to be immutable. This brings a few benefits:
-1. The code can't be changed
-1. Everyone knows they are using the same verifier program
+1. The code can't be changed.
+1. Everyone knows they are using the same verifier program.
 
 Verifying that the on-chain verifier does what it should do is generally achieved in one of two ways:
 1. Audit the verifier's code to ensure correctness. This is very costly.
