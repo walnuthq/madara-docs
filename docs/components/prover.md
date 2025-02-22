@@ -20,39 +20,39 @@ Generating a proof is an expensive operation in terms of computational complexit
 
 ## A prover requires a verifier
 
-The prover's job is to generate proofs. These proofs are, at some point, fed to a separate verifier program that validates them.
+The prover's job is to generate proofs. For the proofs to be useful, the system requires also a separate verifier program that validates them.
 
 Typically, when one writes a prover program, they also generate a verifier program for it. One verifier can often verify proofs only from one prover program - the programs are tightly coupled.
 
 While proof generation can be a very costly operation, proof verification is very cheap. Even if it takes a day to generate a proof, it may require just some milliseconds to verify it.
 
-### Prover options
+## Proving process
 
-In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
-
-Madara highly encourages using a prover that is compatible with existing tooling. Currently the main compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
-
-To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the settlement layer automatically. Madara suggests Atlantic when starting an [Appchain](/concepts/appchain).
-
-### Proving process
-
-Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program through the [orchestrator](/components/orchestrator). This execution stores a record of all operations performed by the code - this record is usually called a *trace*.
+Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program through the [orchestrator](/components/orchestrator). This execution returns a record of all performed operations - this record is usually called a *trace*.
 
 Once the trace is generated, the prover should complete these steps for each block:
-1. It receives the trace and other metadata as input.
-1. It calculates a cryptographic proof for the block.
-1. It submits the proof to the settlement layer for verification.
+1. Receive the trace and other metadata as input.
+1. Calculate a cryptographic proof for the block.
+1. Submit the proof to the settlement layer for verification.
 
-A valid proof for a trace proves at least that:
-1. The trace followed all of the network's rules. For example, a smart contract is only allowed to modify its own storage.
-1. The network state after the block's execution is correctly derived from both the previous state and the trace execution.
-1. Every transaction in the block was executed exactly once and in the correct order.
+## How proofs help chains scale
+
+Blockchains are typically secure because every node verifies each transaction. However, this does not scale well - you can't expect each node to keep up with an ever increasing amount of transactions.
+
+To circumvent this issue, we generate a proof of the transaction's (and block's) execution and let each node verify this proof instead of re-executing each transaction. Verifying a proof is a lot faster process.
+
+This technique is especially well suited for [Appchains](/concepts/appchain) since we can do the heavy operations (the proving) off-chain and only verify proofs on-chain, in the settlement layer.
+
 
 ## Proof posting frequency
 
-If I send a transaction on my Appchain, the transaction gets finalized only when its proof is verified on the settlement layer. Unfortunately, proofs are typically not posted on the settlement layer once per block.
+If a transaction is sent on chain, the transaction gets finalized only when its proof is verified on the settlement layer. Unfortunately, proofs are typically not posted on the settlement layer every block.
 
-Sending data to the settlement layer is expensive, and a single proof requires quite much data. It would cost a lot to post a proof once per block. Therefore, a tradeoff needs to be made: proofs are posted only every X blocks. This affects transaction finality and costs directly: the longer this delay is, the longer it takes to finalize transactions, but the cheaper they become.
+Sending data to the settlement layer is expensive, and a single proof requires quite much data. It would cost a lot to post a proof per block. Therefore, a tradeoff needs to be made: proofs are posted only every X blocks. 
+
+This affects transaction finality and costs directly: the longer this delay is, the longer it takes to finalize transactions, but the cheaper they become. The cost reductions result from sending a lot less data to the settlement layer.
+
+It is important to note that the frequency does not influence security. A small proof has the same security guarantees as a big proof containing many small ones.
 
 ### Recursive proofs
 
@@ -97,6 +97,13 @@ This final proof is then sent to the settlement layer for verification. Naturall
 
 ## Security
 
+While proofs provide many guarantees, some key examples include:
+- The trace followed all of the network's rules. For example, a smart contract is only allowed to modify its own storage.
+- The network state after the block's execution is correctly derived from both the previous state and the trace execution.
+- Every transaction in the block was executed exactly once and in the correct order.
+
+
+
 The used provers are built with Zero Knowledge technology. Such provers have the following basic characteristics:
 - A correctly implemented prover can't generate invalid proofs.
 - A correctly implemented verifier doesn't accept invalid proofs.
@@ -123,6 +130,15 @@ The verifier program is often deployed on a blockchain to be immutable. This bri
 Verifying that the on-chain verifier does what it should do is generally achieved in one of two ways:
 1. Audit the verifier's code to ensure correctness. This is very costly.
 1. Social consensus. Once enough users have used the verifier for long enough, with no problems, users start to trust it.
+
+## Prover options
+
+In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
+
+Madara highly encourages using a prover that is compatible with existing tooling. Currently the main compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
+
+To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the settlement layer automatically. Madara suggests Atlantic when starting an Appchain.
+
 
 ## Read more
 
