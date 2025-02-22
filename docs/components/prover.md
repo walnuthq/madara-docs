@@ -30,10 +30,20 @@ While proof generation can be a very costly operation, proof verification is ver
 
 Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program through the [orchestrator](/components/orchestrator). This execution returns a record of all performed operations - this record is usually called a *trace*.
 
-Once the trace is generated, the prover should complete these steps for each block:
+After generating the trace, the prover performs the following steps for each block:
 1. Receive the trace and other metadata as input.
 1. Calculate a cryptographic proof for the block.
 1. Submit the proof to the settlement layer for verification.
+
+If the proof is not valid, the proof is rejected and the block is considered invalid in the Appchain. The included transactions are reverted.
+
+```mermaid
+graph LR;
+    Prover --> Proof[Generates proof];
+    Proof --> Verifier[Verifier validates proof];
+    Verifier -- Valid proof --> Verified[Proof accepted];
+    Verifier -- Invalid proof --> Invalid[Proof rejected, discard block];
+```
 
 ### Proofs in Madara
 
@@ -58,7 +68,7 @@ If a transaction is sent on chain, the transaction gets finalized only when its 
 
 Sending data to the settlement layer is expensive, and a single proof requires quite much data. It would cost a lot to post a proof per block. Therefore, a tradeoff needs to be made: proofs are posted only every X blocks. 
 
-This affects transaction finality and costs directly: the longer this delay is, the longer it takes to finalize transactions, but the cheaper they become. The cost reductions result from sending a lot less data to the settlement layer.
+This affects transaction finality and costs directly: the longer this delay is, the longer it takes to finalize transactions, but the cheaper they become. The cost reductions result from sending less data to the settlement layer.
 
 It is important to note that the frequency does not influence security. A small proof has the same security guarantees as a big proof containing many small ones.
 
@@ -66,7 +76,7 @@ It is important to note that the frequency does not influence security. A small 
 
 A typical proof includes data only for a single block. A different mechanism is needed to aggregate multiple proofs to be sent simultaneously to the settlement layer.
 
-This is where proof recursion is utilized. The process works like the following:
+Proof recursion helps aggregate multiple proofs into one. The process works like the following:
 1. Normal proofs are generated individually for multiple, consecutive blocks.
 1. Once enough proofs are generated, they are divided into batches. Batch size depends, but is typically something between 2 and 32 proofs.
 1. A new proof is generated for each batch. This new proof proves, recursively, that each underlying proof is correct.
@@ -106,7 +116,7 @@ flowchart TD;
 
 ## Proof system security
 
-The prover utilizes Zero Knowledge technology to generate proofs. The benefits of this approach were discussed earlier, but there are additional security and liveness considerations to consider.
+The prover utilizes Zero Knowledge technology to generate proofs. The benefits of this approach were discussed earlier but there are additional security and liveness considerations.
 
 ### How many provers are needed
 
