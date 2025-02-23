@@ -6,7 +6,7 @@ sidebar_position: 12
 
 ## Overview
 
-SNOS is a Rust library for managing the execution of the Cairo Virtual Machine (CairoVM). It runs a specialized Cairo program responsible for executing and verifying transactions, generating execution traces that are later used for proving.
+SNOS is a Rust library for managing the execution of the Cairo Virtual Machine (CairoVM). It runs a specialized Cairo program responsible for executing and verifying transactions, generating output that is later used for proving.
 
 ## Responsibilities
 
@@ -20,7 +20,7 @@ The responsibilities of the SNOS are:
 Execution of the transactions inside SNOS is done for the following purposes:
 1. To verify that all transactions follow network rules
 1. To calculate state changes
-1. To generate a record of all performed operations. This record is usually called a *trace* (or *PIE*).
+1. To generate a trace for all performed operations. 
 
 The SNOS utilizes the CairoVM to execute each transaction. The CairoVM includes an elaborate Cairo program with logic for verifying all of the network rules. This Cairo program is eventually responsible for making sure each transaction obeys the rules.
 
@@ -46,6 +46,5 @@ If a transactions fails validation, it is marked as failed with one of two diffe
 
 ## Read more
 
-- Github links
-- Starknet docs: https://docs.starknet.io/architecture-and-concepts/network-architecture/os/
-- Any other relevant links?
+- [Github](https://github.com/keep-starknet-strange/snos)
+- [About SNOS](https://docs.starknet.io/architecture-and-concepts/network-architecture/os/)
