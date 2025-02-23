@@ -27,15 +27,20 @@ The responsibilities of the SNOS are:
 
 Execution of the transactions inside SNOS is done for the following purposes:
 1. To verify that all transactions follow network rules
-1. To generate a record of the transactions
+1. To calculate state changes
+1. To generate a record of all performed operations. This record is usually called a *trace* (or *PIE*).
 
-The SNOS utilizes the CairoVM to execute each transaction. The CairoVM includes an elaborate Cairo program that includes logic for verifying all of the network rules.
+The SNOS utilizes the CairoVM to execute each transaction. The CairoVM includes an elaborate Cairo program with logic for verifying all of the network rules. This Cairo program is eventually responsible for making sure each transaction obeys the rules.
 
-This Cairo program is eventually responsible for making sure each transaction obeys the rules.
+### Handling of erraneous transactions
 
-- Make sure __validate__ is called and other similar ordering checks
+Transactions can fail the SNOS validations. Reasons include:
+1. Transaction runs out of gas.
+1. Transaction runs code that ends in a panic.
+1. Transaction tries to perform operations it's not allowed to do - for example write to another contract's storage.
+1. Transaction does not follow the agreed execution order. For example it doesn't call the account contract correctly.
 
-If there are errors in the transactions, the program is unable to produce the execution trace and the transactions are marked as failed.
+If a transactions fails the validation, it is marked as rejected. There are different levels of rejection, depending on the nature of the failure, but all result in the transaction being excluded from state updates.
 
 ## Read more
 
