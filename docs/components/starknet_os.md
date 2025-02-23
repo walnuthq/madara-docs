@@ -8,14 +8,6 @@ sidebar_position: 12
 
 SNOS is a Rust library for managing the execution of the Cairo Virtual Machine (CairoVM). It runs a specialized Cairo program responsible for executing and verifying transactions, generating execution traces that are later used for proving.
 
-
-
-
-- A core components of the rollup
-- A Cairo Zero program
-- SNOS is not needed if you run Madara in sequencer mode, because txs are executed by the sequencer/blockifier
-- How does this relate to CairoVM? Should CairoVM have its own page?
-
 ## Responsibilities
 
 The responsibilities of the SNOS are:
@@ -34,13 +26,23 @@ The SNOS utilizes the CairoVM to execute each transaction. The CairoVM includes 
 
 ### Handling of erraneous transactions
 
-Transactions can fail the SNOS validations. Reasons include:
+Transactions can fail the SNOS validation. Reasons include:
 1. Transaction runs out of gas.
 1. Transaction runs code that ends in a panic.
 1. Transaction tries to perform operations it's not allowed to do - for example write to another contract's storage.
 1. Transaction does not follow the agreed execution order. For example it doesn't call the account contract correctly.
 
-If a transactions fails the validation, it is marked as rejected. There are different levels of rejection, depending on the nature of the failure, but all result in the transaction being excluded from state updates.
+If a transactions fails validation, it is marked as failed with one of two different mechanisms:
+- Pre-execution failures. 
+  - Occur before transaction execution. 
+  - Examples: the transaction fails a preliminary check, such as signature verification or an incorrect nonce.
+  - The transaction is marked with status REJECTED and not included in the block.
+  - The user does not pay any fees.
+- Execution failures. 
+  - Occur during execution of the transaction. 
+  - Examples: attempting an unauthorized state modification or running out of gas.
+  - The transaction is marked with status REVERTED but included in the block.
+  - The user pays fees.
 
 ## Read more
 
