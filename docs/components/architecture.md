@@ -4,12 +4,12 @@ sidebar_position: 2
 
 # Architecture
 
-A Madara blockchain consists of the following components:
-- An orchestrator
+A Madara [Appchain](/concepts/appchain) consists of the following components:
+- An [orchestrator](/components/orchestrator)
 - A sequencer
 - Starknet OS (SNOS)
 - A prover
-- A settlement layer
+- A [settlement layer](/concepts/settlement)
 
 Note that some components are left out, for now, for simplicity.
 

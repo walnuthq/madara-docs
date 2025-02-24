@@ -14,20 +14,12 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 ### Install tooling for interaction
 
-Start by installing the specific tooling used in this tutorial:
+Start by installing the specific tooling used in this tutorial (answer yes if it asks about `asdf-vm`):
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://docs.swmansion.com/scarb/install.sh | sh
-curl https://get.starkli.sh | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
 ```
-The above will install:
-- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager
-- [Starkli](https://book.starkli.rs), a CLI interaction tool with Starknet contracts
 
-Now restart your terminal to reload new environment variables. THen finish the installation with:
-
-```bash
-starkliup
-```
+The above will install [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. Now restart your terminal again to reload new environment variables.
 
 ## Prepare your contract
 
@@ -94,7 +86,7 @@ name = "madara_example"
 version = "0.1.0"
 
 [dependencies]
-starknet = "=2.9.2"
+starknet = ">=2.9.2"
 
 [[target.starknet-contract]]
 ```
@@ -111,17 +103,21 @@ scarb build
 
 Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
-However, you still need to store the account in a format understood by Starkli. First, make sure you are still in the `madara_quickstart` folder.
+However, to use these accounts with Starknet tooling, they must be stored in the correct format.
 
-The local blockchain should be running at address `http://localhost:9944`. Store an account with:
+First, make sure you are still in the `madara_quickstart` folder. Since the local blockchain should be running at address `http://localhost:9944`, you can now store an account with:
 
 :::info
-The account parameter for the command below should be some of the public account addresses given upon starting the local chain.
+If needed, remember to replace the following values in the command below:
+- `address`: the public address of the chosen account given upon launching the chain
+- `private-key`: the private key associated with the chosen account
 :::
 
 ```bash
-starkli account fetch --rpc http://localhost:9944 --output ./account 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
+![Account creation](/img/quickstart-local-import.png "Account creation")
+Note the imported account name.
 
 :::warning
 Do not use the provided accounts in a production environment. They are only for local testing.
@@ -136,25 +132,28 @@ We are now ready to start deploying our contract and interacting with it.
 Before deployment, the contract needs to be declared to the network. Declare it with:
 
 :::info
-The private key parameter for the command below should correspond to the chosen account when storing it locally.
+If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
 :::
 
 ```bash
-starkli declare --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --compiler-version 2.9.1  --account account ./target/dev/madara_example_Balance.contract_class.json
+sncast --account account-1 declare --url http://localhost:9944 --contract-name Balance
 ```
 
 ![Class hash](/img/quickstart-local-classhash.png "Resulting class hash")
 
-Note the declared class hash.
+Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
 
 ### Deploy it
 
 You are now ready to deploy the contract. Deploy with:
 :::info
-The private key parameter for the command below should correspond to the chosen account when storing it locally. The parameter after `deploy` command should be the declared class hash.
+If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
+- `class-hash`: the declared class hash
 :::
 ```bash
-starkli deploy 0x043539387d5f6359716da16fbff9c1536b54c1f5928fbc4a1ea7ea71414d02ab --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 --account account --salt 1
+sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x000021c5ab1ee26d82392d9d157f78f8fab4a8ac501d65b531e74366bc88eb82
 ```
 
 ![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
@@ -164,23 +163,32 @@ Note the deployed contract's address.
 ### Issue transactions
 
 The contract keeps track of an imaginary balance. Let's first query the initial balance:
+
 :::info
-The address parameter for the command below should be the deployed contract's address.
+If needed, remember to replace the following values in the command below:
+- `contract-address`: the deployed contract address
 :::
+
 ```bash
-starkli call --rpc http://localhost:9944 0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 get
+sncast call --url http://localhost:9944 --function get --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
 ```
 
-You should see value `5` as the initial value (prefixed by a lot of zeros).
+You should see value `5` as the initial value (in hexadecimal format).
 
 Let's try to increase this value by a transaction. Run:
+
 :::info
-The private key parameter for the command below should correspond to the chosen account when storing it locally. The address parameter after the private key should be the deployed contract's address.
+If needed, remember to replace the following values in the command below:
+- `account`: the name of your imported account
+- `contract-address`: the deployed contract address
 :::
+
 ```bash
-starkli invoke --account account --rpc http://localhost:9944 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2  0x01a97c58c3c8ec1d37228f53ae2e34f3e4d65b7c77e1176f3ee6977d04c3b565 increase 3
+sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950 --function increase --arguments "3"
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
 
-Note that if you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail.
+## Rerunning this quickstart
+
+If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.

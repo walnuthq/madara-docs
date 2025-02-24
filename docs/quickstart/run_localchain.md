@@ -8,7 +8,7 @@ sidebar_position: 1
 
 This quick-start guide helps you start your own, local chain with Madara. 
 
-The chain is lightweight and does not settle its transactions on any underlying chain. Therefore, it does not inherit security from the other chain. If you'd prefer to start an Appchain with settlement, please see [this guide](/quickstart/run_appchain) instead.
+The chain is lightweight and does not settle its transactions on any underlying chain. Therefore, it does not inherit security from the other chain. If you'd prefer to start an [Appchain](/concepts/appchain) with [settlement](/concepts/settlement), please see [this guide](/quickstart/run_appchain) instead.
 
 ## Installation
 
@@ -42,7 +42,7 @@ The above will prompt you for various options. You should choose the following:
 1. Select Madara mode: `Devnet`. This is a local chain
 1. Input DB path: keep default
 
-It may take half an hour to prepare the image for the first time. Wait for that to finish.
+It may take half an hour to prepare the image for the first time, depending on your system performance. Wait for that to finish.
 
 ![Local chain running](/img/quickstart-local-start.png "Local chain is running")
 
