@@ -2,15 +2,11 @@
 sidebar_position: 5
 ---
 
-# Query a running Appchain
+# Monitor a running Appchain
 
 ## Overview
 
-This quick-start guide helps you query your local Appchain. Please make sure you are running a local Appchain before continuing.
-
-- Mongodb
-- Block number
-- State root
+This quick-start guide helps you query your local Appchain. Please make sure you are [running a local Appchain](/quickstart/run_appchain) before continuing.
 
 Starting an Appchain launches multiple services. A few notable ones are:
 - MongoDB
@@ -23,9 +19,25 @@ We will demonstrate how you can query these services to see the status of your A
 
 MongoDB is a database used by many of the Appchain's supporting components, such as the orchestrator.
 
-You can monitor your Appchain by connecting to the database and querying its tables. For this, you should download [MongoDB Compass](https://www.mongodb.com/try/download/compass). Install Compass and connect it to the default address, which should be ``.
+You can monitor your Appchain by connecting to the database and querying its tables. For this, you should download [MongoDB Compass](https://www.mongodb.com/try/download/compass). Install Compass and connect it to the default address, which should be `mongodb://localhost:27017`.
 
-The database displays TODO
+The database displays four tables. Currently, we're most interested in the orchestrator job entries.
+
+### Query orchestrator
+
+TODO
+
+```
+{
+  $nor: [
+    { job_type: 'SnosRun' },
+    { job_type: 'StateTransition' },
+    { job_type: 'ProofCreation', status: 'Completed' },
+{ job_type: 'ProofCreation', status: 'PendingVerification' },
+{ job_type: 'DataSubmission', status: 'Completed' }
+  ]
+}
+```
 
 ## Blockchain
 
