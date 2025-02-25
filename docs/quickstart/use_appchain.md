@@ -70,3 +70,4 @@ curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
 
 The Appchain utilizes [Grafana](https://grafana.com/) for log and metrics aggregation. We will later add a detailed guide on how to set up Grafana for your Appchain. Meanwhile, here are some examples what you can do.
 
+TODO: add screenshots with small explanations.
