@@ -18,7 +18,7 @@ Furthermore, an Appchain is typically built on top of some existing blockchain. 
 
 ## Install Madara CLI and run the appchain
 
-Go run the [local chain](/quickstart/run_localchain) guide. When prompted for "Madara mode", instead of choosing `Devnet` choose `Appchain`.
+Go run the [devnet](/quickstart/run_devnet) guide. When prompted for "Madara mode", instead of choosing `Devnet` choose `Appchain`.
 
 After you've chosen `AppChain`, the CLI will ask to choose the prover. You should choose `Dummy` - this will essentially skip proving transactions completely.
 
