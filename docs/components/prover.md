@@ -54,6 +54,10 @@ While proofs provide many guarantees, some key examples include:
 
 Therefore, the prover is the entity guaranteeing the blockchain's integrity - it's there to make sure everyone follows the rules.
 
+:::info
+In a production  environment, the prover can't enforce all of the network rules by itself. Therefore, a few more steps are needed, but those are left out for simplicity.
+:::
+
 ## How proofs help chains scale
 
 Blockchains are typically secure because every node verifies each transaction. However, this does not scale well - you can't expect each node to keep up with an ever increasing amount of transactions.
@@ -142,10 +146,9 @@ Verifying that the on-chain verifier does what it should do is generally achieve
 
 In theory, one can use any ZK prover that accepts inputs in the desired format. However, most provers do not have the needed tooling available.
 
-Madara highly encourages using a prover that is compatible with existing tooling. Currently the main compatible prover is called [SHARP](https://docs.starknet.io/architecture-and-concepts/provers-overview/). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
+Madara highly encourages using a prover that is compatible with existing tooling. Currently the main compatible prover is called [Stone](https://github.com/starkware-libs/stone-prover). Other prover options are being built but are not yet ready, such as [Stwo](https://github.com/starkware-libs/stwo).
 
-To utilize the SHARP prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the settlement layer automatically. Madara suggests Atlantic when starting an Appchain.
-
+To utilize the Stone prover, it's easiest to use a service called [Atlantic](https://atlanticprover.com/). The service also posts the ready proofs to the settlement layer automatically. Madara suggests Atlantic when starting an Appchain.
 
 ## Read more
 
