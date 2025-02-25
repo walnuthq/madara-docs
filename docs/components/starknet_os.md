@@ -12,7 +12,7 @@ SNOS is a Rust library for managing the execution of the Cairo Virtual Machine (
 
 The responsibilities of the SNOS are:
 - Run and manage the CairoVM.
-- Execute each block to generate a *trace* (also called a [PIE](https://github.com/starkware-libs/cairo-lang/blob/a86e92bfde9c171c0856d7b46580c66e004922f3/src/starkware/cairo/lang/vm/cairo_pie.py#L219-L225)).
+- Execute each block to generate a *trace*.
 - Translate between different data formats when managing CairoVM inputs and outputs.
 
 ## Execution
