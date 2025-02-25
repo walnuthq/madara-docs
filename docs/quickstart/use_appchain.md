@@ -13,7 +13,7 @@ Starting an Appchain launches multiple services. A few notable ones are:
 - Blockchain
 - Core contract
 
-We will demonstrate how you can query these services to see the status of your Appchain.
+We will demonstrate how you can query these services to see the status of your Appchain. Note that it may take a few minutes for the Appchain to start gathering data to display.
 
 ## MongoDb
 
@@ -25,19 +25,13 @@ The database displays four tables. Currently, we're most interested in the orche
 
 ### Query orchestrator
 
-TODO
+The orchestrator is running various jobs all the time. We can query its logs to see the latest performed jobs:
+1. Go to the `orchestrator` database and its `jobs` table
+1. Under the `Documents` tab there is a query row. Go all the way right to click on `Options`
+1. Enter `Sort`: `{ "created_at": -1 }`
+1. Hit `Find`
 
-```
-{
-  $nor: [
-    { job_type: 'SnosRun' },
-    { job_type: 'StateTransition' },
-    { job_type: 'ProofCreation', status: 'Completed' },
-{ job_type: 'ProofCreation', status: 'PendingVerification' },
-{ job_type: 'DataSubmission', status: 'Completed' }
-  ]
-}
-```
+![Latest job](/img/pages/mongodb-latest-job.png "Latest job")
 
 ## Blockchain
 
@@ -72,5 +66,7 @@ curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
 }'
 ```
 
+## Grafana
 
-TODO: we wanna interact with core contract + see the orch running + mongodb for block status
+The Appchain utilizes [Grafana](https://grafana.com/) for log and metrics aggregation. We will later add a detailed guide on how to set up Grafana for your Appchain. Meanwhile, here are some examples what you can do.
+
