@@ -2,11 +2,11 @@
 sidebar_position: 2
 ---
 
-# Use a running local chain
+# Use a running devnet
 
 ## Overview
 
-This quick-start guide helps you interact with a local chain. Please make sure you are [running a local Madara chain](run_localchain) before continuing.
+This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) before continuing.
 
 ## Installation
 
@@ -101,22 +101,22 @@ scarb build
 
 ## Configure your account and signer
 
-Before you can interact with the network you need an account. Luckily, running the chain gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
 However, to use these accounts with Starknet tooling, they must be stored in the correct format.
 
-First, make sure you are still in the `madara_quickstart` folder. Since the local blockchain should be running at address `http://localhost:9944`, you can now store an account with:
+First, make sure you are still in the `madara_quickstart` folder. Since the local devnet should be running at address `http://localhost:9944`, you can now store an account with:
 
 :::info
 If needed, remember to replace the following values in the command below:
-- `address`: the public address of the chosen account given upon launching the chain
+- `address`: the public address of the chosen account given upon launching the devnet
 - `private-key`: the private key associated with the chosen account
 :::
 
 ```bash
 sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
-![Account creation](/img/quickstart-local-import.png "Account creation")
+![Account creation](/img/quickstart-devnet-import.png "Account creation")
 Note the imported account name.
 
 :::warning
@@ -140,7 +140,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 declare --url http://localhost:9944 --contract-name Balance
 ```
 
-![Class hash](/img/quickstart-local-classhash.png "Resulting class hash")
+![Class hash](/img/quickstart-devnet-classhash.png "Resulting class hash")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
 
@@ -156,7 +156,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x000021c5ab1ee26d82392d9d157f78f8fab4a8ac501d65b531e74366bc88eb82
 ```
 
-![Contract address](/img/quickstart-local-contract.png "Resulting class contract address")
+![Contract address](/img/quickstart-devnet-contract.png "Resulting class contract address")
 
 Note the deployed contract's address.
 
