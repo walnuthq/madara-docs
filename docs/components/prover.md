@@ -8,7 +8,7 @@ sidebar_position: 10
 
 A prover is a program that generates cryptographic proofs of computation. What exactly is proved depends on the context.
 
-In Madara, the prover calculates validity proofs for a block, providing mathematical guarantees of the block's correctness.
+In Madara, the prover calculates validity proofs for a block, providing mathematical guarantees of the block's correctness. This is explained in more details below.
 
 ## Responsibilities
 
@@ -31,11 +31,11 @@ While proof generation can be a very costly operation, proof verification is ver
 Before the prover starts generating a proof for a block, the block's transactions are executed with a [Cairo](https://starkware.co/cairo/) program through the [orchestrator](/components/orchestrator). This execution returns a record of all performed operations - this record is usually called a *trace*.
 
 After generating the trace, the prover performs the following steps for each block:
-1. Receive the trace and other metadata as input.
+1. Receive the execution trace for the block and other metadata as input.
 1. Calculate a cryptographic proof for the block.
 1. Submit the proof to the settlement layer for verification.
 
-If the proof is not valid, the proof is rejected and the block is considered invalid in the Appchain. The included transactions are reverted.
+If the proof is not valid, the proof is rejected by the verifier and the block is considered invalid in the Appchain. The included transactions are reverted.
 
 ```mermaid
 graph LR;
