@@ -24,11 +24,13 @@ We will use two tools for the bridging. Install them based on your needs:
 
 ## L1 to L2
 
+Bridging from the settlement layer to the Appchain is a rather straightforward process. It pnly requires calling the bridge contract on L1 with a carefully crafted message and the assets should transfer within a few minutes.
+
 ### Data preparations
 
 !!A lot of TODOs here!!
 
-In order to bridge assets from the settlement layer to your Appchain you need to have certain values prepared. Most of them you get from Appchain logs. Here are the ones used in the commands later:
+First, you need to prepare parameters for the bridging command. Most of them you get from Appchain logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Anvil comes with some accounts with ready assets (Eth).
 * L1 bridge address.
   * Used value: `0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc`
@@ -70,6 +72,12 @@ cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
 ```
 
 The assets should get bridged within a few minutes.
+
+# L2 to L1
+
+Bridging from the Appchain to the settlement layer is a bit more elaborate process. It requires executing a transactions on both layers and waiting for a lot longer for the transaction to finalize. TODO: does this apply to our own appchain also...?
+
+
 
 ## Read more
 
