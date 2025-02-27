@@ -40,7 +40,7 @@ The CLI starts all of the required components automatically. Some of the main co
 - Madara sequencer. Your node for receiving transactions and building blocks
 - [Orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer
 - A prover. This generates (mock) proofs for your blocks.
-- A local Ethereum blockchain. This is the [settlement](/concepts/settlement) layer used for your Appchain. Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
+- A local Ethereum blockchain. This is the settlement layer used for your Appchain. Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
 
 ## Summary
 
