@@ -24,33 +24,23 @@ After you've chosen `AppChain`, the CLI will ask to choose the prover. You shoul
 
 Congratulations, you now have your own Appchain running!
 
-## A deeper look at the started processes
+### Prover
 
-Next we'll go through some of the components in more detail, to better understand what was started and why.
+A real prover is responsible for calculating cryptographic validity proof for a block, providing mathematical guarantees of the block's correctness. Generating such a proof is a very heavy mathematical computation.
 
-### What is started
+For a real Appchain, a real prover is needed. Currently, you can utilize [Atlantic](https://atlanticprover.com/), but more options will be available later.
+
+You can read more about provers [here](/components/prover).
+
+
+
+## What is started
 
 The CLI starts all of the required components automatically. Some of the main components are:
 - Madara sequencer. Your node for receiving transactions and building blocks
 - [Orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer
-- A mock prover. This generates (mock) proofs for your blocks. This is explained in more detail below.
-- A local Ethereum blockchain. This is the settlement layer used for your Appchain. This is explained in more detail below.
-
-### Prover
-
-The prover is responsible for calculating cryptographic validity proof for a block, providing mathematical guarantees of the block's correctness. Generating such a proof is a very heavy mathematical computation.
-
-In this guide we used a mocked prover. This means the proving part is not performed for real, but only a mock proof is utilized. This means that the component verifying the proof is also a mocked verifier.
-
-For a real Appchain, a real prover is needed. Currently, you can utilize [Atlantic](https://atlanticprover.com/), but more options will be available later.
-
-### Settlement layer
-
-All of our Appchain's transactions are secured by another, underlying blockchain. This other chain is called the settlement layer.
-
-The settlement layer is used to secure the Appchain. If, for whatever reason, the Appchain stops functioning, all of its assets can be recovered in the settlement layer.
-
-Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
+- A prover. This generates (mock) proofs for your blocks.
+- A local Ethereum blockchain. This is the [settlement](/concepts/settlement) layer used for your Appchain. Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
 
 ## Summary
 
