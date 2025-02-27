@@ -22,5 +22,13 @@ We will use two tools for the bridging. Install them based on your needs:
 - If you want to bridge assets from L1 to L2, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
 - If you want to bridge assets from L2 to L1, install both Foundry and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
 
-### 
+## L1 to L2
+
+### What you need
+
+In order to bridge assets from the settlement layer to your Appchain, you need to have the following prepared:
+- Assets to bridge. Luckily, your Anvil comes with some accounts with ready assets (Eth).
+- A private key to the wallet with the assets. Anvil gives you this as well.
+- An account on L2 to receive the assets. TODO
+- 
 
