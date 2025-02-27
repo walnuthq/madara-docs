@@ -26,9 +26,25 @@ We will use two tools for the bridging. Install them based on your needs:
 
 ### What you need
 
-In order to bridge assets from the settlement layer to your Appchain, you need to have the following prepared:
-- Assets to bridge. Luckily, your Anvil comes with some accounts with ready assets (Eth).
+In order to bridge assets from the settlement layer to your Appchain you need to have the following prepared:
+- Assets to bridge and to pay gas fees with. Luckily, your Anvil comes with some accounts with ready assets (Eth).
 - A private key to the wallet with the assets. Anvil gives you this as well.
 - An account on L2 to receive the assets. TODO
-- 
+- L1 bridge address.
+- An RPC URL.
+
+This guide assumes you use the following values. They are suited for a typical Appchain deployment with the CLI:
+
+| Entry | Value | Notes |
+| ---------- | ---------- | -------- |
+| Private key       | TODO | |
+| Asset contract address      | TODO | TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)? |
+| L2 receiver account      | TODO     | This is the decimal version of TODO |
+| L1 bridge address    | TODO | |
+| RPC URL | TODO | |
+
+
+### Perform bridging
+
+We will bridge `456 weis` of Eth to L2.
 
