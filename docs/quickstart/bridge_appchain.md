@@ -37,14 +37,23 @@ This guide assumes you use the following values. They are suited for a typical A
 
 | Entry | Value | Notes |
 | ---------- | ---------- | -------- |
-| Private key       | TODO | |
-| Asset contract address      | TODO | TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)? |
-| L2 receiver account      | TODO     | This is the decimal version of TODO |
-| L1 bridge address    | TODO | |
-| RPC URL | TODO | |
+| Private key       | 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 | This is the last provided account |
+| Asset contract address      | 0x0000000000000000000000000000000000455448 | TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)? |
+| L2 receiver account      | 3293945099482077566294620753663887236810230524774221047563633702975851058323 | This is the decimal representation of 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 TODO |
+| L1 bridge address    | 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc TODO | |
+| RPC URL | http://127.0.0.1:8545 | |
 
 
 ### Perform bridging
 
-We will bridge `456 weis` of Eth to L2.
+We will bridge `345 weis` of Eth to L2.
+
+Here is the command:
+```bash
+cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc --rpc-url http://127.0.0.1:8545 --private-key 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6  "deposit(address,uint256,uint256)" 0x0000000000000000000000000000000000455448 345 3293945099482077566294620753663887236810230524774221047563633702975851058323 --value 0.000001ether
+```
+
+## Read more
+
+- [Starknet docs](https://docs.starknet.io/starkgate/overview/)
 
