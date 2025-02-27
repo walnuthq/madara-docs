@@ -16,7 +16,7 @@ Bridging is a term used to move assets between different blockchains. The blockc
 
 A *bridge* is the solution for bridging. Typically it has a website users can use. In the background, it uses various mechanisms with various trust assumptions.
 
-## Preparations
+## Installation
 
 We will use two tools for the bridging. Install them based on your needs:
 - If you want to bridge assets from L1 to L2, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
@@ -24,7 +24,7 @@ We will use two tools for the bridging. Install them based on your needs:
 
 ## L1 to L2
 
-### What you need
+### Data preparations
 
 !!A lot of TODOs here!!
 
@@ -57,9 +57,7 @@ In order to bridge assets from the settlement layer to your Appchain you need to
 
 ### Perform bridging
 
-We will bridge `345 weis` of Eth to L2.
-
-Here is the command:
+We can utilize Foundry's `cast` command to send a transaction to the L1 blockchain. By inputting our parameters from above, we can send the command:
 ```bash
 cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \ 
 --rpc-url http://127.0.0.1:8545 \
@@ -70,6 +68,8 @@ cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
  3293945099482077566294620753663887236810230524774221047563633702975851058323 \
  --value 0.000001ether
 ```
+
+The assets should get bridged within a few minutes.
 
 ## Read more
 
