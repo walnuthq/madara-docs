@@ -20,7 +20,7 @@ Furthermore, an Appchain is typically built on top of some existing blockchain. 
 
 Go run the [devnet](/quickstart/run_devnet) guide. When prompted for "Madara mode", instead of choosing `Devnet` choose `Appchain`.
 
-After you've chosen `AppChain`, the CLI will ask to choose the prover. You should choose `Dummy` - this will essentially skip proving transactions completely.
+After you've chosen `AppChain`, the CLI will ask to choose the [prover](/components/prover). You should choose `Dummy` - this will essentially skip proving transactions completely.
 
 Congratulations, you now have your own Appchain running!
 
@@ -29,10 +29,6 @@ Congratulations, you now have your own Appchain running!
 A real prover is responsible for calculating cryptographic validity proof for a block, providing mathematical guarantees of the block's correctness. Generating such a proof is a very heavy mathematical computation.
 
 For a real Appchain, a real prover is needed. Currently, you can utilize [Atlantic](https://atlanticprover.com/), but more options will be available later.
-
-You can read more about provers [here](/components/prover).
-
-
 
 ## What is started
 
