@@ -18,29 +18,29 @@ Furthermore, an Appchain is typically built on top of some existing blockchain. 
 
 ## Run the appchain locally
 
-TODO: This section will walk you through setting up appchain step-by-step. Check hardware requirements. Maybe one more sentence.
+These instructions will walk you through setting up an Appchain. Please check the [hardware requirements](/hardware) to make sure you can run the Appchain properly.
 
 ### Step 1: Install Madara CLI and run your Appchain
 
-Follow steps 1-X in the [devnet](/quickstart/run_devnet) guide. After you run the CLI, you will be prompted for the "Madara mode". Instead of choosing `Devnet` choose `Appchain`.
+Follow the [devnet](/quickstart/run_devnet) guide. After you run the CLI, you will be prompted for the "Madara mode". Instead of choosing `Devnet` choose `Appchain`.
 
 ### Step 2: Select the Prover
 
 The CLI will next ask to choose the [prover](/components/prover). There are multiple options:
 
-1. Dummy - skips proving
-2. Atlantic - info
-3. Something - info
+1. `Dummy`. This will essentially skip proof generation and verification completely.
+2. `Atlantic`. A supported [prover service](https://atlanticprover.com/).
+3. `Stwo`. A new prover type. Not fully supported yet.
 
-For now, select Dummy. We will soon update this docs with more info.
+For now, select `Dummy`.
 
 ### Step 3: Select the Settlement (coming soon)
 
-When running your appchain, selecting settlement is an important consideration.
+When running your Appchain, selecting settlement is an important consideration.
 
-At the moment, the CLI will do X when it comes to settlement. We will soon update it to do Y.
+At the moment, the CLI will automatically setup a new Ethereum chain (with Anvil) as the settlement layer. This will become customizable later.
 
-### Step 4: Monitor your appchain
+### Step 4: Your Appchain is ready
 
 Congratulations, you now have your own Appchain running!
 
@@ -48,9 +48,7 @@ After running through the guide above, the CLI starts all of the required compon
 - Madara sequencer. Your node for receiving transactions and building blocks
 - [Orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer
 - A prover. This generates (mock) proofs for your blocks.
-- A local Ethereum blockchain. This is the settlement layer used for your Appchain. Running an Appchain with the CLI sets up an Ethereum blockchain as the settlement layer.
-
-To ensure your chain runs properly, it's a good idea to setup some monitoring. For that check THIS guide (link).
+- A local Ethereum blockchain for settlement.
 
 ## Summary
 
