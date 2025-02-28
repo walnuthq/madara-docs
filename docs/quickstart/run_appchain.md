@@ -50,6 +50,8 @@ After running through the guide above, the CLI starts all of the required compon
 - A prover. This generates (mock) proofs for your blocks.
 - A local Ethereum blockchain for settlement.
 
+To ensure your chain runs properly, it's a good idea to [monitor it](/quickstart/monitor_appchain).
+
 ## Summary
 
 With the CLI it's easy to start your own Appchain. In near future we will post more guides on how to utilize and get familiar with your Appchain, but for now you can start by inspecting the logs of the Appchain to understand what is being run.
