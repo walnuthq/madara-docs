@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 16
 ---
 
 # Appchain bridging
@@ -8,7 +8,7 @@ sidebar_position: 6
 
 This guide helps you bridge assets to your Appchain and back. Please make sure you are [running a local Appchain](/quickstart/run_appchain) with [settlement](/concepts/settlement) before continuing.
 
-A local Appchain settles its transactions on a local Anvil node. A bridge has been automatically setup between the settlement layer and your Appchain. We can utilize that bridge to either deposit assets from the settlement layer (L1) to the Appchain (L2), or to withdraw assets back from L2 to L1.
+A local Appchain settles its transactions on a local Anvil node. A bridge has been automatically setup between the settlement layer and your Appchain. We can utilize that bridge to either deposit assets from the settlement layer to the Appchain, or to withdraw assets back from the settlement layer to the Appchain.
 
 ### What is bridging
 
@@ -19,8 +19,8 @@ A *bridge* is the solution for bridging. Typically it has a website users can us
 ## Installation
 
 We will use two tools for the bridging. Install them based on your needs:
-- If you want to bridge assets from L1 to L2, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
-- If you want to bridge assets from L2 to L1, install both Foundry and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
+- If you want to bridge assets from the settlement layer to Appchain, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
+- If you want to bridge assets from Appchain to the settlement layer, install both Foundry and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
 
 ## What to bridge
 
@@ -38,10 +38,10 @@ Bridging from the settlement layer to the Appchain is a rather straightforward p
 
 First, you need to prepare parameters for the bridging transaction. Most of them you get from Appchain logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Anvil comes with some accounts with ready assets (Eth).
-* L1 bridge address.
+* Settlement layer bridge address.
   * Used value: `0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc`
   * This is given upon launching the Appchain. TODO
-* An L1 RPC URL.
+* A settlement layer RPC URL.
   * Used value: `http://127.0.0.1:8545`
   * This is given upon launching the Appchain
 * A private key to the wallet with the assets. Anvil gives you this as well.
@@ -56,7 +56,7 @@ First, you need to prepare parameters for the bridging transaction. Most of them
 * The amount to be bridged.
   * Used value: `345`
   * This denotes 345 weis.
-* An account on L2 to receive the assets. TODO will be setup automagically?
+* An account on the Appchain to receive the assets. TODO will be setup automagically?
   * Used value: `3293945099482077566294620753663887236810230524774221047563633702975851058323`
   * This is the decimal representation of 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493, which is...TODO
 * Transaction fee for the bridge.
@@ -65,7 +65,7 @@ First, you need to prepare parameters for the bridging transaction. Most of them
 
 ### Perform bridging
 
-We can utilize Foundry's `cast` command to send a transaction to the L1 blockchain. By inputting our parameters from above, we can send the command:
+We can utilize Foundry's `cast` command to send a transaction to the settlement layer. By inputting our parameters from above, we can send the command:
 ```bash
 cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \ 
 --rpc-url http://127.0.0.1:8545 \
@@ -88,7 +88,7 @@ Therefore, the process for bridging from the Appchain is the following:
 1. Wait until the block with the bridging transaction is settled on the settlement layer
 1. Finalize the bridging by issuing a withdrawal transaction on the settlement layer
 
-### Initiate bridging from the Appchain
+### 1. Initiate bridging from the Appchain
 
 #### Import an account
 
@@ -130,7 +130,7 @@ First, you need to prepare parameters for the bridging transaction. Most of them
   * Used value: `678 0`
   * This denotes 678 weis. The last zero is because of Starknet's [peculiar u256 encoding](https://docs.starknet.io/architecture-and-concepts/smart-contracts/serialization-of-cairo-types/#serialization_in_u256_values).
 
-We can utilize Starknet Foundry's `sncast` command to send a transaction to the L2 blockchain. By inputting our parameters from above, we can send the command:
+We can utilize Starknet Foundry's `sncast` command to send a transaction to the Appchain. By inputting our parameters from above, we can send the command:
 ```bash
 sncast --account account-1 invoke \
 --url http://127.0.0.1:8545 \
@@ -141,49 +141,50 @@ sncast --account account-1 invoke \
 678 0
 ```
 
-### Data preparations
+### 2. Wait
 
-!!A lot of TODOs here!!
+The bridging process may take some time. The exact time depends on your Appchain settings. In Starknet mainnet this bridging takes about 10 hours.
 
-First, you need to prepare parameters for the bridging transaction. Most of them you get from Appchain logs. Here are the ones used in the command later:
+TODO: how do we know when the bridging is ready?
+
+### 3. Finish bridging from the settlement layer
+
+Prepare parameters for finishing the bridging transaction. Most of them you get from Anvil logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
-* L1 bridge address.
-  * Used value: `0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc` TODO
-  * This is given upon launching the Appchain. TODO
-* An L1 RPC URL.
+* Settlement layer bridge address.
+  * Used value: `0xcE5485Cfb26914C5dcE00B9BAF0580364daFC7a4` TODO
+  * This is given upon launching the Appchain. The address also depends on the used token. TODO
+* A settlement layer RPC URL.
   * Used value: `http://127.0.0.1:8545`
-  * This is given upon launching the Appchain
+  * This is given upon launching the Appchain.
 * A private key to the wallet with the assets. Anvil gives you this as well.
   * Used value: `0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6`
-  * This is the private key for the last account provided by Anvil
+  * This is the private key for the last account provided by Anvil.
 * The bridge function's signature.
-  * Used value: `deposit(address,uint256,uint256)`
+  * Used value: `withdraw(address,uint256,address)`
   * This is static and doesn't change.
 * Asset contract address.
-  * Used value: `0x0000000000000000000000000000000000455448`
-  * TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)?
+  * Used value: `0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766`
+  * Address of the used token contract in the settlement layer.
 * The amount to be bridged.
-  * Used value: `345`
-  * This denotes 345 weis.
-* An account on L2 to receive the assets. TODO will be setup automagically?
-  * Used value: `3293945099482077566294620753663887236810230524774221047563633702975851058323`
-  * This is the decimal representation of 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493, which is...TODO
-* Transaction fee for the bridge.
-  * Used value: `0.000001ether`
-  * This is to pay for bridge operations.
+  * Used value: `678`
+  * This denotes 678 weis.
+* An account on the settlement layer to receive the assets. TODO will be setup automagically?
+  * Used value: `0xa0Ee7A142d267C1f36714E4a8F75612F20a79720`
+  * This is the last address provided by Anvil.
 
 
 ```bash
 cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
---rpc-url https://eth-sepolia.g.alchemy.com/v2/dhXdEar96Lbh7_bS_onTTKDWwq037x2j \
---private-key TODO \
+--rpc-url http://127.0.0.1:8545 \
+--private-key 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 \
 "withdraw(address,uint256,address)" \
  0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766 \
- 35700000000000 \
- 0x05BA586F822cE9debaE27FA04a3e71721FDc90Ff
+ 678 \
+ 0xa0Ee7A142d267C1f36714E4a8F75612F20a79720
 ```
 
-The assets should get bridged within a few minutes.
+The assets should be in your wallet instantly.
 
 ## Read more
 
