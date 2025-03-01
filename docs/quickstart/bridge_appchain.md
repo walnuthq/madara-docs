@@ -22,9 +22,15 @@ We will use two tools for the bridging. Install them based on your needs:
 - If you want to bridge assets from L1 to L2, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
 - If you want to bridge assets from L2 to L1, install both Foundry and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
 
-## L1 to L2
+## What to bridge
 
-Bridging from the settlement layer to the Appchain is a rather straightforward process. It pnly requires calling the bridge contract on L1 with a carefully crafted message and the assets should transfer within a few minutes.
+The used bridge, Starkgate, supports [multiple tokens](https://docs.starknet.io/starkgate/overview/) (TODO: does our bridge support the same?). If the used settlement layer is Ethereum, it's also possible to bridge the native asset (Eth).
+
+In this guide we will be bridging STRK tokens.
+
+## Settlement layer to Appchain
+
+Bridging from the settlement layer to the Appchain is a rather straightforward process. It pnly requires calling the bridge contract on the settlement layer with a carefully crafted message and the assets should transfer within a few minutes.
 
 ### Data preparations
 
@@ -43,7 +49,7 @@ First, you need to prepare parameters for the bridging transaction. Most of them
   * This is the private key for the last account provided by Anvil
 * The bridge function's signature.
   * Used value: `deposit(address,uint256,uint256)`
-  * This is statis and doesn't change.
+  * This is static and doesn't change.
 * Asset contract address.
   * Used value: `0x0000000000000000000000000000000000455448`
   * TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)?
@@ -73,9 +79,67 @@ cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
 
 The assets should get bridged within a few minutes.
 
-## L2 to L1
+## Appchain to settlement layer
 
 Bridging from the Appchain to the settlement layer is a bit more elaborate process. It requires executing a transactions on both layers and waiting for a lot longer for the transaction to finalize. TODO: does this apply to our own appchain also... and how long? in mainnet around 10h
+
+Therefore, the process for bridging from the Appchain is the following:
+1. Initiate bridging from the Appchain
+1. Wait until the block with the bridging transaction is settled on the settlement layer
+1. Finalize the bridging by issuing a withdrawal transaction on the settlement layer
+
+### Initiate bridging from the Appchain
+
+#### Import an account
+
+Before you can issue transactions in the Appchain you have to prepare an account. The Appchain provides you with a few ready accounts (TODO: does it?) but you will have to store one in the correct format.
+
+Check the Appchain logs for a ready account. Note its private key and public address and replace those in the following command and execute it:
+```rust
+sncast account import --type oz \
+--url http://localhost:9944 --silent \
+--address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 \
+--private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
+```
+
+Note the imported account name.
+
+#### Appchain transaction
+
+First, you need to prepare parameters for the bridging transaction. Most of them you get from Appchain logs. Here are the ones used in the command later:
+* Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
+* A stored account
+  * Used value: `account-1`
+  * This is the account name you got when importing the account earlier.
+* Appchain RPC URL.
+  * Used value: `http://127.0.0.1:8545`
+  * This is given upon launching the Appchain
+* Appchain bridge address.
+  * Used value: `0x0594c1582459ea03f77deaf9eb7e3917d6994a03c13405ba42867f83d85f085d` TODO
+  * This is given upon launching the Appchain. TODO
+* The bridge function's name.
+  * Used value: `initiate_token_withdraw`
+  * This is static and doesn't change.
+* Asset contract address.
+  * Used value: `0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766` TODO
+  * This is the used token's contract address in the settlement layer
+* Settlement layer address. TODO will be setup automagically?
+  * Used value: `0xa0Ee7A142d267C1f36714E4a8F75612F20a79720`
+  * This is the address that should receive the assets. The last available address from Anvil logs.
+* The amount to be bridged.
+  * Used value: `678 0`
+  * This denotes 678 weis. The last zero is because of Starknet's [peculiar u256 encoding](https://docs.starknet.io/architecture-and-concepts/smart-contracts/serialization-of-cairo-types/#serialization_in_u256_values).
+
+We can utilize Starknet Foundry's `sncast` command to send a transaction to the L2 blockchain. By inputting our parameters from above, we can send the command:
+```bash
+sncast --account account-1 invoke \
+--url http://127.0.0.1:8545 \
+--contract-address 0x0594c1582459ea03f77deaf9eb7e3917d6994a03c13405ba42867f83d85f085d \
+--function "initiate_token_withdraw" \
+--calldata 0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766 \
+0xa0Ee7A142d267C1f36714E4a8F75612F20a79720 \
+678 0
+```
 
 ### Data preparations
 
@@ -94,7 +158,7 @@ First, you need to prepare parameters for the bridging transaction. Most of them
   * This is the private key for the last account provided by Anvil
 * The bridge function's signature.
   * Used value: `deposit(address,uint256,uint256)`
-  * This is statis and doesn't change.
+  * This is static and doesn't change.
 * Asset contract address.
   * Used value: `0x0000000000000000000000000000000000455448`
   * TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)?
@@ -107,37 +171,6 @@ First, you need to prepare parameters for the bridging transaction. Most of them
 * Transaction fee for the bridge.
   * Used value: `0.000001ether`
   * This is to pay for bridge operations.
-
-### Initiate bridging: Appchain
-
-As mentioned, the briding happens in two phases. First we have to send assets to the bridge and in a separate transaction withdraw assets from the bridge at the other layer.
-
-#### Import an account
-
-Before you can issue transactions in the Appchain you have to prepare an account. The Appchain provides you with a few ready accounts (TODO: does it?) but you will have to store one in the correct format.
-
-Check the Appchain logs for a ready account. Note its private key and public address and replace those in the following command and execute it:
-```rust
-sncast account import --type oz \
---url http://localhost:9944 --silent \
---address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 \
---private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
-```
-
-Note the imported account name.
-
-#### Appchain transaction
-
-We can utilize Starknet Foundry's `sncast` command to send a transaction to the L2 blockchain. By inputting our parameters from above, we can send the command:
-```bash
-sncast --account account-2 invoke \
---url https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_7/Ei6nQQBvkurspHJqlZ6_AOPEaXyOZQ5_ \
---contract-address 0x04c5772d1914fe6ce891b64eb35bf3522aeae1315647314aac58b01137607f3f \
---function "initiate_token_withdraw" \
---calldata 0x0000000000000000000000000000000000455448 \
-0x05BA586F822cE9debaE27FA04a3e71721FDc90Ff \
-85300000000000 0
-```
 
 
 ```bash
