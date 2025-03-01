@@ -13,7 +13,7 @@ Starting an Appchain launches multiple services. A few notable ones are:
 - Blockchain
 - Performance monitoring
 
-We will demonstrate how you can query some of these services to see the status of your Appchain. Note that it may take a few minutes for the Appchain to start gathering data to display.
+We will demonstrate how you can query these services to see the status of your Appchain. Note that it may take a few minutes for the Appchain to start gathering data to display.
 
 ## Orchestrator
 
@@ -59,8 +59,7 @@ Notes on the parameters:
 - The verifier contract should be deployed at `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`.
 - The target function is called `stateBlockNumber()`. It first has to be converted into its shortened hash value, which gives us `0x35befa5d`.
 
-Therefore, to retrieve the latest settled block number, you should run:
-
+The entire call becomes:
 ```bash
 curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
   "jsonrpc": "2.0",
@@ -72,3 +71,9 @@ curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
   "id": 1
 }'
 ```
+
+## Grafana
+
+The Appchain utilizes [Grafana](https://grafana.com/) for log and metrics aggregation. We will later add a detailed guide on how to set up Grafana for your Appchain. Meanwhile, here are some examples on what you can monitor.
+
+TODO: add screenshots with small explanations.
