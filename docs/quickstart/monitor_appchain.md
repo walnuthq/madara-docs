@@ -59,7 +59,7 @@ Notes on the parameters:
 - The verifier contract should be deployed at `0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512`.
 - The target function is called `stateBlockNumber()`. It first has to be converted into its shortened hash value, which gives us `0x35befa5d`.
 
-The entire call becomes:
+Therefore, to retrieve the latest settled block number, you should run:
 ```bash
 curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
   "jsonrpc": "2.0",
