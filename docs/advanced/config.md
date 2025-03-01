@@ -11,6 +11,8 @@ Blah.
 
 ## Configuration values
 
+These values reflect the values shown [here](https://github.com/madara-alliance/madara/blob/main/configs/presets/mainnet.yaml).
+
 | **Key** | **Explanation** | **Default Value** |
 |---------|-----------------|-------------------|
 | chain_name | Chain name | Starknet Mainnet |
@@ -46,6 +48,6 @@ Blah.
 | mempool_tx_max_age | After which time a transaction gets removed from the mempool. null means no removals. | null |
 
 
-https://github.com/madara-alliance/madara/blob/main/configs/presets/mainnet.yaml
+
 
 
