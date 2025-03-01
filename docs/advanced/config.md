@@ -15,11 +15,11 @@ Blah.
 |---------|-----------------|-------------------|
 | chain_name | Chain name | Starknet Mainnet |
 | chain_id | Chain ID | 0x534e5f4d41494e |
-| feeder_gateway_url | Feeder gateway URL | https://alpha-mainnet.starknet.io/feeder_gateway/ |
-| gateway_url | Gateway URL | https://alpha-mainnet.starknet.io/gateway/ |
+| feeder_gateway_url | Feeder gateway URL TODO | https://alpha-mainnet.starknet.io/feeder_gateway/ |
+| gateway_url | Gateway URL TODO | https://alpha-mainnet.starknet.io/gateway/ |
 | native_fee_token_address | Native fee token address | 0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d |
-| parent_fee_token_address | Parent fee token address | 0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7 |
-| latest_protocol_version | Latest protocol version | 0.13.2 |
+| parent_fee_token_address | Parent fee token address TODO | 0x049d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7 |
+| latest_protocol_version | Latest supported [Starknet version](https://www.starknet.io/developers/roadmap/) | 0.13.2 |
 | block_time | Block time | 30s |
 | pending_block_update_time | Pending block update time | 2s |
 | execution_batch_size | Execution batch size | 16 |
