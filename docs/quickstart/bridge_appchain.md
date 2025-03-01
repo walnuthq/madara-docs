@@ -28,7 +28,7 @@ The used bridge, Starkgate, supports [multiple tokens](https://docs.starknet.io/
 
 In this guide we will be bridging STRK tokens.
 
-## Settlement layer to Appchain
+## Bridge from settlement layer to Appchain
 
 Bridging from the settlement layer to the Appchain is a rather straightforward process. It pnly requires calling the bridge contract on the settlement layer with a carefully crafted message and the assets should transfer within a few minutes.
 
@@ -79,7 +79,7 @@ cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
 
 The assets should get bridged within a few minutes.
 
-## Appchain to settlement layer
+## Bridge from Appchain to settlement layer
 
 Bridging from the Appchain to the settlement layer is a bit more elaborate process. It requires executing a transactions on both layers and waiting for a lot longer for the transaction to finalize. TODO: does this apply to our own appchain also... and how long? in mainnet around 10h
 
@@ -147,7 +147,7 @@ The bridging process may take some time. The exact time depends on your Appchain
 
 TODO: how do we know when the bridging is ready?
 
-### 3. Finish bridging from the settlement layer
+### 3. Finish bridging in the settlement layer
 
 Prepare parameters for finishing the bridging transaction. Most of them you get from Anvil logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
