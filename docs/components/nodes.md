@@ -37,15 +37,34 @@ The exact functionality of the capabilities is explained a bit later. Any of the
 
 A full node stores the entire state of the blockchain and validates transactions.
 
+Whenever the node receives new transactions and blocks it validates them to make sure they follow the network's rules. Invalid data is not accepted.
+
 #### Archive node
 
 An archive node is a full node that retains all historical data. 
 
-Full nodes may sometimes be configured to prune old data to save disk space. By default, full nodes are also archive nodes.
+Full nodes may sometimes be configured to prune old data to save disk space. By default, full nodes act also as archive nodes.
 
 ### Sequencer
 
+A sequencer node is responsible for executing tranactions forming blocks of transactions.
 
+Transactions are received from full nodes. If the sequencer acts also as a full node, it may receive new transactions directly from users.
+
+A sequencer has always a block they are building. When a new transaction is received, it's added to the current block - if there is space. Once a block is full it is 
+
+#### Execution
+
+
+
+- "How sequencers execute transactions? Blockifier is the execution engine, it takes a transaction, and state, execute it and returns the state diff of that txs.
+So, in block production module, Madara calls blockifier to execute the txs it receive.
+(so, we could add blockifier, but in general we can abstract us from that and think a sequencer as something that generates a block and it correspondent  sate diff)"
+
+"you can spin up a Madara instance in "sequencer mode". This would act as spinning up a "solo chain". Snos only enters into play in "appchain mode" -> when you want to settle in ethereum (L2) on Starknet (L3)"
+
+
+- Blockifier
 
 ### Gateway
 
@@ -74,7 +93,6 @@ A full node:
 - Interacts with the orchestrator, offloading a lot of communications to it
 
 
-- What is a node client
 - What does it mean to run a node
 - Often includes own account contract implementation
 - One of the main components handling txs and blockchain data
@@ -84,8 +102,6 @@ A full node:
 
 - Full node, light client (only beerus which is inactive), archive node
 - A few words on hardware requirements in general
-- What node variants does Madara offer (only full node, don't think sequencer counts as a node client)
-- gateway can be on or off
 
 ### Available node clients
 
