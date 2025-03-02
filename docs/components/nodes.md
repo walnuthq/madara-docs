@@ -47,15 +47,15 @@ Full nodes may sometimes be configured to prune old data to save disk space. By 
 
 ### Sequencer
 
-A sequencer node is responsible for executing tranactions forming blocks of transactions.
+A sequencer node is responsible for executing forming blocks of transactions.
 
 Transactions are received from full nodes. If the sequencer acts also as a full node, it may receive new transactions directly from users.
 
-A sequencer has always a block they are building. When a new transaction is received, it's added to the current block - if there is space. Once a block is full it is 
+Once a new transaction is received, the sequencer executes it. After that, the transaction is added to a pending block.
 
 #### Execution
 
-
+If appchain -> snos. otherwise -> blockifier. TODO
 
 - "How sequencers execute transactions? Blockifier is the execution engine, it takes a transaction, and state, execute it and returns the state diff of that txs.
 So, in block production module, Madara calls blockifier to execute the txs it receive.
@@ -67,6 +67,12 @@ So, in block production module, Madara calls blockifier to execute the txs it re
 - Blockifier
 
 ### Gateway
+
+A gateway is a collection of endpoints at the node. 
+
+These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers.
+
+Sometimes the term *feeder gateway* is used. This is the same as *gateway*.
 
 ### Public-facing API
 
