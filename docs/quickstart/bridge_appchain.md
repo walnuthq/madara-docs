@@ -12,9 +12,11 @@ A local Appchain settles its transactions on a local Anvil node. A bridge has be
 
 ### What is bridging
 
-Bridging is a term used to move assets between different blockchains. The blockchains may be layered (L1 and L2, for example) or they may be totally unrelated. Bridging is generally easier and safer between layered blockchains.
+Bridging is a term used to move assets between two different blockchains. The blockchains may be layered (L1 and L2, for example) or they may be totally unrelated. Bridging is generally easier and safer between layered blockchains.
 
 A *bridge* is the solution for bridging. Typically it has a website users can use. In the background, it uses various mechanisms with various trust assumptions.
+
+Bridging can happen in either direction. The exact mechanisms may differ, but the end result is very similar: your asset gets transferred to the other side of the bridge.
 
 ## Installation
 
@@ -62,6 +64,10 @@ First, you need to prepare parameters for the bridging transaction. Most of them
 * Transaction fee for the bridge.
   * Used value: `0.000001ether`
   * This is to pay for bridge operations.
+
+:::warning
+Never use private keys linked to real assets directly in commands. These examples are only meant for educational use.
+:::
 
 ### Perform bridging
 
