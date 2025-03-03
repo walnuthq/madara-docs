@@ -55,7 +55,27 @@ Once a new transaction is received, the sequencer executes it. After that, the t
 
 #### Execution
 
-If appchain -> snos. otherwise -> blockifier. TODO
+Transactions are executed in two different ways, depending on whether we are running a full Appchain or a solo chain / devnet.
+
+In an Appchain, transactions are executed with [SNOS](/components/starknet_os). In a devnet, a component called blockifier is used.
+
+```mermaid
+graph LR;
+  A[Transaction] --> B{Appchain Mode?};
+  
+  B -- Yes --> C[SNOS];
+  C --> E[Apply State Changes];
+  E --> F[Execution Result];
+
+  B -- No --> G[Blockifier];
+  G --> E;
+```
+
+Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach.
+
+
+
+
 
 - "How sequencers execute transactions? Blockifier is the execution engine, it takes a transaction, and state, execute it and returns the state diff of that txs.
 So, in block production module, Madara calls blockifier to execute the txs it receive.
@@ -70,7 +90,9 @@ So, in block production module, Madara calls blockifier to execute the txs it re
 
 A gateway is a collection of endpoints at the node. 
 
-These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers.
+These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers. 
+
+Gateways will get deprecated once direct, peer to peer communication becomes available in the SN Stack.
 
 Sometimes the term *feeder gateway* is used. This is the same as *gateway*.
 
@@ -79,7 +101,6 @@ Sometimes the term *feeder gateway* is used. This is the same as *gateway*.
 Furthermore, nodes may or may not expose a public-facing RPC API. This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
 
 A non-sequencer node forwards transactions to a sequencer node, but can provide direct read access to the Appchain.
-
 
 
 ### Responsibilities
@@ -91,7 +112,9 @@ A full node:
 
 
 
-- Receives txs from gateway
+
+
+
 - Executes txs and updates the blockchain state
 - Forms blocks
 - Responds to JSON-RPC queries
