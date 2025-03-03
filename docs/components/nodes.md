@@ -79,6 +79,12 @@ graph LR;
 
 Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach.
 
+### Cooperation with the orchestrator
+
+The [orchestrator](/components/orchestrator) functions in close cooperation with the sequencer.
+
+The orchestrator was initially separated from the sequencer to keep the sequencer as lightweight as possible. It was designed to handle much of the communication and coordination between various components.
+
 ### Gateway
 
 A gateway is a collection of endpoints at the node. 
@@ -95,32 +101,33 @@ Furthermore, nodes may or may not expose a public-facing [RPC API](https://githu
 
 A non-sequencer node forwards transactions to a sequencer node but can provide direct read access to the Appchain.
 
+## Node clients
+
+Node clients are software that utilizes nodes. These can divided in three categories:
+1. Browser clients
+1. Command-line interfaces
+1. Developer clients
+
+### Browser clients
+
+Several browser clients exist for interacting with Madara Appchains and Starknet. They are built as browser extensions.
+
+You can check the current options [here](https://www.starknet.io/wallets/).
+
+### Command-line interfaces
+
+Various developer tools exist to interact with Madara Appchains and Starknet. These tools are not beginner-friendly and are meant mostly for developers to quickly interact with the chain.
+
+You can check the current options [here](https://docs.starknet.io/tools/devtools/interacting-with-starknet/).
+
+### Developer clients
+
+These are various libraries and SDKs that allow developers to utilize nodes. They are typically embedded in other, larger systems that provide blockchain functionality for users.
 
 
 
 
 
-
-- Updates blocks based on work from other components (mostly settlement layer proof verification)
-- Interacts with the orchestrator, offloading a lot of communications to it
-
-
-- What does it mean to run a node
-- Often includes own account contract implementation
-- One of the main components handling txs and blockchain data
-- Main entity providing blockchain data for external parties (such as SNOS and users)
-
-### Node types
-
-- Full node, light client (only beerus which is inactive), archive node
-- A few words on hardware requirements in general
-
-### Available node clients
-
-- Browser: Argent, Braavos
-- List some CLI tools
-
-## Responsibilities
 
 
 
@@ -130,10 +137,7 @@ A non-sequencer node forwards transactions to a sequencer node but can provide d
 - Aware of the blockchain state: execute tx with that
 - Creates state diffs and blocks
 
-### How to decide the amount of txs in a block
 
-- More txs in a block means cheaper per-tx costs, but longer wait times (explain why)
-- The costs can be subsidied so wait times stay reasonable
 
 ## Read more
 
