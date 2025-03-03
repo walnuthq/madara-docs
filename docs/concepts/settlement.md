@@ -77,5 +77,5 @@ For convenience, the settlement layer is often a multipurpose blockchain. But, a
 
 ## Read more
 
-- https://ethereum.org/en/developers/docs/scaling/zk-rollups/#transaction-finality
-- Chapter 4 of https://www.starknet.io/what-is-starknet/
+- [About finality](https://ethereum.org/en/developers/docs/scaling/zk-rollups/#transaction-finality)
+- [Chapter 4](https://www.starknet.io/what-is-starknet/) related to settlement
