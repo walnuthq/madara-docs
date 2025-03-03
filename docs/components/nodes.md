@@ -39,6 +39,12 @@ A full node stores the entire state of the blockchain and validates transactions
 
 Whenever the node receives new transactions and blocks it validates them to make sure they follow the network's rules. Invalid data is not accepted.
 
+#### State updates
+
+TODO: who executes? Who gets state updates and how
+
+TODO: add state updates based on L1 proof verification
+
 #### Archive node
 
 An archive node is a full node that retains all historical data. 
@@ -47,7 +53,7 @@ Full nodes may sometimes be configured to prune old data to save disk space. By 
 
 ### Sequencer
 
-A sequencer node is responsible for executing forming blocks of transactions.
+A sequencer node is responsible for executing transactions and organizing them in a block.
 
 Transactions are received from full nodes. If the sequencer acts also as a full node, it may receive new transactions directly from users.
 
@@ -73,19 +79,6 @@ graph LR;
 
 Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach.
 
-
-
-
-
-- "How sequencers execute transactions? Blockifier is the execution engine, it takes a transaction, and state, execute it and returns the state diff of that txs.
-So, in block production module, Madara calls blockifier to execute the txs it receive.
-(so, we could add blockifier, but in general we can abstract us from that and think a sequencer as something that generates a block and it correspondent  sate diff)"
-
-"you can spin up a Madara instance in "sequencer mode". This would act as spinning up a "solo chain". Snos only enters into play in "appchain mode" -> when you want to settle in ethereum (L2) on Starknet (L3)"
-
-
-- Blockifier
-
 ### Gateway
 
 A gateway is a collection of endpoints at the node. 
@@ -94,30 +87,20 @@ These endpoints offer access to raw Appchain data. Other full nodes can call the
 
 Gateways will get deprecated once direct, peer to peer communication becomes available in the SN Stack.
 
-Sometimes the term *feeder gateway* is used. This is the same as *gateway*.
+Sometimes the term *feeder gateway* (or *fgw*), is used. This is the same as *gateway*.
 
 ### Public-facing API
 
-Furthermore, nodes may or may not expose a public-facing RPC API. This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
+Furthermore, nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
 
-A non-sequencer node forwards transactions to a sequencer node, but can provide direct read access to the Appchain.
-
-
-### Responsibilities
-
-Different node types have different responsibilities.
-
-A full node:
-1. Shares state and updates to it to other full nodes
+A non-sequencer node forwards transactions to a sequencer node but can provide direct read access to the Appchain.
 
 
 
 
 
 
-- Executes txs and updates the blockchain state
-- Forms blocks
-- Responds to JSON-RPC queries
+
 - Updates blocks based on work from other components (mostly settlement layer proof verification)
 - Interacts with the orchestrator, offloading a lot of communications to it
 
