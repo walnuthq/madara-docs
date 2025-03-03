@@ -4,7 +4,7 @@ sidebar_position: 8
 
 # Hardware requirements
 
-Below are the minimum hardware requirements for running an Appchain.
+Below are the minimum hardware requirements for running an Appchain with Madara.
 
 Remember to scale these up according to needs.
 
