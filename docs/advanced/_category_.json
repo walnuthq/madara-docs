@@ -1,0 +1,8 @@
+{
+  "label": "Advanced",
+  "position": 8,
+  "link": {
+    "type": "generated-index",
+    "description": "Advanced guides for settings up your Appchain."
+  }
+}
