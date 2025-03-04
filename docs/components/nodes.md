@@ -64,8 +64,6 @@ Transactions are executed in two different ways, depending on whether we are run
 
 In an Appchain, transactions are executed with [SNOS](/components/starknet_os). In a devnet, a component called blockifier is used.
 
-TODO: remove full node
-
 ```mermaid
 graph LR;
   A[Transaction] --> B{Appchain Mode?};
@@ -80,7 +78,7 @@ graph LR;
 
 Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach.
 
-### Cooperation with the orchestrator
+#### Cooperation with the orchestrator
 
 The [orchestrator](/components/orchestrator) functions in close cooperation with the sequencer.
 
@@ -98,9 +96,9 @@ Sometimes the term *feeder gateway* (or *fgw*), is used. This is the same as *ga
 
 ### Public-facing API
 
-Furthermore, nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
+Nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
 
-A non-sequencer node forwards transactions to a sequencer node but can provide direct read access to the Appchain.
+A non-sequencer node forwards transactions to a sequencer node but can still provide direct read access to the Appchain.
 
 ## Node clients
 
