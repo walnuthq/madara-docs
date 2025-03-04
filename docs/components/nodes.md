@@ -12,15 +12,14 @@ Nodes help manage this workload by facilitating network synchronization and prov
 
 ## Node capabilities
 
-Madara nodes can be categorized based on four main capabilities:
+Madara nodes can be categorized based on three main capabilities:
 | Capability | Description |
 |------------|-------------|
 | **Full Node** | Maintains complete blockchain state and history |
 | **Sequencer** | Participates in transaction ordering and block production |
 | **Gateway** | Exposes synchronization endpoints for other Madara nodes to connect and sync from |
-| **Public-facing API** | An RPC API providing users access to the Appchain |
 
-The exact functionality of the capabilities is explained a bit later. Any of these can be either turned on or off but the sequencer and gateway are useless without full node functionality. Furthermore, the public-facing API does not affect the node's logic.
+The exact functionality of each capability is explained later. Any of these can be either turned on or off but the sequencer and gateway are useless without full node functionality.
 
 Assuming the node has full node capabilities turned on, the options for sequencer and gateway variants are:
 
@@ -37,11 +36,18 @@ A full node stores the entire state of the blockchain and validates transactions
 
 Whenever the node receives new transactions and blocks it validates them to make sure they follow the network's rules. Invalid data is not accepted.
 
-#### State updates
+#### State updates and synchronization
 
-TODO: who executes? Who gets state updates and how
+There are three main ways how a node receives new Appchain state information:
+1. From other full nodes, during synchronization.
+1. From users issuing transactions
+1. From the settlement layer proof verification contract
 
-TODO: add state updates based on L1 proof verification
+Once you start a new node from scratch, it will start synchronizing its state from other nodes. But synchronization happens also continuously during normal node operations when the node receives new blocks from other sequencers and it updates its own state accordingly.
+
+When a user issues a transaction through a node, that transaction's state diff is synchronized with the node's network state.
+
+Furthermore, once the settlement layer's proof has been verified, the node updates its state accordingly.
 
 #### Archive node
 
@@ -75,7 +81,7 @@ graph LR;
   G --> E;
 ```
 
-Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach.
+Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach. Executing transactions through blockifier has much better performance.
 
 #### Cooperation with the orchestrator
 
@@ -95,7 +101,7 @@ Sometimes the term *feeder gateway* (or *fgw*), is used. This is the same as *ga
 
 ### Public-facing API
 
-Nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
+Furthermore, nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
 
 A non-sequencer node forwards transactions to a sequencer node but can still provide direct read access to the Appchain.
 
@@ -122,23 +128,6 @@ You can check the current options [here](https://docs.starknet.io/tools/devtools
 
 These are various libraries and SDKs that allow developers to utilize nodes. They are typically embedded in other, larger systems that provide blockchain functionality for users.
 
-
-
-
-
-
-
-
-### Blockifier
-
-- Executes transactions in CairoVM (or in SNOS?)
-- Aware of the blockchain state: execute tx with that
-- Creates state diffs and blocks
-
-
-
 ## Read more
 
-- Github links
-- Starknet docs
-- Any other relevant links?
+- [Starknet docs](https://docs.starknet.io/architecture-and-concepts/nodes/)
