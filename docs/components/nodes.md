@@ -13,25 +13,24 @@ Nodes help manage this workload by facilitating network synchronization and prov
 
 ## Node capabilities
 
-Madara nodes can be categorized based on three main capabilities:
+Madara nodes can be categorized based on four main capabilities:
 | Capability | Description |
 |------------|-------------|
 | **Full Node** | Maintains complete blockchain state and history |
 | **Sequencer** | Participates in transaction ordering and block production |
 | **Gateway** | Exposes synchronization endpoints for other Madara nodes to connect and sync from |
+| **Public-facing API** | An RPC API providing users access to the Appchain |
 
-The exact functionality of the capabilities is explained a bit later. Any of these can be either turned on or off, which results in the following variants:
+The exact functionality of the capabilities is explained a bit later. Any of these can be either turned on or off but the sequencer and gateway are useless without full node functionality. Furthermore, the public-facing API does not affect the node's logic.
 
-| Full Node | Sequencer | Gateway | Explanation |
-|:---------:|:---------:|:-------:|------------------|
-| ✅        | ✅        | ✅      | A full sequencer node. |
-| ✅        | ✅        | ❌      | A sequencer node for block production. |
-| ✅        | ❌        | ✅      | A typical full node. |
-| ✅        | ❌        | ❌      | A typical archive node. |
-| ❌        | ✅        | ✅      | A limited sequencer node. No real use. |
-| ❌        | ✅        | ❌      | No real use. |
-| ❌        | ❌        | ✅      | No real use. |
-| ❌        | ❌        | ❌      | No real use. |
+Assuming the node has full node capabilities turned on, the options for sequencer and gateway variants are:
+
+| Sequencer | Gateway | Explanation |
+|:---------:|:-------:|------------------|
+| ✅        | ✅      | A full sequencer node. |
+| ✅        | ❌      | A sequencer node for block production. |
+| ❌        | ✅      | A typical full node. |
+| ❌        | ❌      | A typical archive node. |
 
 ### Full node
 
@@ -64,6 +63,8 @@ Once a new transaction is received, the sequencer executes it. After that, the t
 Transactions are executed in two different ways, depending on whether we are running a full Appchain or a solo chain / devnet.
 
 In an Appchain, transactions are executed with [SNOS](/components/starknet_os). In a devnet, a component called blockifier is used.
+
+TODO: remove full node
 
 ```mermaid
 graph LR;
