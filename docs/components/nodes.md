@@ -89,6 +89,12 @@ The [orchestrator](/components/orchestrator) functions in close cooperation with
 
 The orchestrator was initially separated from the sequencer to keep the sequencer as lightweight as possible. It was designed to handle much of the communication and coordination between various components.
 
+#### Mempool
+
+Sequencers collect transactions submitted by users and order them into blocks. Pending transactions are kept in a queue.
+
+This queue is also called the *mempool*. All valid transactions in the mempool are broadcast to other nodes.
+
 ### Gateway
 
 A gateway is a collection of endpoints at the node. 
