@@ -19,9 +19,9 @@ Madara nodes can be categorized based on three main capabilities:
 | **Sequencer** | Participates in transaction ordering and block production |
 | **Gateway** | Exposes synchronization endpoints for other Madara nodes to connect and sync from |
 
-The exact functionality of each capability is explained later. Any of these can be either turned on or off but the sequencer and gateway are useless without full node functionality.
+The exact functionality of each capability is explained in the following sections. Any of these can be either turned on or off but the sequencer and gateway cannot function properly without full node functionality.
 
-Assuming the node has full node capabilities turned on, the options for sequencer and gateway variants are:
+Madara nodes can have different roles depending on which capabilities they enable. Assuming the node has full node capabilities turned on, the options for sequencer and gateway variants are:
 
 | Sequencer | Gateway | Explanation |
 |:---------:|:-------:|------------------|
@@ -43,7 +43,7 @@ There are three main ways how a node receives new Appchain state information:
 1. From users issuing transactions
 1. From the settlement layer proof verification contract
 
-Once you start a new node from scratch, it will start synchronizing its state from other nodes. But synchronization happens also continuously during normal node operations when the node receives new blocks from other sequencers and it updates its own state accordingly.
+Once you start a new node from scratch, it will start synchronizing its state from other nodes. But synchronization also happens continuously during normal node operations when the node receives new blocks from other sequencers and it updates its own state accordingly.
 
 When a user issues a transaction through a node, that transaction's state diff is synchronized with the node's network state.
 
@@ -53,13 +53,13 @@ Furthermore, once the settlement layer's proof has been verified, the node updat
 
 An archive node is a full node that retains all historical data. 
 
-Full nodes may sometimes be configured to prune old data to save disk space. By default, full nodes act also as archive nodes.
+Full nodes may sometimes be configured to prune old data to save disk space. By default, full nodes also act as archive nodes.
 
 ### Sequencer
 
 A sequencer node is responsible for executing transactions and organizing them in a block.
 
-Transactions are received from full nodes. If the sequencer acts also as a full node, it may receive new transactions directly from users.
+Transactions are received from full nodes. If the sequencer also acts as a full node, it may receive new transactions directly from users.
 
 Once a new transaction is received, the sequencer executes it. After that, the transaction is added to a pending block.
 
@@ -97,13 +97,13 @@ This queue is also called the *mempool*. All valid transactions in the mempool a
 
 ### Gateway
 
-A gateway is a collection of endpoints at the node. 
+A gateway is a collection of endpoints at the node.
 
-These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers. 
+These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers.
 
-Gateways will get deprecated once direct, peer to peer communication becomes available in the SN Stack.
+Gateways will get deprecated once direct, peer-to-peer communication becomes available in the SN Stack.
 
-Sometimes the term *feeder gateway* (or *fgw*), is used. This is the same as *gateway*.
+Sometimes the term *feeder gateway*, is used. This is the same as a *gateway*.
 
 ### Public-facing API
 
@@ -113,7 +113,7 @@ A non-sequencer node forwards transactions to a sequencer node but can still pro
 
 ## Node clients
 
-Node clients are software that utilizes nodes. These can divided in three categories:
+Node clients are software that utilizes nodes. These can be divided in three categories:
 1. Browser clients
 1. Command-line interfaces
 1. Developer clients
