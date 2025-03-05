@@ -6,29 +6,15 @@ sidebar_position: 4
 
 ## Overview
 
-Running an Appchain involves significant computational and operational effort. This workload is distributed across various components.
-
-Nodes help manage this workload by facilitating network synchronization and providing client access.
+Running an Appchain requires multiple components to handle different aspects of the network. Nodes play a crucial role by maintaining blockchain state, synchronizing with other nodes, and providing access to users and applications.
 
 ## Node capabilities
 
-Madara nodes can be categorized based on three main capabilities:
-| Capability | Description |
-|------------|-------------|
-| **Full Node** | Maintains complete blockchain state and history |
-| **Sequencer** | Participates in transaction ordering and block production |
-| **Gateway** | Exposes synchronization endpoints for other Madara nodes to connect and sync from |
+Madara nodes have two primary capabilities:
+- Full Node. Maintains blockchain state and history.
+- Sequencer. Participates in transaction ordering and block production.
 
-The exact functionality of each capability is explained in the following sections. Any of these can be either turned on or off but the sequencer and gateway cannot function properly without full node functionality.
-
-Madara nodes can have different roles depending on which capabilities they enable. Assuming the node has full node capabilities turned on, the options for sequencer and gateway variants are:
-
-| Sequencer | Gateway | Explanation |
-|:---------:|:-------:|------------------|
-| ✅        | ✅      | A full sequencer node. |
-| ✅        | ❌      | A sequencer node for block production. |
-| ❌        | ✅      | A typical full node. |
-| ❌        | ❌      | A typical archive node. |
+The exact functionality of these capabilities is explained in the following sections.
 
 ### Full node
 
@@ -36,32 +22,34 @@ A full node stores the entire state of the blockchain and validates transactions
 
 Whenever the node receives new transactions and blocks it validates them to make sure they follow the network's rules. Invalid data is not accepted.
 
-#### State updates and synchronization
-
-There are three main ways how a node receives new Appchain state information:
-1. From other full nodes, during synchronization.
-1. From users issuing transactions
-1. From the settlement layer proof verification contract
-
-Once you start a new node from scratch, it will start synchronizing its state from other nodes. But synchronization also happens continuously during normal node operations when the node receives new blocks from other sequencers and it updates its own state accordingly.
-
-When a user issues a transaction through a node, that transaction's state diff is synchronized with the node's network state.
-
-Furthermore, once the settlement layer's proof has been verified, the node updates its state accordingly.
-
 #### Archive node
 
-An archive node is a full node that retains all historical data. 
+An archive node is a full node that retains all historical data needed to recreate any historical state.
 
-Full nodes may sometimes be configured to prune old data to save disk space. By default, full nodes also act as archive nodes.
+Full nodes may sometimes be configured to prune old data to save disk space. Madara full nodes also act as archive nodes.
+
+#### RPC API
+
+Full nodes often expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
+
+A non-sequencer node forwards transactions to a sequencer node but can still provide direct read access to the Appchain.
 
 ### Sequencer
 
-A sequencer node is responsible for executing transactions and organizing them in a block.
+A sequencer node is responsible for executing transactions and organizing them in a block. Transactions are typically received from full nodes. 
 
-Transactions are received from full nodes. If the sequencer also acts as a full node, it may receive new transactions directly from users.
+The sequencer checks each new transaction for the following conditions:
+1. Is the transaction valid according to network rules.
+1. Is the transaction ordered correctly (it's the next transaction in line from the originating account).
+1. Is there space left in the current, pending block.
 
-Once a new transaction is received, the sequencer executes it. After that, the transaction is added to a pending block.
+If all of the conditions are met, the transaction is executed and added to a pending block.
+
+#### Mempool
+
+Sequencers collect transactions submitted by users and order them into blocks. Pending transactions are kept in a queue. If the conditions mentioned above are not met, the transaction is kept in the mempool until it becomes valid or outdated (and is removed).
+
+This queue is also called the *mempool*.
 
 #### Execution
 
@@ -83,44 +71,43 @@ graph LR;
 
 Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach. Executing transactions through blockifier has much better performance.
 
-#### Cooperation with the orchestrator
+#### Feeder Gateway
 
-The [orchestrator](/components/orchestrator) functions in close cooperation with the sequencer.
+A feeder gateway is a collection of endpoints at the node that can be turned on or off. These are typically enabled in a sequencer.
 
-The orchestrator was initially separated from the sequencer to keep the sequencer as lightweight as possible. It was designed to handle much of the communication and coordination between various components.
-
-#### Mempool
-
-Sequencers collect transactions submitted by users and order them into blocks. Pending transactions are kept in a queue.
-
-This queue is also called the *mempool*. All valid transactions in the mempool are broadcast to other nodes.
-
-### Gateway
-
-A gateway is a collection of endpoints at the node.
-
-These endpoints offer access to raw Appchain data. Other full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers.
+These endpoints offer access to raw Appchain data. Full nodes can call these endpoints to synchronize their network state - these endpoints are not meant for end users or developers.
 
 Gateways will get deprecated once direct, peer-to-peer communication becomes available in the SN Stack.
 
-Sometimes the term *feeder gateway*, is used. This is the same as a *gateway*.
+When talking about just the term *gateway*, it sometimes refers to the feeder gateway endpoint used for submitting transactions to a sequencer from a full node.
 
-### Public-facing API
+## State updates and synchronization
 
-Furthermore, nodes may or may not expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
+There are three main ways how a node receives new Appchain state information:
+1. From other full nodes, during synchronization (valid only for full nodes).
+1. From users issuing transactions (valid only for sequencers - either through full nodes or directly).
+1. From the settlement layer proof verification contract (valid only for sequencers).
 
-A non-sequencer node forwards transactions to a sequencer node but can still provide direct read access to the Appchain.
+Once you start a new node from scratch, it will start synchronizing its state from a sequencer. But synchronization also happens continuously during normal node operations when the full node receives new blocks from the sequencer and it updates its own state accordingly.
 
-## Node clients
+Furthermore, once the settlement layer's proof has been verified, the node updates its state accordingly.
+
+## Decentralization efforts
+
+Currently, Madara Appchains (and the [SN Stack](https://www.starknet.io/sn-stack/) in general) support only one sequencer. All full nodes synchronize their state initially from this sequencer.
+
+In the near future, multiple sequencers will be supported. At the same time, peer-to-peer protocols will be implemented and full nodes start to synchronize their state from other full nodes.
+
+## Interacting with a node
 
 Node clients are software that utilizes nodes. These can be divided in three categories:
 1. Browser clients
 1. Command-line interfaces
 1. Developer clients
 
-### Browser clients
+### Browser wallets
 
-Several browser clients exist for interacting with Madara Appchains and Starknet. They are built as browser extensions.
+Several browser wallets exist for interacting with Madara Appchains and Starknet. They are built as browser extensions.
 
 You can check the current options [here](https://www.starknet.io/wallets/).
 
@@ -130,7 +117,7 @@ Various developer tools exist to interact with Madara Appchains and Starknet. Th
 
 You can check the current options [here](https://docs.starknet.io/tools/devtools/interacting-with-starknet/).
 
-### Developer clients
+### SDKs
 
 These are various libraries and SDKs that allow developers to utilize nodes. They are typically embedded in other, larger systems that provide blockchain functionality for users.
 
