@@ -89,6 +89,12 @@ This option requires users to trust the chain operators (nodes) that they operat
 
 Additionally, users may have no means of detecting ongoing fraud within the chain.
 
+## Summary
+
+Choosing the right DA solution is a trade-off between costs, security and verifiability.
+
+Storing data on-chain is the most secure and verifiable way, but is by far the most expensive one. Storing at least some of your data off-chain may be a viable option for your Appchain.
+
 ## Read more
 
 - [Starknet docs](https://docs.starknet.io/architecture-and-concepts/network-architecture/data-availability/)
