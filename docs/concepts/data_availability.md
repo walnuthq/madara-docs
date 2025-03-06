@@ -12,7 +12,7 @@ However, on-chain storage is costly and inefficient due to redundancy and high r
 
 The system responsible for storing and ensuring access to this data is called the *data availability layer* and this challenge is generally known as the Data Availability (DA) problem.
 
-Appchains like Madara are not an exception to this and also need to consider their DA approach.
+Appchains like Madara are not an exception to this and also need to consider their DA approach. Currently, Madara supports using the settlement layer as the DA layer, but support for other alternatives will be added in near future.
 
 ### Why is DA needed
 
@@ -47,6 +47,10 @@ However, depending on the blockchain, on-chain storage can be very expensive. Th
 
 Most traditional blockchains store their data on-chain. A notable example is Ethereum.
 
+#### Trust assumptions
+
+This option introduces no extra trust assumptions: the users do not need to trust any external parties.
+
 ### Option 2: Store data elsewhere
 
 The data can be stored in other locations. This location can be either a specialized DA layer or some generic file storage.
@@ -63,6 +67,14 @@ The main benefit is cost-efficiency: off-chain storage is much cheaper and easie
 
 A notable example of off-chain storage approach is with an approach called *Validium*. Data is stored off-chain and only proofs of its validity are posted on the settlement layer.
 
+#### Trust assumptions
+
+This option requires users to trust the DA layer. There are a few general ways of achieving this trust:
+1. Social consensus. If many users successfully retrieve data over time, the DA layer is likely reliable. However, this is just an informal method.
+1. Sampling. Use some mechanism to sample data from the DA layer periodically to make sure it retains the data.
+1. Redundancy. Add redundancy to the stored data - if some data is lost, it can still be reconstructed.
+1. Economic incentives. Use a model like staking where the DA layer loses assets if it fails to provide the right data.
+
 ### Option 3: Don't store the data
 
 In some cases, storing all data may not be necessary. This can happen in the following scenarios:
@@ -71,34 +83,13 @@ In some cases, storing all data may not be necessary. This can happen in the fol
 
 This approach can reduce storage costs but comes at the expense of verifiability and historical transparency.
 
+#### Trust assumptions
 
+This option requires users to trust the chain operators (nodes) that they operate the chain according to its rules. Since historical data is not stored, users cannot verify past transactions or state transitions.
 
-
-
-
-
-
-## Responsibilities
-
-- Store data, in some accessible format
-- Provide guarantees that needed data is retained
-- Provide correct data upon request
-
-## Typically used DAs
-
-- A real blockchain costs more
-- A regular blockchain: Ethereum, Starknet
-- Specialized ones: Celestia, EigenDA, Avail, ...
-
-## Trust assumptions
-
-- How trustless is the chosen DA
-- Different options have different trust assumptions. Give some examples
-- Remember that the prover does not prove anything about data availability
+Additionally, users may have no means of detecting ongoing fraud within the chain.
 
 ## Read more
 
-- Github links
-- Starknet docs
+- [Starknet docs](https://docs.starknet.io/architecture-and-concepts/network-architecture/data-availability/)
 - [Starknet blogs](https://starkware.co/blog/rollup-validium-volition-where-is-your-data-stored/)
-- Any other relevant links?
