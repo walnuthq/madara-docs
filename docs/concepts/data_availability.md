@@ -12,7 +12,7 @@ However, on-chain storage is costly and inefficient due to redundancy and high r
 
 The system responsible for storing and ensuring access to this data is called the *data availability layer* and this challenge is generally known as the Data Availability (DA) problem.
 
-Appchains like Madara are not an exception to this and also need to consider their DA approach. Currently, Madara supports using the settlement layer as the DA layer, but support for other alternatives will be added in near future.
+Appchains like Madara are not an exception to this and also need to consider their DA approach. Currently, Madara supports using the [settlement layer](/concepts/settlement) as the DA layer, but support for other alternatives will be added in the near future.
 
 ### Why is DA needed
 
@@ -20,7 +20,7 @@ Public, permissionless blockchains allow anyone to join the chain and verify its
 
 For this process to work, all historical transactions and state updates must be accessible. Without data availability, users cannot independently verify the chain’s integrity. This is why solving the DA problem is essential for public blockchains.
 
-Furthermore, if there are problems with the blockchain (or Appchain) and you need to utilize the [settlement layer](/concepts/settlement) security for recovering assets on the settlement layer, you need the full data available.
+Furthermore, if there are problems with the blockchain (or Appchain) and you need to utilize the settlement layer security for recovering assets on the settlement layer, you need the full data available.
 
 ## Responsibilities of a DA layer
 
@@ -33,9 +33,9 @@ The responsibilities are:
 ## DA options
 
 There are three general approaches for solving the DA problem:
-1. Store the data on-chain
-1. Store the data elsewhere
-1. Don't store the data
+1. Store the data on-chain.
+1. Store the data elsewhere.
+1. Don't store the data.
 
 These are analyzed in more detail in the following sections.
 
@@ -60,12 +60,12 @@ Specialized DA layers are, for example, [Celestia](https://celestia.org/) and [A
 Generic file storage can be a cloud storage or a decentralized solution like [IPFS](https://ipfs.tech/).
 
 This general approach has two main problems:
-1. The data can't be accessed directly on-chain
-1. How can you be certain the data remains available in its storage location
+1. The data can't be accessed directly on-chain.
+1. How can you be certain the data remains available in its storage location.
 
 The main benefit is cost-efficiency: off-chain storage is much cheaper and easier to manage than on-chain storage.
 
-A notable example of off-chain storage approach is with an approach called *Validium*. Data is stored off-chain and only proofs of its validity are posted on the settlement layer.
+A notable example of the off-chain storage approach is with an approach called *Validium*. Data is stored off-chain and only proofs of its validity are posted on the settlement layer.
 
 #### Trust assumptions
 
@@ -79,7 +79,7 @@ This option requires users to trust the DA layer. There are a few general ways o
 
 In some cases, storing all data may not be necessary. This can happen in the following scenarios:
 1. The chain does not provide data availability guarantees, meaning users cannot independently verify its full history.
-1. Historical data is periodically removed and only minimal data is provided for enabling chain synchronization.
+1. Historical data is periodically removed. Only minimal data is provided for enabling chain synchronization.
 
 This approach can reduce storage costs but comes at the expense of verifiability and historical transparency.
 
@@ -93,7 +93,7 @@ Additionally, users may have no means of detecting ongoing fraud within the chai
 
 Choosing the right DA solution is a trade-off between costs, security and verifiability.
 
-Storing data on-chain is the most secure and verifiable way, but is by far the most expensive one. Storing at least some of your data off-chain may be a viable option for your Appchain.
+Storing data on-chain is the most secure and verifiable option, but it is by far the most expensive one. Storing at least some of your data off-chain may be a viable option for your Appchain.
 
 ## Read more
 
