@@ -18,7 +18,17 @@ Appchains like Madara are not an exception to this and also need to consider the
 
 Public, permissionless blockchains allow anyone to join the chain and verify its contents. Verification happens by replaying all transactions, executing them and making sure the resulting state matches what the blockchain claims.
 
-For this process to work, all historical transactions and state updates must be accessible. Without data availability, users cannot independently verify the chain’s integrity, making it vulnerable to fraud and centralization risks. This is why solving the DA problem is essential for public blockchains.
+For this process to work, all historical transactions and state updates must be accessible. Without data availability, users cannot independently verify the chain’s integrity. This is why solving the DA problem is essential for public blockchains.
+
+Furthermore, if there are problems with the blockchain (or Appchain) and you need to utilize the [settlement layer](/concepts/settlement) security for recovering assets on the settlement layer, you need the full data available.
+
+## Responsibilities of a DA layer
+
+The responsibilities are:
+- Store the data.
+- Provide public access to it.
+- Be censorship-resistant: no single actor can withhold data.
+- Provide guarantees that the data remains accessible.
 
 ## DA options
 
@@ -35,6 +45,8 @@ The most straightforward approach is to store the data directly on-chain alongsi
 
 However, depending on the blockchain, on-chain storage can be very expensive. This can limit the types of built applications. But for use cases that do not require much data storage, this is an efficient and simple approach.
 
+Most traditional blockchains store their data on-chain. A notable example is Ethereum.
+
 ### Option 2: Store data elsewhere
 
 The data can be stored in other locations. This location can be either a specialized DA layer or some generic file storage.
@@ -49,6 +61,8 @@ This general approach has two main problems:
 
 The main benefit is cost-efficiency: off-chain storage is much cheaper and easier to manage than on-chain storage.
 
+A notable example of off-chain storage approach is with an approach called *Validium*. Data is stored off-chain and only proofs of its validity are posted on the settlement layer.
+
 ### Option 3: Don't store the data
 
 In some cases, storing all data may not be necessary. This can happen in the following scenarios:
@@ -59,22 +73,10 @@ This approach can reduce storage costs but comes at the expense of verifiability
 
 
 
--onchain
-- offchain
-- hybrid
 
-### Providers
 
-- Ethereum
-- External (celestia, eigenda, avail)
 
-Data availability
 
-- What is the data availability problem in general
-- Stores the actual data used in transactions
-- The data is needed for escape hatch
-- Does not need to be a blockchain
-- Sequencer submits data to the chosen DA
 
 ## Responsibilities
 
@@ -98,4 +100,5 @@ Data availability
 
 - Github links
 - Starknet docs
+- [Starknet blogs](https://starkware.co/blog/rollup-validium-volition-where-is-your-data-stored/)
 - Any other relevant links?
