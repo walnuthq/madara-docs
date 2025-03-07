@@ -32,22 +32,20 @@ Full nodes may sometimes be configured to prune old data to save disk space. Mad
 
 Full nodes often expose a public-facing [RPC API](https://github.com/starkware-libs/starknet-specs/blob/master/starknet_vs_ethereum_node_apis.md). This can be utilized by users to access the Appchain - to submit transactions and to read the Appchain state.
 
-A non-sequencer node forwards transactions to a sequencer node but can still provide direct read access to the Appchain.
+A non-sequencer node forwards write transactions to a sequencer node but can still provide direct read access to the Appchain.
 
 ### Sequencer
 
 A sequencer node is responsible for executing transactions and organizing them in a block. Transactions are typically received from full nodes. 
 
-The sequencer checks each new transaction for the following conditions:
-1. Is the transaction valid according to network rules.
-1. Is the transaction ordered correctly (it's the next transaction in line from the originating account).
-1. Is there space left in the current, pending block.
-
-If all of the conditions are met, the transaction is executed and added to a pending block.
+Each transaction is executed and included in a block by a senquencer if it passes the following conditions:
+1. The transaction is valid according to the network rules.
+1. The transaction is correctly ordered. Transactions which are sent from a same account are ordered using an incremental *nonce*. If, due to network latency, a transaction is received out of order then it will wait until transactions with a smaller nonce are processed from that account.
+1. There is space left in the current block. A sequencer will produce a new block at set time intervals, or earlier if the block is full. If there is not enough space in the current block for a new transaction, and the above conditions are met, then it will be added to the next block.
 
 #### Mempool
 
-Sequencers collect transactions submitted by users and order them into blocks. Pending transactions are kept in a queue. If the conditions mentioned above are not met, the transaction is kept in the mempool until it becomes valid or outdated (and is removed).
+A transaction is considered valid if it follows the network's rules. However, it may not fit in the current block and/or its nonce may be too high. This kind of transactions are accepted by the sequencer, but are placed in a transaction queue.
 
 This queue is also called the *mempool*.
 
@@ -84,7 +82,7 @@ When talking about just the term *gateway*, it sometimes refers to the feeder ga
 ## State updates and synchronization
 
 There are three main ways how a node receives new Appchain state information:
-1. From other full nodes, during synchronization (valid only for full nodes).
+1. From a sequencer, during synchronization (valid only for full nodes).
 1. From users issuing transactions (valid only for sequencers - either through full nodes or directly).
 1. From the settlement layer proof verification contract (valid only for sequencers).
 
@@ -96,14 +94,14 @@ Furthermore, once the settlement layer's proof has been verified, the node updat
 
 Currently, Madara Appchains (and the [SN Stack](https://www.starknet.io/sn-stack/) in general) support only one sequencer. All full nodes synchronize their state initially from this sequencer.
 
-In the near future, multiple sequencers will be supported. At the same time, peer-to-peer protocols will be implemented and full nodes start to synchronize their state from other full nodes.
+In the near future, multiple sequencers will be supported. Peer-to-peer protocols are currently being implemented and full nodes will soon start to synchronize their state from other full nodes.
 
 ## Interacting with a node
 
 Node clients are software that utilizes nodes. These can be divided in three categories:
-1. Browser clients
+1. Browser wallets
 1. Command-line interfaces
-1. Developer clients
+1. SDKs
 
 ### Browser wallets
 
