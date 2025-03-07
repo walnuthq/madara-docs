@@ -49,26 +49,6 @@ A transaction is considered valid if it follows the network's rules. However, it
 
 This queue is also called the *mempool*.
 
-#### Execution
-
-Transactions are executed in two different ways, depending on whether we are running a full Appchain or a solo chain / devnet.
-
-In an Appchain, transactions are executed with [SNOS](/components/starknet_os). In a devnet, a component called blockifier is used.
-
-```mermaid
-graph LR;
-  A[Transaction] --> B{Appchain Mode?};
-  
-  B -- Yes --> C[SNOS];
-  C --> E[Apply State Changes];
-  E --> F[Execution Result];
-
-  B -- No --> G[Blockifier];
-  G --> E;
-```
-
-Blockifier does simple transaction execution to calculate the state changes. On the other hand, SNOS provides much more data related to [proving](/components/prover). A devnet doesn't utilize a prover and can therefore utilize the simpler approach. Executing transactions through blockifier has much better performance.
-
 #### Feeder Gateway
 
 A feeder gateway is a collection of endpoints at the node that can be turned on or off. These are typically enabled in a sequencer.
