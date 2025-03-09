@@ -11,7 +11,7 @@ Running an Appchain requires multiple components to handle different aspects of 
 ## Node capabilities
 
 Madara nodes have two primary capabilities:
-- Full Node. Maintains blockchain state and history.
+- Full node. Maintains blockchain state and history.
 - Sequencer. Participates in transaction ordering and block production.
 
 The exact functionality of these capabilities is explained in the following sections.
@@ -20,7 +20,7 @@ The exact functionality of these capabilities is explained in the following sect
 
 A full node stores the entire state of the blockchain and validates transactions.
 
-Whenever the node receives new transactions and blocks it validates them to make sure they follow the network's rules. Invalid data is not accepted.
+Whenever the node receives new transactions and blocks, it validates them to make sure they follow the network's rules. Invalid data is not accepted.
 
 #### Archive node
 
@@ -38,18 +38,18 @@ A non-sequencer node forwards write transactions to a sequencer node but can sti
 
 A sequencer node is responsible for executing transactions and organizing them in a block. Transactions are typically received from full nodes. 
 
-Each transaction is executed and included in a block by a senquencer if it passes the following conditions:
+Each transaction is executed and included in a block by a sequencer if it passes the following conditions:
 1. The transaction is valid according to the network rules.
-1. The transaction is correctly ordered. Transactions which are sent from a same account are ordered using an incremental *nonce*. If, due to network latency, a transaction is received out of order then it will wait until transactions with a smaller nonce are processed from that account.
-1. There is space left in the current block. A sequencer will produce a new block at set time intervals, or earlier if the block is full. If there is not enough space in the current block for a new transaction, and the above conditions are met, then it will be added to the next block.
+1. The transaction is correctly ordered. Transactions that are sent from the same account are ordered by an incremental *nonce*. If a transaction is received out of order due to network latency, it will wait until transactions with a smaller nonce are processed from that account.
+1. There is space left in the current block. A sequencer produces new blocks at fixed intervals, or sooner if the current block reaches maximum capacity. If there is not enough space in the current block for a new transaction, and the above conditions are met, then it will be added to the next block.
 
 #### Mempool
 
-A transaction is considered valid if it follows the network's rules. However, it may not fit in the current block and/or its nonce may be too high. This kind of transactions are accepted by the sequencer, but are placed in a transaction queue.
+A transaction is considered valid if it follows the network's rules. However, it may not fit in the current block and/or its nonce may be too high. These kinds of transactions are accepted by the sequencer, but are placed in a transaction queue.
 
 This queue is also called the *mempool*.
 
-#### Feeder Gateway
+#### Feeder gateway
 
 A feeder gateway is a collection of endpoints at the node that can be turned on or off. These are typically enabled in a sequencer.
 
@@ -57,11 +57,11 @@ These endpoints offer access to raw Appchain data. Full nodes can call these end
 
 Gateways will get deprecated once direct, peer-to-peer communication becomes available in the SN Stack.
 
-When talking about just the term *gateway*, it sometimes refers to the feeder gateway endpoint used for submitting transactions to a sequencer from a full node.
+The term *gateway* sometimes refers specifically to the feeder gateway endpoint used for submitting transactions to a sequencer.
 
 ## State updates and synchronization
 
-There are three main ways how a node receives new Appchain state information:
+A node receives new Appchain state information in three main ways:
 1. From a sequencer, during synchronization (valid only for full nodes).
 1. From users issuing transactions (valid only for sequencers - either through full nodes or directly).
 1. From the settlement layer proof verification contract (valid only for sequencers).
