@@ -4,6 +4,76 @@ sidebar_position: 2
 
 # Architecture
 
+```mermaid
+sequenceDiagram
+
+ 
+    actor User
+    participant Node as Full node
+    participant Sequencer as Madara (Sequencer)
+    participant Orchestrator
+    participant SNOS as Starknet OS (SNOS)
+    participant Prover
+    box Blue Settlement layer
+        participant Verifier as Verifier contract
+        participant Core as Core Contract
+    end
+    participant DA as Data Availability Layer
+
+    User ->> Node: Send transaction (tx)
+    Node ->> Node: Validate tx
+    Node ->> Sequencer: Forward transaction
+
+    Sequencer ->> Sequencer: Tx status: RECEIVED
+    Sequencer ->> Sequencer: Validate tx
+    rect rgb(100, 0, 0)
+        break Invalid tx
+            Sequencer -x Sequencer: Tx status: REJECTED. Stop processing. 
+        end
+    end
+
+    Sequencer ->> Sequencer: Execute tx
+        alt Fails execution
+Sequencer ->> Sequencer: Tx status: REVERTED
+    else Succeeds
+        Sequencer ->> Sequencer: Tx status: ACCEPTED ON L2
+    end
+    Sequencer ->> Sequencer: Generate state diff
+    rect rgb(100, 0, 0)
+        alt No space in block or tx nonce too high
+            Sequencer ->> Sequencer: Add tx to mempool. Stop processing.
+        else
+            Sequencer ->> Sequencer: Add tx to pending block
+        end
+    end
+    
+    Sequencer ->> Sequencer: Wait for block to be full or enough time has passed
+
+    Orchestrator ->> Sequencer: Ask for new, ready block (poll)
+    Sequencer ->> Orchestrator: Send new, ready block
+
+    Orchestrator ->> SNOS: Ask for proof input (PIE)
+    SNOS ->> Sequencer: Query block data, transactions, state diffs, state roots
+    Sequencer ->> SNOS: Return requested data
+    SNOS ->> Orchestrator: Return PIE
+    
+    Orchestrator ->> Prover: Send PIE for proving
+    Prover ->> Prover: Generate proof
+    Prover ->> Verifier: Send proof for verification
+    Verifier ->> Verifier: Verify proof and store it in fact registry
+    Verifier ->> Orchestrator: Proof verification result
+    Orchestrator ->> Core: Ask to update its state
+    Core ->> Verifier: Retrieve new, verified block info
+    Verifier ->> Core: Return new, verified block info
+
+    Sequencer ->> Core: Poll for new, accepted blocks (proofs)
+    Core ->> Sequencer: Latest accepted block number
+    
+    Sequencer ->> Sequencer: Update status of all txs in block to ACCEPTED_ON_L1
+    Sequencer ->> Sequencer: Finalize block, broadcast it
+```
+
+
 A Madara [Appchain](/concepts/appchain) consists of the following components:
 - An [orchestrator](/components/orchestrator)
 - A sequencer
