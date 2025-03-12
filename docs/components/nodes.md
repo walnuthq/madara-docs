@@ -59,6 +59,12 @@ Gateways will get deprecated once direct, peer-to-peer communication becomes ava
 
 The term *gateway* sometimes refers specifically to the feeder gateway endpoint used for submitting transactions to a sequencer.
 
+#### Execution
+
+The sequencer has to execute each transaction to generate data representing changes in the blockchain state, referred to as *state diffs*.
+
+Transactions are executed with a component called the *blockifier*.
+
 ## State updates and synchronization
 
 A node receives new Appchain state information in three main ways:
