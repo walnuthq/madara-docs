@@ -6,21 +6,17 @@ sidebar_position: 8
 
 ## Overview
 
-Every blockchain must store its state and state updates. In traditional blockchains, this data is stored directly on-chain.
+Appchains like Madara rely on an external settlement layer for security, but they must also ensure that all historical data remains accessible. Without access to this data, users cannot verify the chain’s state or recover assets in case of disputes.
 
-However, on-chain storage is costly and inefficient due to redundancy and high resource requirements. Still, the data has to remain available to ensure anyone can verify the blockchain’s correctness.
+Traditional blockchains store all transaction data directly on-chain, ensuring availability. However, this approach is costly and inefficient due to redundancy and high storage requirements. Since Appchains [settle](/concepts/settlement) to another chain, they have the flexibility to choose alternative ways of storing their data.
 
-The system responsible for storing and ensuring access to this data is called the *data availability layer* and this challenge is generally known as the Data Availability (DA) problem.
-
-Appchains like Madara are not an exception to this and also need to consider their DA approach. Currently, Madara supports using the [settlement layer](/concepts/settlement) as the DA layer, but support for other alternatives will be added in the near future.
+The system responsible for storing and ensuring access to this data is called the *data availability layer* (DA layer) and this challenge is generally known as the Data Availability (DA) problem. 
 
 ### Why is DA needed
 
 Public, permissionless blockchains allow anyone to join the chain and verify its contents. Verification happens by replaying all transactions, executing them and making sure the resulting state matches what the blockchain claims.
 
 For this process to work, all historical transactions and state updates must be accessible. Without data availability, users cannot independently verify the chain’s integrity. This is why solving the DA problem is essential for public blockchains.
-
-Furthermore, if there are problems with the blockchain (or Appchain) and you need to utilize the settlement layer security for recovering assets on the settlement layer, you need the full data available.
 
 ## Responsibilities of a DA layer
 
@@ -41,7 +37,7 @@ These are analyzed in more detail in the following sections.
 
 ### Option 1: Store data on-chain
 
-The most straightforward approach is to store the data directly on-chain alongside transaction data. This ensures easy access to the data.
+The most straightforward approach is to store the data directly on the settlement layer (e.g., Ethereum) alongside transaction data. This ensures easy access to the data.
 
 However, depending on the blockchain, on-chain storage can be very expensive. This can limit the types of built applications. But for use cases that do not require much data storage, this is an efficient and simple approach.
 
@@ -94,6 +90,8 @@ Additionally, users may have no means of detecting ongoing fraud within the chai
 Choosing the right DA solution is a trade-off between costs, security and verifiability.
 
 Storing data on-chain is the most secure and verifiable option, but it is by far the most expensive one. Storing at least some of your data off-chain may be a viable option for your Appchain.
+
+Currently, Madara uses the settlement layer as its DA layer, but support for other DA solutions will be added in the near future.
 
 ## Read more
 
