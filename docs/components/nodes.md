@@ -61,7 +61,7 @@ The term *gateway* sometimes refers specifically to the feeder gateway endpoint 
 
 #### Execution
 
-The sequencer has to execute each transaction to generate data representing changes in the network state, referred to as *state diffs*.
+The sequencer has to execute each transaction to generate data representing changes in the blockchain state, referred to as *state diffs*.
 
 Transactions are executed with a component called the *blockifier*.
 
