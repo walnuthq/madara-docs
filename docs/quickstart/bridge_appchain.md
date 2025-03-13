@@ -8,7 +8,7 @@ sidebar_position: 16
 
 This guide helps you bridge assets to your Appchain and back. Please make sure you are [running a local Appchain](/quickstart/run_appchain) with [settlement](/concepts/settlement) before continuing.
 
-A local Appchain settles its transactions on a local Anvil node. A bridge has been automatically setup between the settlement layer and your Appchain. We can utilize that bridge to either deposit assets from the settlement layer to the Appchain, or to withdraw assets back from the settlement layer to the Appchain.
+A local Appchain settles its transactions on a local Ethereum node. A bridge has been automatically setup between the settlement layer and your Appchain. We can utilize that bridge to either deposit assets from the settlement layer to the Appchain, or to withdraw assets back from the Appchain to the settlement layer.
 
 ### What is bridging
 
@@ -26,7 +26,7 @@ The needed tooling depends on which direction you want to bridge:
 
 ## What to bridge
 
-The used bridge, Starkgate, supports multiple tokens. It's also possible to bridge the native asset (Eth).
+The used bridging solution, Starkgate, supports multiple tokens. It's also possible to bridge the native asset (Eth).
 
 In this guide we will be bridging Eth. Since the settlement layer is an Ethereum chain, the bridged asset is the native asset in the settlement layer and a token representation of Eth on the Appchain.
 
