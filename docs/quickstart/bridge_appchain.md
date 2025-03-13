@@ -73,7 +73,7 @@ Never use private keys linked to real assets directly in commands. These example
 
 ### Data preparations
 
-First, you need to prepare parameters for the bridging transaction. Here are the ones used in the command later:
+Next, you need to prepare parameters for the bridging transaction. Here are the ones used in the command:
 * Settlement layer bridge address.
   * Used value: `0x8a791620dd6260079bf849dc5567adc3f2fdc318`
   * This is the default bridge address.
