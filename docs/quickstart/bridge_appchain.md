@@ -20,9 +20,17 @@ Bridging can happen in either direction. The exact mechanisms may differ, but th
 
 ## Installation
 
-We will use two tools for the bridging. Install them based on your needs:
-- If you want to bridge assets from the settlement layer to Appchain, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
-- If you want to bridge assets from Appchain to the settlement layer, install both Foundry and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
+The needed tooling depends on:
+1. Which blockchain is your settlement layer (Starknet or Ethereum).
+1. Which direction you want to bridge.
+
+Please check the below table for the needed tooling. Note that by default the settlement layer is Ethereum.
+
+| Settlement chain / Direction  | Ethereum |   Starknet |
+| ---------- | ---------- | ---------- |
+| Settlement → Appchain | [Foundry](https://book.getfoundry.sh/getting-started/installation) | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) |
+| Appchain → Settlement | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) and [Foundry](https://book.getfoundry.sh/getting-started/installation) | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) |
+| Both    | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) and [Foundry](https://book.getfoundry.sh/getting-started/installation) | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) |
 
 ## What to bridge
 
