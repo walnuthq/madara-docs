@@ -75,6 +75,14 @@ Requirements for a good settlement layer network are:
 
 For convenience, the settlement layer is often a multipurpose blockchain. But, as noted earlier, it can also be a specialized network.
 
+## Local Ethereum settlement
+
+As mentioned earlier, the settlement layer can be an Ethereum-based blockchain. It can either be the Ethereum L1, or a new Ethereum chain on another layer.
+
+If you choose to settle your Appchain on a new Ethereum chain, the tooling launches the chain with [Anvil](https://book.getfoundry.sh/anvil/), a lightweight and high-performance Ethereum blockchain node. 
+
+Anvil is a fully functional blockchain that is easy to customize, making it ideal for local development and testing.
+
 ## Read more
 
 - [About finality](https://ethereum.org/en/developers/docs/scaling/zk-rollups/#transaction-finality)
