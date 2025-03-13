@@ -26,7 +26,7 @@ The needed tooling depends on:
 
 Please check the below table for the needed tooling. Note that by default the settlement layer is Ethereum.
 
-| Settlement chain / Direction  | Ethereum |   Starknet |
+| Bridging direction  | Settlement layer = Ethereum | Settlement layer =  Starknet |
 | ---------- | ---------- | ---------- |
 | Settlement → Appchain | [Foundry](https://book.getfoundry.sh/getting-started/installation) | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) |
 | Appchain → Settlement | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) and [Foundry](https://book.getfoundry.sh/getting-started/installation) | [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html) |
@@ -36,42 +36,36 @@ Please check the below table for the needed tooling. Note that by default the se
 
 The used bridge, Starkgate, supports [multiple tokens](https://docs.starknet.io/starkgate/overview/) (TODO: does our bridge support the same?). If the used settlement layer is Ethereum, it's also possible to bridge the native asset (Eth).
 
-In this guide we will be bridging STRK tokens.
+In this guide we will be bridging Eth. This guide assumes the settlement layer is Ethereum, which is the default. Therefore, the bridget asset is the native asset in the settlement layer and a token representation of Eth on the Appchain.
 
 ## Bridge from settlement layer to Appchain
 
-Bridging from the settlement layer to the Appchain is a rather straightforward process. It pnly requires calling the bridge contract on the settlement layer with a carefully crafted message and the assets should transfer within a few minutes.
+Bridging from the settlement layer to the Appchain is a rather straightforward process. It only requires calling the bridge contract on the settlement layer with a carefully crafted message.
 
 ### Data preparations
 
-!!A lot of TODOs here!!
-
-First, you need to prepare parameters for the bridging transaction. Most of them you get from Appchain logs. Here are the ones used in the command later:
-* Assets to bridge and to pay gas fees with. Luckily, your Anvil comes with some accounts with ready assets (Eth).
+First, you need to prepare parameters for the bridging transaction. Here are the ones used in the command later:
 * Settlement layer bridge address.
-  * Used value: `0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc`
-  * This is given upon launching the Appchain. TODO
+  * Used value: `0x8a791620dd6260079bf849dc5567adc3f2fdc318`
+  * This is the default bridge address.
 * A settlement layer RPC URL.
   * Used value: `http://127.0.0.1:8545`
-  * This is given upon launching the Appchain
-* A private key to the wallet with the assets. Anvil gives you this as well.
-  * Used value: `0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6`
-  * This is the private key for the last account provided by Anvil
+  * This is the default URL.
+* A private key to the wallet with the assets.
+  * Used value: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
+  * This is the private key for a settlement layer wallet with Eth, provided by Anvil.
 * The bridge function's signature.
-  * Used value: `deposit(address,uint256,uint256)`
+  * Used value: `deposit(uint256,uint256)`
   * This is static and doesn't change.
-* Asset contract address.
-  * Used value: `0x0000000000000000000000000000000000455448`
-  * TODO (what's appchain's [eth address](https://github.com/starknet-io/starknet-addresses/blob/master/bridged_tokens/sepolia.json)?
 * The amount to be bridged.
   * Used value: `345`
   * This denotes 345 weis.
-* An account on the Appchain to receive the assets. TODO will be setup automagically?
-  * Used value: `3293945099482077566294620753663887236810230524774221047563633702975851058323`
-  * This is the decimal representation of 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493, which is...TODO
+* An account on the Appchain to receive the assets.
+  * Used value: `0x7484E8E3AF210B2EAD47FA08C96F8D18B616169B350A8B75FE0DC4D2E01D493`
+  * This is TODO
 * Transaction fee for the bridge.
-  * Used value: `0.000001ether`
-  * This is to pay for bridge operations.
+  * Used value: `346wei`
+  * This has to be larger than the amount we're sending. Using a value 1 *wei* larger is enough.
 
 :::warning
 Never use private keys linked to real assets directly in commands. These examples are only meant for educational use.
@@ -81,17 +75,16 @@ Never use private keys linked to real assets directly in commands. These example
 
 We can utilize Foundry's `cast` command to send a transaction to the settlement layer. By inputting our parameters from above, we can send the command:
 ```bash
-cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \ 
+cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 --rpc-url http://127.0.0.1:8545 \
---private-key 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 \
- "deposit(address,uint256,uint256)" \
- 0x0000000000000000000000000000000000455448 \
+--private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
+ "deposit(uint256,uint256)" \
  345 \
- 3293945099482077566294620753663887236810230524774221047563633702975851058323 \
- --value 0.000001ether
+ 0x7484E8E3AF210B2EAD47FA08C96F8D18B616169B350A8B75FE0DC4D2E01D493 \
+ --value 346wei
 ```
 
-The assets should get bridged within a few minutes.
+The assets should get bridged within about 10 seconds - the time it takes to form a new block.
 
 ## Bridge from Appchain to settlement layer
 
