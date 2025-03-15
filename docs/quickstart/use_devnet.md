@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Overview
 
-This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) before continuing.
+This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) in a separate terminal before continuing.
 
 ## Installation
 
@@ -14,12 +14,17 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 ### Install tooling for interaction
 
-Start by installing the specific tooling used in this tutorial (answer yes if it asks about `asdf-vm`):
+Start by installing the specific tooling used in this tutorial:
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
+exec $SHELL # Reload the current terminal to get new tooling into use
+asdf install scarb 2.9.2
+asdf set scarb 2.9.2
 ```
 
-The above will install [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. Now restart your terminal again to reload new environment variables.
+The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The commands will utilize versions that are tested to be compatible with Madara. The installed tools are:
+- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
+- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
 
 ## Prepare your contract
 
@@ -48,18 +53,18 @@ We will use a very simple balance contract as an example. Initializing a Scarb p
 #[starknet::interface]
 trait IBalance<T> {
     // Returns the current balance.
-    fn get(self: @T) -> u128;
+    fn get(self: @T) -> felt252;
     // Increases the balance by the given amount.
-    fn increase(ref self: T, a: u128);
+    fn increase(ref self: T, a: felt252);
 }
 
 #[starknet::contract]
 mod Balance {
-    use traits::Into;
+    use core::starknet::storage::{ StoragePointerReadAccess, StoragePointerWriteAccess };
 
     #[storage]
     struct Storage {
-        value: u128, 
+        value: felt252,
     }
 
     #[constructor]
@@ -69,10 +74,10 @@ mod Balance {
 
     #[abi(embed_v0)]
     impl Balance of super::IBalance<ContractState> {
-        fn get(self: @ContractState) -> u128 {
+        fn get(self: @ContractState) -> felt252 {
             self.value.read()
         }
-        fn increase(ref self: ContractState, a: u128)  {
+        fn increase(ref self: ContractState, a: felt252)  {
             self.value.write( self.value.read() + a );
         }
     }
@@ -84,6 +89,7 @@ Next, replace the contents of `Scarb.toml` in the root of the project with:
 [package]
 name = "madara_example"
 version = "0.1.0"
+edition = "2024_07"
 
 [dependencies]
 starknet = ">=2.9.2"
