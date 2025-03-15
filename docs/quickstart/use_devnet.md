@@ -17,14 +17,18 @@ These installation instructions assume you are using Linux or macOS. For Windows
 Start by installing the specific tooling used in this tutorial:
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
-exec $SHELL # Reload the current terminal to get new tooling into use
+```
+
+The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The installed tools are:
+- [asdf](https://asdf-vm.com/), a runtime version manager. Used by many Starknet tools.
+- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
+- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
+
+Now restart your terminal to take the tooling into use. Next, you have to set the correct versions that are compatible with Madara:
+```bash
 asdf install scarb 2.9.2
 asdf set scarb 2.9.2
 ```
-
-The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The commands will utilize versions that are tested to be compatible with Madara. The installed tools are:
-- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
-- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
 
 ## Prepare your contract
 
@@ -60,7 +64,7 @@ trait IBalance<T> {
 
 #[starknet::contract]
 mod Balance {
-    use core::starknet::storage::{ StoragePointerReadAccess, StoragePointerWriteAccess };
+    use starknet::storage::{ StoragePointerReadAccess, StoragePointerWriteAccess };
 
     #[storage]
     struct Storage {
@@ -159,7 +163,7 @@ If needed, remember to replace the following values in the command below:
 - `class-hash`: the declared class hash
 :::
 ```bash
-sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x000021c5ab1ee26d82392d9d157f78f8fab4a8ac501d65b531e74366bc88eb82
+sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
 ![Contract address](/img/quickstart-devnet-contract.png "Resulting class contract address")
@@ -176,7 +180,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast call --url http://localhost:9944 --function get --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
+sncast call --url http://localhost:9944 --function get --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a
 ```
 
 You should see value `5` as the initial value (in hexadecimal format).
@@ -190,7 +194,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950 --function increase --arguments "3"
+sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a --function increase --arguments "3"
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
