@@ -111,7 +111,7 @@ scarb build
 
 ## Configure your account and signer
 
-Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+Before you can interact with the network, you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
 However, to use these accounts with Starknet tooling, they must be stored in the correct format.
 

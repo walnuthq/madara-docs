@@ -75,7 +75,7 @@ To ensure your chain runs properly, it's a good idea to [monitor](/quickstart/mo
 
 ## Summary
 
-With the CLI it's easy to start your own Appchain. In the near future we will post more guides on how to utilize and get familiar with your Appchain.
+With the CLI it's easy to start your own Appchain. In the near future, we will post more guides on how to utilize and get familiar with your Appchain.
 
 
 
