@@ -6,7 +6,7 @@ sidebar_position: 2
 
 ## Overview
 
-This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) before continuing.
+This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) in a separate terminal before continuing.
 
 ## Installation
 
@@ -14,12 +14,21 @@ These installation instructions assume you are using Linux or macOS. For Windows
 
 ### Install tooling for interaction
 
-Start by installing the specific tooling used in this tutorial (answer yes if it asks about `asdf-vm`):
+Start by installing the specific tooling used in this tutorial:
 ```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
 ```
 
-The above will install [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. Now restart your terminal again to reload new environment variables.
+The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The installed tools are:
+- [asdf](https://asdf-vm.com/), a runtime version manager. Used by many Starknet tools.
+- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
+- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
+
+Now restart your terminal to take the tooling into use. Next, you have to set the correct versions that are compatible with Madara:
+```bash
+asdf install scarb 2.9.2
+asdf set scarb 2.9.2
+```
 
 ## Prepare your contract
 
@@ -48,18 +57,18 @@ We will use a very simple balance contract as an example. Initializing a Scarb p
 #[starknet::interface]
 trait IBalance<T> {
     // Returns the current balance.
-    fn get(self: @T) -> u128;
+    fn get(self: @T) -> felt252;
     // Increases the balance by the given amount.
-    fn increase(ref self: T, a: u128);
+    fn increase(ref self: T, a: felt252);
 }
 
 #[starknet::contract]
 mod Balance {
-    use traits::Into;
+    use starknet::storage::{ StoragePointerReadAccess, StoragePointerWriteAccess };
 
     #[storage]
     struct Storage {
-        value: u128, 
+        value: felt252,
     }
 
     #[constructor]
@@ -69,10 +78,10 @@ mod Balance {
 
     #[abi(embed_v0)]
     impl Balance of super::IBalance<ContractState> {
-        fn get(self: @ContractState) -> u128 {
+        fn get(self: @ContractState) -> felt252 {
             self.value.read()
         }
-        fn increase(ref self: ContractState, a: u128)  {
+        fn increase(ref self: ContractState, a: felt252)  {
             self.value.write( self.value.read() + a );
         }
     }
@@ -84,6 +93,7 @@ Next, replace the contents of `Scarb.toml` in the root of the project with:
 [package]
 name = "madara_example"
 version = "0.1.0"
+edition = "2024_07"
 
 [dependencies]
 starknet = ">=2.9.2"
@@ -101,7 +111,7 @@ scarb build
 
 ## Configure your account and signer
 
-Before you can interact with the network you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
+Before you can interact with the network, you need an account. Luckily, running the devnet gives you a few ready accounts and their respective private keys. This is only possible because the network is a fresh network and you have full control over it - in real networks you need to get an account by different means.
 
 However, to use these accounts with Starknet tooling, they must be stored in the correct format.
 
@@ -153,7 +163,7 @@ If needed, remember to replace the following values in the command below:
 - `class-hash`: the declared class hash
 :::
 ```bash
-sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x000021c5ab1ee26d82392d9d157f78f8fab4a8ac501d65b531e74366bc88eb82
+sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
 ![Contract address](/img/quickstart-devnet-contract.png "Resulting class contract address")
@@ -170,7 +180,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast call --url http://localhost:9944 --function get --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950
+sncast call --url http://localhost:9944 --function get --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a
 ```
 
 You should see value `5` as the initial value (in hexadecimal format).
@@ -184,7 +194,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x00302e4af203c1bf205a7b35ad094844dca9d5ec9e35d270a875d2357cd9a950 --function increase --arguments "3"
+sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a --function increase --arguments "3"
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
