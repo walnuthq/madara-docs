@@ -57,7 +57,7 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * This is the address that should receive the assets. This is an arbitrary address.
 * Assets to send to the bridge.
   * Used value: `346wei`
-  * This has to be larger than the amount we want to send for the receiver. Using a value 1 *wei* larger is enough.
+  * This has to be larger than the amount we want to send for the receiver, to pay for the bridging fees. Using value 346 *wei* is enough in our setup.
 
 :::warning
 Never use private keys associated with real assets in commands. These examples are for educational purposes only.
