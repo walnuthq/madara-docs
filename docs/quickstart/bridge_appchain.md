@@ -14,7 +14,7 @@ A local Appchain settles its transactions on a local Ethereum node. A bridge has
 
 Bridging in general is a term used to move assets between two different blockchains. The blockchains may be layered (L1 and L2, for example) or they may be totally unrelated. Bridging is generally easier and safer between layered blockchains.
 
-A *bridge* is the solution for bridging. Typically it has a website users can use. In the background, it uses various mechanisms with various trust assumptions.
+A *bridge* is the solution for bridging. Often it has a website users can use. In the background, it uses various mechanisms with various trust assumptions.
 
 Bridging can happen in either direction. The exact mechanisms may differ, but the end result is very similar: your asset gets transferred to the other side of the bridge.
 
@@ -32,7 +32,7 @@ In this guide we will be bridging Eth. Since the settlement layer is an Ethereum
 
 ## Bridge from settlement layer to Appchain
 
-Bridging from the settlement layer to the Appchain is a straightforward process. It requires calling the bridge contract on the settlement layer with a carefully crafted message.
+Bridging from the settlement layer to the Appchain is a simple process that involves sending a structured message to the bridge contract on the settlement layer.
 
 ### Prepare an account
 
