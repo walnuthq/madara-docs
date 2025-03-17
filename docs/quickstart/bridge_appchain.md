@@ -54,10 +54,14 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * This denotes 345 weis.
 * An account on the Appchain to receive the assets.
   * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
-  * This is the address that should receive the assets. Use the one you got when creating an account.
-* Transaction fee for the bridge.
+  * This is the address that should receive the assets. This is an arbitrary address.
+* Assets to send to the bridge.
   * Used value: `346wei`
-  * This has to be larger than the amount we're sending. Using a value 1 *wei* larger is enough.
+  * This has to be larger than the amount we want to send for the receiver. Using a value 1 *wei* larger is enough.
+
+:::warning
+Never use private keys associated with real assets in commands. These examples are for educational purposes only.
+:::
 
 ### Perform bridging
 
@@ -72,7 +76,7 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
  --value 346wei
 ```
 
-TODO: add screenshot of a successful command run.
+![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
 
 The assets should get bridged within about 10 seconds - the time it takes to form a new block.
 
@@ -104,7 +108,7 @@ sncast call \
 --calldata 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
 ```
 
-TODO: add screenshot of a successful command run.
+![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
 
 You should get a response `[0x159, 0x0]`. The first value is `345` in hexadecimal format, the second zero is irrelevant for us.
 
