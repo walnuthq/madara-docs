@@ -34,46 +34,9 @@ In this guide we will be bridging Eth. Since the settlement layer is an Ethereum
 
 Bridging from the settlement layer to the Appchain is a simple process that involves sending a structured message to the bridge contract on the settlement layer.
 
-### Prepare an account
-
-The Appchain does not include ready accounts - they need to be prepared manually.
-
-#### Configure an account
-
-we should first configure an account in the Appchain. The required parameters for the command are:
-* Account type
-  * Used value: `oz`
-  * Use a generic OpenZeppelin account type
-* Appchain RPC URL
-  * Used value: `http://localhost:9945`
-  * This is the default URL.
-* The used private key
-  * Used value: `0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2`
-  * This is private key for a predeployed account in the Appchain.
-* Account address
-  * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
-  * This is the account address corresponding to the private key.
-* Class hash for the account
-  * Used value: `0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189`
-  * This is the class hash for the OpenZeppelin account. This class hash is already prepared in the Appchain.
-
-```bash
-sncast account import --silent --type oz \
---url http://localhost:9945 \
---private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2 \
---address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 \
---class-hash 0x1484c93b9d6cf61614d698ed069b3c6992c32549194fc3465258c2194734189
-```
-
-TODO: add screenshot of a successful command run.
-
-:::warning
-Never use private keys linked to real assets directly in commands. These examples are only meant for educational use.
-:::
-
 ### Data preparations
 
-Next, you need to prepare parameters for the bridging transaction. Here are the ones used in the command:
+First, you need to prepare parameters for the bridging transaction. Here are the ones used in the command:
 * Settlement layer bridge address.
   * Used value: `0x8a791620dd6260079bf849dc5567adc3f2fdc318`
   * This is the default bridge address.
