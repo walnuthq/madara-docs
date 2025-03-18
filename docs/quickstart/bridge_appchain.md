@@ -21,8 +21,10 @@ Bridging can happen in either direction. The exact mechanisms may differ, but th
 ## Installation
 
 The needed tooling depends on which direction you want to bridge:
-- If you want to bridge from the settlement layer to the Appchain, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
-- If you want to bridge from the Appchain to the settlement layer, install both [Foundry](https://book.getfoundry.sh/getting-started/installation) and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
+* If you want to bridge from the settlement layer to the Appchain, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
+* If you want to bridge from the Appchain to the settlement layer, install:
+  * [Foundry](https://book.getfoundry.sh/getting-started/installation).
+  * Starknet Foundry, by following the instructions [here](/quickstart/use_devnet#installation).
 
 ## What to bridge
 
