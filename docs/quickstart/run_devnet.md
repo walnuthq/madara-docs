@@ -44,6 +44,6 @@ The above will prompt you for various options. You should choose the following:
 
 It may take half an hour to prepare the image for the first time, depending on your system performance. Wait for that to finish.
 
-![Devnet running](/img/quickstart-devnet-start.png "Devnet is running")
+![Devnet running](/img/pages/quickstart-devnet-start.png "Devnet is running")
 
 Congratulations, you now have a fully functioning devnet running! Next, you may want to [interact](use_devnet) with the chain.

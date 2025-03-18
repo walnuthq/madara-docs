@@ -59,7 +59,7 @@ At the moment, the CLI will automatically set up a new Ethereum chain (with Anvi
 
 It will require 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
 
-![Appchain is ready](/img/quickstart-appchain-ready.png "Appchain is ready")
+![Appchain is ready](/img/pages/quickstart-appchain-ready.png "Appchain is ready")
 
 ### Step 7: Your Appchain is ready
 
