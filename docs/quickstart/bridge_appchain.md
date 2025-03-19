@@ -264,7 +264,11 @@ sncast --account account-for-guide invoke \
 123 0
 ```
 
-### Step 4: Finish bridging in the settlement layer
+### Step 4: Wait
+
+TODO: how long to wait? In live networks this takes about 12 hours.
+
+### Step 5: Finish bridging in the settlement layer
 
 Prepare parameters for finishing the bridging transaction. Most of them you get from Anvil logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
