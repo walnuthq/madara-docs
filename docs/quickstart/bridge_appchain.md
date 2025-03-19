@@ -193,9 +193,9 @@ First, you need to prepare parameters for the bridging transaction. Here are the
 * Asset contract address.
   * Used value: `0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766` TODO
   * This is the used token's contract address in the settlement layer
-* Settlement layer address. TODO will be setup automagically?
-  * Used value: `0xa0Ee7A142d267C1f36714E4a8F75612F20a79720`
-  * This is the address that should receive the assets. The last available address from Anvil logs.
+* Receives address.
+  * Used value: `0x0000000000000000000000000000000000000001`
+  * This is the address that should receive the assets in the settlement layer. an arbitrary value is used.
 * The amount to be bridged.
   * Used value: `678 0`
   * This denotes 678 weis. The last zero is because of Starknet's [peculiar u256 encoding](https://docs.starknet.io/architecture-and-concepts/smart-contracts/serialization-of-cairo-types/#serialization_in_u256_values).
@@ -208,12 +208,10 @@ sncast --account account-for-guide invoke \
 --contract-address 0x190f2407f7040ef9a60d4df4d2eace6089419aa9ec42cda229a82a29b2d5b3e \
 --function "initiate_token_withdraw" \
 --calldata 0x0000000000000000000000000000000000455448 \
-0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 \
+0x0000000000000000000000000000000000000001 \
 123 0
 ```
 ### Step 4: Finish bridging in the settlement layer
-
-
 
 Prepare parameters for finishing the bridging transaction. Most of them you get from Anvil logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
@@ -236,20 +234,40 @@ Prepare parameters for finishing the bridging transaction. Most of them you get 
   * Used value: `123`
   * This denotes 123 weis.
 * An account on the settlement layer to receive the assets.
-  * Used value: `0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266`
+  * Used value: `0x0000000000000000000000000000000000000001`
   * This is the address that was used for bridging from the settlement layer to the Appchain.
 
 ```bash
-cast send 0x8453FC6Cd1bCfE8D4dFC069C400B433054d47bDc \
+cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 --rpc-url http://127.0.0.1:8545 \
 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
 "withdraw(address,uint256,address)" \
  0x0000000000000000000000000000000000455448  \
  123 \
- 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+ 0x0000000000000000000000000000000000000001
 ```
 
 The assets should be in your wallet instantly.
+
+### Check the settlement layer balance
+
+You can verify that the assets were bridged properly by checking the Eth balance in the settlement layer.
+
+The required parameters for the command are:
+* A settlement layer RPC URL.
+  * Used value: `http://127.0.0.1:8545`
+  * This is the default URL.
+* Wallet address
+  * Used value: `0x0000000000000000000000000000000000000001`
+  * The wallet that should receive the assets
+
+
+The full command is:
+```bash
+cast balance --rpc-url http://127.0.0.1:8545 0x0000000000000000000000000000000000000001
+```
+
+You should get a response ``. This is the value we bridged.
 
 ## Read more
 
