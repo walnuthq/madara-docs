@@ -184,6 +184,8 @@ The required parameters for the command are:
   * Used value: `0x4746c72bdf15c114e7b82abdacda25aaabcbb80b7480313dcb14ee5ecbde0ea`
   * This is the public key corresponding to the used private key.
 
+The full command is:
+
 ```bash
 sncast account create --type oz --salt 1  \
 --url http://127.0.0.1:9945 \
@@ -203,8 +205,22 @@ jq '.MADARA_DEVNET["account-for-guide"] += {
 
 Once the account has been created, it still needs to be deployed to the Appchain.
 
-TODO Explanations.
+The required parameters for the command are:
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Account name
+  * Used value: `account-for-guide`
+  * This is the same name as was used above.
+* Fee token
+  * Used value: `eth`
+  * Use Appchain version of Eth to pay for transaction fees.
 
+:::info
+Remember that your account needs to have Appchain Eth to pay for any transaction fees. If it doesn't, please check earlier in this guide on how to bridge some Eth to your account.
+:::
+
+The full command is:
 ```
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
@@ -221,22 +237,22 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * Used value: `http://127.0.0.1:9945`
   * This is the default URL.
 * Appchain bridge address.
-  * Used value: `0x0594c1582459ea03f77deaf9eb7e3917d6994a03c13405ba42867f83d85f085d` TODO
-  * This is given upon launching the Appchain. TODO
+  * Used value: `0x190f2407f7040ef9a60d4df4d2eace6089419aa9ec42cda229a82a29b2d5b3e`
+  * This is the default Eth bridge address for a Madara Appchain.
 * The bridge function's name.
   * Used value: `initiate_token_withdraw`
   * This is static and doesn't change.
 * Asset contract address.
-  * Used value: `0xCa14007Eff0dB1f8135f4C25B34De49AB0d42766` TODO
-  * This is the used token's contract address in the settlement layer
+  * Used value: `0x0000000000000000000000000000000000455448`
+  * Address of the asset contract in the settlement layer. This is a special address invented by the Starkgate bridge protocol - using this address denotes that the asset in question is Eth.
 * Receives address.
   * Used value: `0x0000000000000000000000000000000000000001`
-  * This is the address that should receive the assets in the settlement layer. an arbitrary value is used.
+  * This is the address that should receive the assets in the settlement layer. An arbitrary value is used.
 * The amount to be bridged.
-  * Used value: `678 0`
-  * This denotes 678 weis. The last zero is because of Starknet's [peculiar u256 encoding](https://docs.starknet.io/architecture-and-concepts/smart-contracts/serialization-of-cairo-types/#serialization_in_u256_values).
+  * Used value: `123 0`
+  * This denotes 123 weis. The last zero is because of Starknet's [peculiar u256 encoding](https://docs.starknet.io/architecture-and-concepts/smart-contracts/serialization-of-cairo-types/#serialization_in_u256_values).
 
-We can utilize Starknet Foundry's `sncast` command to send a transaction to the Appchain. By inputting our parameters from above, we can send the command:
+The full command is:
 ```bash
 sncast --account account-for-guide invoke \
 --url http://127.0.0.1:9945 \
@@ -253,14 +269,14 @@ sncast --account account-for-guide invoke \
 Prepare parameters for finishing the bridging transaction. Most of them you get from Anvil logs. Here are the ones used in the command later:
 * Assets to bridge and to pay gas fees with. Luckily, your Appchain comes with some accounts with ready assets. TODO: does it?
 * Settlement layer bridge address.
-  * Used value: `0xcE5485Cfb26914C5dcE00B9BAF0580364daFC7a4` TODO
-  * This is given upon launching the Appchain. The address also depends on the used token. TODO
+  * Used value: `0x8a791620dd6260079bf849dc5567adc3f2fdc318`
+  * This is the default Eth bridge address for a Madara Appchain's settlement layer.
 * A settlement layer RPC URL.
   * Used value: `http://127.0.0.1:8545`
   * This is given upon launching the Appchain.
 * A private key for the sending wallet.
   * Used value: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
-  * This is the key for an account that initiates the withdrawal transaction. This corresponds to the receiver's public address (shown a bit below).
+  * This is the key for an account that initiates the withdrawal transaction. This is the same as was used when bridging from the settlement layer, earlier in this guide.
 * The bridge function's signature.
   * Used value: `withdraw(address,uint256,address)`
   * This is static and doesn't change.
