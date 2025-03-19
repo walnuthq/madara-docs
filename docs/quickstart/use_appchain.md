@@ -17,15 +17,13 @@ To get ready for interacting with your Appchain, you should do the following:
 
 All of this is covered in the [Use a running devnet](use_devnet) guide. Please follow that guide for preparations, until the section [Configure your accounts and signer](use_devnet#configure-your-account-and-signer). From there onwards the instructions differ between a devnet and an Appchain.
 
-
-
 ## Prepare your account
 
 A new Appchain does not have accounts nor assets to pay gas fees with. We will need to bridge some assets and create an account to be able to interact with the Appchain.
 
 ### Bridge assets
 
-Later in this guide we will show how to deploy an account at address `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`. Before that, please go to the [bridging guide](bridge_appchain) and bridge Eth to that address. Remember that you will need to modify the default command to use a different target address.
+Later in this guide we will show how to deploy an account at address `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`. Before that, please go to the [bridging guide](bridge_appchain) and bridge Eth to that address (from the settlement layer to the Appchain). Remember that you will need to modify the default command to use a different target address.
 
 Once the address has Eth, we can start deploying an account to that address.
 

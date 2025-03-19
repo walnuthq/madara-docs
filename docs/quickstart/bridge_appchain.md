@@ -22,7 +22,7 @@ Bridging can happen in either direction. The exact mechanisms may differ, but th
 
 The instructions to run the Appchain already instructed you to install the main tool, called Foundry.
 
-If you wish to bridge from the settlement layer to the Appchain, you don't need any extra tooling. However, if you want to bridge from the Appchain to the settlement layer, you should install [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
+If you wish to bridge from the settlement layer to the Appchain, you don't need any extra tooling. However, if you want to bridge from the Appchain to the settlement layer, you should install the tools listed [here](use_devnet#install-tooling-for-interaction).
 
 ## What to bridge
 
