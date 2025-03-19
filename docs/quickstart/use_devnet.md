@@ -28,6 +28,8 @@ Now restart your terminal to take the tooling into use. Next, you have to set th
 ```bash
 asdf install scarb 2.9.2
 asdf set scarb 2.9.2
+asdf install starknet-foundry 0.36.0
+asdf set starknet-foundry 0.36.0
 ```
 
 ## Prepare your contract
