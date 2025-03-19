@@ -55,8 +55,8 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * Used value: `345`
   * This denotes 345 weis.
 * An account on the Appchain to receive the assets.
-  * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
-  * This is the address that should receive the assets. This address will be used when bridging assets back, later in this guide. FIXME: incorrect address
+  * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
+  * This is the address that should receive the assets. This address will also be used later in this guide, when bridging assets back.
 * Assets to send to the bridge.
   * Used value: `346wei`
   * This has to be larger than the amount we want to send for the receiver, to pay for the bridging fees. Using value 346 is enough in our setup.
@@ -74,7 +74,7 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
  "deposit(uint256,uint256)" \
  345 \
- 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 \
+ 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a \
  --value 346wei
 ```
 
@@ -97,8 +97,8 @@ The required parameters for the command are:
   * Used value: `balance_of`
   * This function is used to query balance of an address in an Appchain ERC-20 token contract
 * Address to check for balance update
-  * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
-  * This is the address that should receive the assets. Use the one you got when creating an account
+  * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
+  * This is the address that should receive the assets.
 
 The full command is:
 
@@ -107,7 +107,7 @@ sncast call \
 --url http://localhost:9945 \
 --contract-address 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7 \
 --function "balance_of" \
---calldata 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+--calldata 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a
 ```
 
 ![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
