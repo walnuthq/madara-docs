@@ -31,9 +31,9 @@ Once the address has Eth, we can start deploying an account to that address.
 
 Starknet Foundry does not have direct functionality to create an account at a deterministic address. Until this feature is added, we have to get a bit creative with how we create an account.
 
-The script below will do the following:
+Our script below will do the following:
 1. Create a random account entry in the Starknet Foundry account file.
-1. Create a temp file with the current account file's content. 
+1. Create a temporary file with the current account file's content. 
 1. Replace the random account data with our precalculated data.
 1. Replace the account file with the temp file.
 
@@ -43,7 +43,7 @@ The required parameters for the command are:
   * Use a generic OpenZeppelin account type
 * Salt for account creation
   * Used value: `1`
-  * Use a hardcoded salt value so the account address is known
+  * Use a hardcoded salt value so the account address is deterministic
 * Appchain RPC URL
   * Used value: `http://localhost:9945`
   * This is the default URL.
@@ -58,7 +58,7 @@ The required parameters for the command are:
   * Location of the account file
 * Appchain name
   * Used value: `MADARA_DEVNET`
-  * This is the name our our Appchain. Accounts for this chain are created under this name.
+  * This is the name of our Appchain. Accounts for this chain are created under this name.
 * Account name
   * Used value: `account-for-guide`
   * This is the same name as was used above.
@@ -91,7 +91,7 @@ jq '.MADARA_DEVNET["account-for-guide"] += {
 
 ### Deploy the account
 
-Once the account has been created, it still needs to be deployed to the Appchain.
+Once the account has been created it still needs to be deployed to the Appchain.
 
 The required parameters for the command are:
 * Appchain RPC URL
@@ -145,7 +145,7 @@ sncast --account account-for-guide declare --url http://localhost:9945 --fee-tok
 
 TODO: add screenshot
 
-Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
+Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
 ### Deploy it
 
@@ -157,7 +157,7 @@ The required parameters for the command are:
   * This is the same name as was used above.
 * Salt for contract deployment
   * Used value: `1`
-  * Use a hardcoded salt value so the deployment address is known
+  * Use a hardcoded salt value so the deployment address is deterministic.
 * Appchain RPC URL
   * Used value: `http://localhost:9945`
   * This is the default URL.
@@ -196,7 +196,7 @@ The required parameters for the command are:
   * The contract address deployed earlier.
 * Function name
   * Used value: `get`
-  * This is function name we are calling inside the example smart contract.
+  * This is the name of the function we are calling inside the example smart contract.
 
 The full command is:
 
@@ -228,10 +228,10 @@ The required parameters for the command are:
   * Use Appchain version of Eth to pay for transaction fees.
 * Function name
   * Used value: `increase`
-  * This is function name we are calling inside the example smart contract.
+  * This is the name of the function we are calling inside the example smart contract.
 * Function arguments
   * Used value: `3`
-  * These are the arguments we are passing to the function. We pass *3* because we want to increment the counter by three.
+  * This is the argument we are passing to the function. We pass *3* because we want to increment the counter by three.
 
 The full command is:
 
@@ -244,7 +244,3 @@ sncast --account account-for-guide invoke \
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
-
-## Rerunning this quickstart
-
-If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
