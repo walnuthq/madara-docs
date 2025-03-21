@@ -20,11 +20,20 @@ Furthermore, an Appchain is typically built on top of some existing blockchain. 
 
 These instructions will walk you through setting up an Appchain. Please check the [hardware requirements](/hardware) to make sure you can run the Appchain properly.
 
-### Step 1: Install Madara CLI and run your Appchain
+### Step 1: Install tooling used by the Appchain
+
+The Appchain settles on Ethereum. For any interactions with the settlement layer, we need to install the required tooling. Unfortunately, that can't be installed while the Appchain is running, so it has be added before running the Appchain.
+
+To interact with the settlement layer, you should install [Foundry](https://book.getfoundry.sh/). You can install Foundry with:
+1. Run `curl -L https://foundry.paradigm.xyz | bash`.
+1. Restart your terminal.
+1. Finalize the installation by executing `foundryup`.
+
+### Step 2: Install Madara CLI and run your Appchain
 
 Follow the [devnet](/quickstart/run_devnet) guide. After you run the CLI, you will be prompted for the "Madara mode". Instead of choosing `Devnet` choose `Appchain`.
 
-### Step 2: Deploy L2 contracts
+### Step 3: Deploy L2 contracts
 
 The CLI will next ask whether you want to deploy initial contracts to the Appchain (L2). The contracts to be deployed are:
 - Contracts related to bridging.
@@ -33,7 +42,7 @@ The CLI will next ask whether you want to deploy initial contracts to the Appcha
 
 You should choose *Yes*.
 
-### Step 3: Select the prover
+### Step 4: Select the prover
 
 The CLI will next ask to choose the [prover](/components/prover). There are multiple options:
 
@@ -43,25 +52,25 @@ The CLI will next ask to choose the [prover](/components/prover). There are mult
 
 For now, select `Dummy`.
 
-### Step 4: Choose whether to use local images
+### Step 5: Choose whether to use local images
 
 Choosing *No* will download ready Docker images from a trusted registry. Choosing *Yes* builds the images locally - this can take quite some time.
 
 To get started quickly, you should choose *No*.
 
-### Step 5: Select the settlement layer (coming soon)
+### Step 6: Select the settlement layer (coming soon)
 
 When running your Appchain, selecting the settlement layer is an important consideration.
 
 At the moment, the CLI will automatically set up a new Ethereum chain (with Anvil) as the settlement layer. This will become customizable later.
 
-### Step 6: Wait for the Appchain to be configured
+### Step 7: Wait for the Appchain to be configured
 
 It will require 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
 
 ![Appchain is ready](/img/quickstart-appchain-ready.png "Appchain is ready")
 
-### Step 7: Your Appchain is ready
+### Step 8: Your Appchain is ready
 
 Congratulations, you now have your own Appchain running!
 
