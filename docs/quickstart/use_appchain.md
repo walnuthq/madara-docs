@@ -11,9 +11,9 @@ This quick-start guide helps you interact with an Appchain. Please make sure you
 ## Preparations
 
 To get ready for interacting with your Appchain, you should do the following:
-1. Install the required tooling
-1. Initialize a new development project
-1. Compile an example contract
+1. Install the required tooling.
+1. Initialize a new development project.
+1. Compile an example contract.
 
 All of this is covered in the [Use a running devnet](use_devnet) guide. Please follow that guide for preparations, until the section [Configure your accounts and signer](use_devnet#configure-your-account-and-signer). From there onwards the instructions differ between a devnet and an Appchain.
 
