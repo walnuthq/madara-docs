@@ -14,6 +14,8 @@ These instructions assume you are using Linux or macOS. For Windows, please util
 
 Ensure you have a C compiler (like gcc or clang) and `make` installed. Installation steps depend on your OS - please refer to your package manager or system documentation.
 
+Most development environments come with these tools preinstalled.
+
 ### Why it's needed
 
 These tools are needed when building Madara from source code. This is currently the only option on how to run Madara.
