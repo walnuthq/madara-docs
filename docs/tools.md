@@ -6,8 +6,6 @@ sidebar_position: 1
 
 Before following the guides in this documentation, ensure you have the necessary tooling installed.
 
-Please verify you all of have the following tools installed, or install them if needed.
-
 :::info
 These instructions assume you are using Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
 :::
@@ -36,7 +34,7 @@ Please install Docker following [these](https://docs.docker.com/engine/install/)
 
 Many of Madara's components are packaged into Docker images for easier execution. Docker tooling is required for utilizing these packages.
 
-## Foundry
+## Ethereum Foundry
 
 Please install Foundry following [these](https://book.getfoundry.sh/getting-started/installation) instructions.
 

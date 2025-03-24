@@ -47,7 +47,7 @@ cargo run create
 
 ### Step 3: Use Appchain mode
 
-The CLI will first ask you what Madara type to run. Since we want an Appchain, you should choose *Appchain*.
+The CLI will first ask you what Madara mode to run. Since we want an Appchain, you should choose *Appchain*.
 
 ### Step 4: Deploy L2 contracts
 
