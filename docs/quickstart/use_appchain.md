@@ -10,12 +10,9 @@ This quick-start guide helps you interact with an Appchain. Please make sure you
 
 ## Preparations
 
-To get ready for interacting with your Appchain, you should do the following:
-1. Install the required tooling.
-1. Initialize a new development project.
-1. Compile an example contract.
+To get ready for interacting with your Appchain, you should install the [required tools](/tools) and prepare an example smart contract.
 
-All of this is covered in the [Use a running devnet](use_devnet) guide. Please follow that guide for preparations, until the section [Configure your accounts and signer](use_devnet#configure-your-account-and-signer). From there onwards the instructions differ between a devnet and an Appchain.
+An example contract is introduced in the *use devnet* guide's section [prepare your contract](use_devnet#prepare-your-contract). Please follow that section for preparations and return here once you have the contract compiled.
 
 ## Prepare your account
 
@@ -29,21 +26,18 @@ Once the address has Eth, we can start deploying an account to that address.
 
 ### Create account data
 
-Starknet Foundry does not have direct functionality to create an account at a deterministic address. Until this feature is added, we have to get a bit creative with how we create an account.
+Starknet Foundry does not have direct functionality to create an account at a deterministic address. Therefore, we have to get a bit creative with how we create an account.
 
 Our script below will do the following:
 1. Create a random account entry in the Starknet Foundry account file.
 1. Create a temporary file with the current account file's content. 
 1. Replace the random account data with our precalculated data.
-1. Replace the account file with the temp file.
+1. Replace the account file with the temporary file.
 
 The required parameters for the command are:
 * Account type
   * Used value: `oz`
   * Use a generic OpenZeppelin account type
-* Salt for account creation
-  * Used value: `1`
-  * Use a hardcoded salt value so the account address is deterministic
 * Appchain RPC URL
   * Used value: `http://localhost:9945`
   * This is the default URL.
@@ -58,7 +52,7 @@ The required parameters for the command are:
   * Location of the account file
 * Appchain name
   * Used value: `MADARA_DEVNET`
-  * This is the name of our Appchain. Accounts for this chain are created under this name.
+  * This is the name of our Appchain. Accounts for this chain are created under this name in the account file.
 * Account name
   * Used value: `account-for-guide`
   * This is the same name as was used above.
@@ -72,10 +66,13 @@ The required parameters for the command are:
   * Used value: `0x4746c72bdf15c114e7b82abdacda25aaabcbb80b7480313dcb14ee5ecbde0ea`
   * This is the public key corresponding to the used private key.
 
+
+
+
 The full command is:
 
 ```bash
-sncast account create --type oz --salt 1  \
+sncast account create --type oz \
 --url http://127.0.0.1:9945 \
 --class-hash 0x5c478ee27f2112411f86f207605b2e2c58cdb647bac0df27f660ef2252359c6 \
 --name account-for-guide --silent
@@ -109,7 +106,7 @@ Remember that your account needs to have Appchain Eth to pay for any transaction
 :::
 
 The full command is:
-```
+```bash
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
 
