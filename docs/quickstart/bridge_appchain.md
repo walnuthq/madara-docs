@@ -18,12 +18,6 @@ A *bridge* is the solution for bridging. Often it has a website users can use. I
 
 Bridging can happen in either direction. The exact mechanisms may differ, but the end result is very similar: your asset gets transferred to the other side of the bridge.
 
-## Installation
-
-The needed tooling depends on which direction you want to bridge:
-- If you want to bridge from the settlement layer to the Appchain, install [Foundry](https://book.getfoundry.sh/getting-started/installation).
-- If you want to bridge from the Appchain to the settlement layer, install both [Foundry](https://book.getfoundry.sh/getting-started/installation) and [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/getting-started/installation.html).
-
 ## What to bridge
 
 The used bridging solution, Starkgate, supports multiple tokens. It's also possible to bridge the native asset (Eth).
