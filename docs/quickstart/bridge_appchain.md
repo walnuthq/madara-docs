@@ -44,14 +44,14 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * Used value: `deposit(uint256,uint256)`
   * This is static and doesn't change.
 * The amount to be bridged.
-  * Used value: `345`
-  * This denotes 345 weis.
+  * Used value: `345000000`
+  * This denotes 345000000 weis.
 * An account on the Appchain to receive the assets.
-  * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
-  * This is the address that should receive the assets. This is an arbitrary address.
+  * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
+  * This is the address that should receive the assets. You probably need to change this to suit your needs.
 * Assets to send to the bridge.
-  * Used value: `346wei`
-  * This has to be larger than the amount we want to send for the receiver, to pay for the bridging fees. Using value 346 is enough in our setup.
+  * Used value: `345000001wei`
+  * This has to be larger than the amount we want to send for the receiver to cover bridging fees. Using value 345000001 is enough in our setup.
 
 :::warning
 Never use private keys associated with real assets in commands. These examples are for educational purposes only.
@@ -65,9 +65,9 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 --rpc-url http://127.0.0.1:8545 \
 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
  "deposit(uint256,uint256)" \
- 345 \
- 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 \
- --value 346wei
+ 345000000 \
+ 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a \
+ --value 345000001wei
 ```
 
 ![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
@@ -89,7 +89,7 @@ The required parameters for the command are:
   * Used value: `balance_of`
   * This function is used to query balance of an address in an Appchain ERC-20 token contract
 * Address to check for balance update
-  * Used value: `0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493`
+  * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
   * This is the address that should receive the assets. Use the one you got when creating an account
 
 The full command is:
@@ -99,7 +99,7 @@ sncast call \
 --url http://localhost:9945 \
 --contract-address 0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7 \
 --function "balance_of" \
---calldata 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493
+--calldata 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a
 ```
 
 ![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
