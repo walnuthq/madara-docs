@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # Use a running devnet
@@ -7,28 +7,6 @@ sidebar_position: 2
 ## Overview
 
 This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) in a separate terminal before continuing.
-
-## Installation
-
-These installation instructions assume you are using Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
-
-### Install tooling for interaction
-
-Start by installing the specific tooling used in this tutorial:
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
-```
-
-The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The installed tools are:
-- [asdf](https://asdf-vm.com/), a runtime version manager. Used by many Starknet tools.
-- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
-- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
-
-Now restart your terminal to take the tooling into use. Next, you have to set the correct versions that are compatible with Madara:
-```bash
-asdf install scarb 2.9.2
-asdf set scarb 2.9.2
-```
 
 ## Prepare your contract
 

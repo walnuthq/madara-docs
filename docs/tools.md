@@ -2,7 +2,7 @@
 sidebar_position: 1
 ---
 
-# Prerequisites
+# Required tools
 
 Before following the guides in this documentation, ensure you have the necessary tooling installed.
 
