@@ -8,31 +8,20 @@ sidebar_position: 7
 
 This quick-start guide helps you interact with an Appchain. Please make sure you are [running a Madara Appchain](run_appchain) in a separate terminal before continuing.
 
-## Preparations
+We will first prepare and account and then interact with an example contract.
 
-To get ready for interacting with your Appchain, you should install the [required tools](/tools) and prepare an example smart contract.
+## Prepare an account
 
-An example contract is introduced in the *use devnet* guide's section [prepare your contract](use_devnet#prepare-your-contract). Please follow that section for preparations and return here once you have the contract compiled.
+Account creation in Madara, and the [SN Stack](https://www.starknet.io/sn-stack/) in general, works quite differently from other blockchains like Ethereum. In our Appchain, the process involves:
+1. Generating an account address.
+1. Sending assets to the newly created address so the account can be deployed.
+1. Deploying the account from itself.
 
-## Prepare your account
-
-A new Appchain does not have accounts nor assets to pay gas fees with. We will need to bridge some assets and create an account to be able to interact with the Appchain.
-
-### Bridge assets
-
-Later in this guide we will show how to deploy an account at address `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`. Before that, please go to the [bridging guide](bridge_appchain) and bridge Eth to that address (from the settlement layer to the Appchain). Remember that you will need to modify the default command to use a different target address.
-
-Once the address has Eth, we can start deploying an account to that address.
+Since the account must be funded before deployment, you first need to know its address to send assets. In the case of an Appchain, the required assets can be bridged from the settlement layer.
 
 ### Create account data
 
-Starknet Foundry does not have direct functionality to create an account at a deterministic address. Therefore, we have to get a bit creative with how we create an account.
-
-Our script below will do the following:
-1. Create a random account entry in the Starknet Foundry account file.
-1. Create a temporary file with the current account file's content. 
-1. Replace the random account data with our precalculated data.
-1. Replace the account file with the temporary file.
+First, let's generate account data.
 
 The required parameters for the command are:
 * Account type
@@ -43,31 +32,10 @@ The required parameters for the command are:
   * This is the default URL.
 * Class hash for the account
   * Used value: `0x5c478ee27f2112411f86f207605b2e2c58cdb647bac0df27f660ef2252359c6`
-  * This is the class hash for an OpenZeppelin account. This hash is already declared in the Appchain.
+  * This is a class hash for an OpenZeppelin account. This hash is already declared in the Appchain.
 * Account name
   * Used value: `account-for-guide`
-  * This is the name we will use in this guide for our account
-* File path
-  * Used value: `$HOME/.starknet_accounts/starknet_open_zeppelin_accounts.json`
-  * Location of the account file
-* Appchain name
-  * Used value: `MADARA_DEVNET`
-  * This is the name of our Appchain. Accounts for this chain are created under this name in the account file.
-* Account name
-  * Used value: `account-for-guide`
-  * This is the same name as was used above.
-* Account address
-  * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
-  * This is the same address that was the target of bridging from the settlement layer, earlier in this guide.
-* The used private key
-  * Used value: `0x5d14e6730aed39ac7f908ea699944f74409787a567d197a540c0d3c0567832c`
-  * This is the private key corresponding to the used account address.
-* The used public key
-  * Used value: `0x4746c72bdf15c114e7b82abdacda25aaabcbb80b7480313dcb14ee5ecbde0ea`
-  * This is the public key corresponding to the used private key.
-
-
-
+  * This is the name we will use in this guide for our account.
 
 The full command is:
 
@@ -76,19 +44,23 @@ sncast account create --type oz \
 --url http://127.0.0.1:9945 \
 --class-hash 0x5c478ee27f2112411f86f207605b2e2c58cdb647bac0df27f660ef2252359c6 \
 --name account-for-guide --silent
-
-FILE="$HOME/.starknet_accounts/starknet_open_zeppelin_accounts.json"
-
-jq '.MADARA_DEVNET["account-for-guide"] += {
-  "address": "0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a",
-  "private_key": "0x5d14e6730aed39ac7f908ea699944f74409787a567d197a540c0d3c0567832c",
-  "public_key": "0x4746c72bdf15c114e7b82abdacda25aaabcbb80b7480313dcb14ee5ecbde0ea",
-}' "$FILE" > "$FILE.tmp" && mv "$FILE.tmp" "$FILE"
 ```
+
+![Account created](/img/pages/use-appchain-account-created.png "Account created")
+
+Note the returned account address. You will now need to bridge assets to this address.
+
+### Bridge assets to the address
+
+Please go to the [bridging guide](bridge_appchain) and bridge Eth to the address you received at the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
+
+Once the address has Eth, we can start deploying an account to that address.
+
+Luckily, the account address is stored in an account file in your computer. We can reference the account only by its name, from now on.
 
 ### Deploy the account
 
-Once the account has been created it still needs to be deployed to the Appchain.
+Once the account has been created and it has assets, it still needs to be deployed to the Appchain.
 
 The required parameters for the command are:
 * Appchain RPC URL
@@ -96,29 +68,31 @@ The required parameters for the command are:
   * This is the default URL.
 * Account name
   * Used value: `account-for-guide`
-  * This is the same name as was used above.
+  * This is the same name as was used above. The underlying address is not relevant.
 * Fee token
   * Used value: `eth`
   * Use Appchain version of Eth to pay for transaction fees.
-
-:::info
-Remember that your account needs to have Appchain Eth to pay for any transaction fees. If it doesn't, please check earlier in this guide on how to bridge some Eth to your account.
-:::
 
 The full command is:
 ```bash
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
 
-TODO: add screenshot of a successful command run.
+![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
 
 ## Contract interaction
 
-We are now ready to start deploying our contract and interacting with it.
+In this section you will learn how to deploy a contract and interact with it.
+
+### Prepare an example contract
+
+First we need to prepare an example smart contract.
+
+An example contract is introduced in the *use a running devnet* guide's section [prepare your contract](use_devnet#prepare-your-contract). Please follow that section for preparations and return here once you have the contract compiled.
 
 ### Declare your contract
 
-Before deployment, the contract needs to be declared to the network.
+At this point, the contract needs to be declared to the network.
 
 The required parameters for the command are:
 * Account name
@@ -140,7 +114,7 @@ The full command is:
 sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name Balance
 ```
 
-TODO: add screenshot
+![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
@@ -174,7 +148,7 @@ sncast --account account-for-guide deploy --salt 1 \
 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
-TODO: add screenshot
+![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
 
 Note the deployed contract's address.
 
@@ -240,4 +214,4 @@ sncast --account account-for-guide invoke \
 --function increase --arguments "3"
 ```
 
-If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!
+If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the state of your contract and Appchain!

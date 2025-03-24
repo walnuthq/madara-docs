@@ -44,14 +44,14 @@ First, you need to prepare parameters for the bridging transaction. Here are the
   * Used value: `deposit(uint256,uint256)`
   * This is static and doesn't change.
 * The amount to be bridged.
-  * Used value: `345`
-  * This denotes 345 weis.
+  * Used value: `345000000`
+  * This denotes 345000000 weis.
 * An account on the Appchain to receive the assets.
   * Used value: `0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a`
-  * This is the address that should receive the assets. This is an address used in other guides.
+  * This is the address that should receive the assets. You probably need to change this to suit your needs.
 * Assets to send to the bridge.
-  * Used value: `346wei`
-  * This has to be larger than the amount we want to send for the receiver, to pay for the bridging fees. Using value 346 is enough in our setup.
+  * Used value: `345000001wei`
+  * This has to be larger than the amount we want to send for the receiver to cover bridging fees. Using value 345000001 is enough in our setup.
 
 :::warning
 Never use private keys associated with real assets in commands. These examples are for educational purposes only.
@@ -65,9 +65,9 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 --rpc-url http://127.0.0.1:8545 \
 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
  "deposit(uint256,uint256)" \
- 345 \
+ 345000000 \
  0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a \
- --value 346wei
+ --value 345000001wei
 ```
 
 ![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
