@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 7
 ---
 
 # Run a local appchain
@@ -16,24 +16,40 @@ An Appchain is a blockchain built for a single purpose. It runs all of the requi
 
 Furthermore, an Appchain is typically built on top of some existing blockchain. Madara's Appchains run on top of either Starknet or Ethereum and [settle](/concepts/settlement) their transactions there for added security.
 
+## Prerequisites
+
+Before starting, please make sure you have all of the [required tools](/tools) installed.
+
+Remember to also check the [hardware requirements](/hardware) to make sure you can run an Appchain properly.
+
 ## Run the appchain locally
 
-These instructions will walk you through setting up an Appchain. Please check the [hardware requirements](/hardware) to make sure you can run the Appchain properly.
+These instructions will walk you through setting up an Appchain.
 
-### Step 1: Install tooling used by the Appchain
+### Step 1: Install Madara CLI
 
-The Appchain settles on Ethereum. For any interactions with the settlement layer, we need to install the required tooling. Unfortunately, that can't be installed while the Appchain is running, so it has be added before running the Appchain.
+You should start by installing the main tool for running Madara, the Madara CLI:
+```bash
+git clone https://github.com/madara-alliance/madara-cli.git
+cd madara-cli
+git submodule update --init --recursive --jobs=4
+```
 
-To interact with the settlement layer, you should install [Foundry](https://book.getfoundry.sh/). You can install Foundry with:
-1. Run `curl -L https://foundry.paradigm.xyz | bash`.
-1. Restart your terminal.
-1. Finalize the installation by executing `foundryup`.
+The above will clone the repository into a new folder, enter the folder and initialize the repository's Git submodules.
 
-### Step 2: Install Madara CLI and run your Appchain
+### Step 2: Start the runner
 
-Follow the [devnet](/quickstart/run_devnet) guide. After you run the CLI, you will be prompted for the "Madara mode". Instead of choosing `Devnet` choose `Appchain`.
+Next, in the `madara-cli` folder, run the following command to start the Madara runner:
 
-### Step 3: Deploy L2 contracts
+```bash
+cargo run create
+```
+
+### Step 3: Use Appchain mode
+
+The CLI will first ask you what Madara mode to run. Since we want an Appchain, you should choose *Appchain*.
+
+### Step 4: Deploy L2 contracts
 
 The CLI will next ask whether you want to deploy initial contracts to the Appchain (L2). The contracts to be deployed are:
 - Contracts related to bridging.
@@ -42,7 +58,7 @@ The CLI will next ask whether you want to deploy initial contracts to the Appcha
 
 You should choose *Yes*.
 
-### Step 4: Select the prover
+### Step 5: Select the prover
 
 The CLI will next ask to choose the [prover](/components/prover). There are multiple options:
 
@@ -52,25 +68,25 @@ The CLI will next ask to choose the [prover](/components/prover). There are mult
 
 For now, select `Dummy`.
 
-### Step 5: Choose whether to use local images
+### Step 6: Choose whether to use local images
 
 Choosing *No* will download ready Docker images from a trusted registry. Choosing *Yes* builds the images locally - this can take quite some time.
 
 To get started quickly, you should choose *No*.
 
-### Step 6: Select the settlement layer (coming soon)
+### Step 7: Select the settlement layer (coming soon)
 
 When running your Appchain, selecting the settlement layer is an important consideration.
 
 At the moment, the CLI will automatically set up a new Ethereum chain (with Anvil) as the settlement layer. This will become customizable later.
 
-### Step 7: Wait for the Appchain to be configured
+### Step 8: Wait for the Appchain to be configured
 
-It will require 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
+It will require about 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
 
-![Appchain is ready](/img/quickstart-appchain-ready.png "Appchain is ready")
+![Appchain is ready](/img/pages/quickstart-appchain-ready.png "Appchain is ready")
 
-### Step 8: Your Appchain is ready
+### Step 9: Your Appchain is ready
 
 Congratulations, you now have your own Appchain running!
 
