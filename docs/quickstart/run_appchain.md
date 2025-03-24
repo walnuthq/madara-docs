@@ -39,7 +39,7 @@ The above will clone the repository into a new folder, enter the folder and init
 
 ### Step 2: Start the runner
 
-Next, in the `madara-cli` folder, run the following to start the Madara runner:
+Next, in the `madara-cli` folder, run the following command to start the Madara runner:
 
 ```bash
 cargo run create
