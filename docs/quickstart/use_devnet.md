@@ -1,5 +1,5 @@
 ---
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # Use a running devnet
@@ -7,28 +7,6 @@ sidebar_position: 2
 ## Overview
 
 This quick-start guide helps you interact with a devnet. Please make sure you are [running a Madara devnet](run_devnet) in a separate terminal before continuing.
-
-## Installation
-
-These installation instructions assume you are using Linux or macOS. For Windows, please utilize [WSL2](https://learn.microsoft.com/en-us/windows/wsl/).
-
-### Install tooling for interaction
-
-Start by installing the specific tooling used in this tutorial:
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
-```
-
-The above will install the required tooling with [Starkup](https://github.com/software-mansion/starkup), a toolchain to help with Starknet development. The installed tools are:
-- [asdf](https://asdf-vm.com/), a runtime version manager. Used by many Starknet tools.
-- [Scarb](https://docs.swmansion.com/scarb/), a build toolchain and package manager.
-- [Starknet Foundry](https://foundry-rs.github.io/starknet-foundry/index.html), a Starknet smart contract development tool.
-
-Now restart your terminal to take the tooling into use. Next, you have to set the correct versions that are compatible with Madara:
-```bash
-asdf install scarb 2.9.2
-asdf set scarb 2.9.2
-```
 
 ## Prepare your contract
 
@@ -126,7 +104,7 @@ If needed, remember to replace the following values in the command below:
 ```bash
 sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
-![Account creation](/img/quickstart-devnet-import.png "Account creation")
+![Account creation](/img/pages/quickstart-devnet-import.png "Account creation")
 Note the imported account name.
 
 :::warning
@@ -150,7 +128,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 declare --url http://localhost:9944 --contract-name Balance
 ```
 
-![Class hash](/img/quickstart-devnet-classhash.png "Resulting class hash")
+![Class hash](/img/pages/quickstart-devnet-classhash.png "Resulting class hash")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
 
@@ -166,7 +144,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
-![Contract address](/img/quickstart-devnet-contract.png "Resulting class contract address")
+![Contract address](/img/pages/quickstart-devnet-contract.png "Resulting class contract address")
 
 Note the deployed contract's address.
 
