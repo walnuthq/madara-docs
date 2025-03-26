@@ -20,21 +20,15 @@ An Appchain is formed by multiple components. In Madara, the main components are
 
 ## Why use an Appchain
 
-It's not trivial to run and configure an Appchain, even with the help of Madara. What are the benefits of running an Appchain and why should you care?
+What are the benefits of running an Appchain and why should you care?
 
-### Own chain, own rules
+### Your chain with your own rules
 
 Modern, major blockchains are secure. But they are typically expensive to use and have a lot of limitations.
 
-When you start an Appchain, you are mostly free of those limitations. You can set up your Appchain just the way you want, with your own rules, and optimize it especially for your specific use case.
+When you start an Appchain, you can have very different cost tradeoffs. You can optimize the Appchain to suit your specific performance requirements.
 
 The absolute minimum requirements for an Appchain are to run a single sequencer and nothing else. Such a chain may be useful for quick experimentation but includes zero security and is maximally centralized. But here again you are free to choose what you require.
-
-### Lifespan of an Appchain
-
-An Appchain is possibly very short-lived. For some use cases, they are spun up for a few minutes and then erased. One example could be a new Appchain for a single game of Tic-Tac-Toe.
-
-However, some Appchains also exist for years. Those are typically tweaked and customized to be very efficient for their use case.
 
 ## Settling transactions and security
 
@@ -42,7 +36,35 @@ Appchains typically inherit security from the underlying, secure blockchain, by 
 
 For Starknet, the underlying blockchain is Ethereum. In this setting, Starknet is called a Layer 2 (L2) blockchain, while Ethereum is Layer 1 (L1). It's also equally possible to create an Appchain on top of Starknet - then your new layer becomes a L3 and your transactions are settled on Starknet L2, which again settles transactions on Ethereum L1.
 
-But what does it mean to settle transactions?
+### Settling when Madara is used as L2
+
+The following diagram shows how settlement works when Madara is used as an L2 Appchain that settles on Ethereum. This is the default configuration.
+
+```mermaid
+sequenceDiagram
+    participant User as Users & Apps
+    participant L2 as Madara (L2)
+    participant L1 as Ethereum (L1)
+
+    User ->> L2: Executes transactions & interacts with the Appchain
+    L2 ->> L1: Settles blocks for finalization & security
+```
+
+### Settling when Madara is used as L3
+
+In the near future, Madara can also be used as an L3 (or any layer beyond 2) Appchain. The below diagram shows how settlement works when Madara is used as an L3 settling on Starknet L2.
+
+```mermaid
+sequenceDiagram
+    participant User as Users & Apps
+    participant L3 as Madara (L3)
+    participant L2 as Starknet (L2)
+    participant L1 as Ethereum (L1)
+
+    User ->> L3: Executes transactions & interacts with the Appchain
+    L3 ->> L2: Settles blocks for finalization & security
+    L2 ->> L1: Finalizes Starknet blocks
+```
 
 ### Transaction flow
 
@@ -54,6 +76,8 @@ A transaction in an Appchain follows the following flow:
 1. The proof is verified. If the verification passes, the block is considered valid and nodes in the Appchain consider the corresponding block finalized.
 
 Once the block with our transaction is verified in the underlying blockchain, the transaction is considered settled - its validity is stored in the blockchain.
+
+You can check the full transaction flow in the [architecture page](/components/architecture).
 
 ### Escape hatch mechanism
 
