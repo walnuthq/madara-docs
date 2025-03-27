@@ -21,7 +21,7 @@ You should start by installing the main tool for running Madara, the Madara CLI:
 git clone https://github.com/madara-alliance/madara-cli.git
 cd madara-cli
 ```
-The above will clone the repository into a new folder and enter the it.
+The above will clone the repository into a new folder and enter it.
 
 ## Run a devnet with Madara CLI
 
