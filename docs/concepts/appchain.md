@@ -81,24 +81,17 @@ You can check the full transaction flow in the [architecture page](/components/a
 
 ### Escape hatch mechanism
 
-Appchains can be insecure. They may be centralized and unstable.
+Appchains can be insecure. They may be centralized, unstable, or even disappear entirely.
 
-What happens to your assets inside the Appchain if the Appchain simply disappears overnight? This is where we begin to understand the value of settling the transactions and how the underlying blockchain provides security.
+If the Appchain faces downtime or disappears altogether, users risk losing all assets within it. However, this is where the value of settling transactions on a secure underlying blockchain becomes meaningful.
 
-Because the underlying blockchain has verified the transaction's validity and knows the overall state of the Appchain, it's possible to prove transactions (and therefore, your assets) in the underlying blockchain - even if the Appchain no longer exists. What happens next depends on how the asset was created in the Appchain:
+Because all of the transactions are settled on the settlement layer, asset recovery may be possible, but only under specific conditions:
+1. Data availability. All required data must be accessible on the settlement layer or another data availability layer.
+1. Implementation. A functional recovery mechanism must exist and be available.
 
-1. If the asset was originally bridged from the underlying blockchain to the Appchain, you can recover the original asset in the underlying chain in the original asset contract address.
-1. If the asset originated in the Appchain and never existed in the underlying blockchain, you can still regain it in a new address and prove that it was part of the Appchain state. Depending on the case, it may be, however, difficult to convince others that the asset has any value or usage.
+In practice, very few Appchains implement a working escape hatch. While theoretically possible, it is difficult to design and execute effectively.
 
-This mechanism of recovering assets in the underlying chain is called the escape hatch mechanism. This is how the Appchain inherits security - it gains security guarantees from the underlying blockchain.
-
-### Security
-
-Because of the possibility to recover assets in the underlying chain, it is much safer to use a new Appchain than a new, independent blockchain. 
-
-However, everyone is still accountable for their own assets in the Appchain: if you lose your assets by, for example, doing bad trades, you can't just escape to the underlying blockchain with an older state. Only the latest state is valid for recovery.
-
-Therefore, you still have to maintain proper wallet security, just like in any blockchain.
+Despite these challenges, the concept of recovering assets through the underlying chain is known as the escape hatch mechanism. It represents a key way in which an Appchain can inherit security guarantees from its settlement layer.
 
 ## Also known as ZK rollups or Validity rollups
 
