@@ -20,21 +20,15 @@ An Appchain is formed by multiple components. In Madara, the main components are
 
 ## Why use an Appchain
 
-It's not trivial to run and configure an Appchain, even with the help of Madara. What are the benefits of running an Appchain and why should you care?
+What are the benefits of running an Appchain and why should you care?
 
-### Own chain, own rules
+### Your chain with your own rules
 
 Modern, major blockchains are secure. But they are typically expensive to use and have a lot of limitations.
 
-When you start an Appchain, you are mostly free of those limitations. You can set up your Appchain just the way you want, with your own rules, and optimize it especially for your specific use case.
+When you start an Appchain, you can have very different cost tradeoffs. You can optimize the Appchain to suit your specific performance requirements.
 
 The absolute minimum requirements for an Appchain are to run a single sequencer and nothing else. Such a chain may be useful for quick experimentation but includes zero security and is maximally centralized. But here again you are free to choose what you require.
-
-### Lifespan of an Appchain
-
-An Appchain is possibly very short-lived. For some use cases, they are spun up for a few minutes and then erased. One example could be a new Appchain for a single game of Tic-Tac-Toe.
-
-However, some Appchains also exist for years. Those are typically tweaked and customized to be very efficient for their use case.
 
 ## Settling transactions and security
 
@@ -42,7 +36,35 @@ Appchains typically inherit security from the underlying, secure blockchain, by 
 
 For Starknet, the underlying blockchain is Ethereum. In this setting, Starknet is called a Layer 2 (L2) blockchain, while Ethereum is Layer 1 (L1). It's also equally possible to create an Appchain on top of Starknet - then your new layer becomes a L3 and your transactions are settled on Starknet L2, which again settles transactions on Ethereum L1.
 
-But what does it mean to settle transactions?
+### Settling when Madara is used as L2
+
+The following diagram shows how settlement works when Madara is used as an L2 Appchain that settles on Ethereum. This is the default configuration.
+
+```mermaid
+sequenceDiagram
+    participant User as Users & Apps
+    participant L2 as Madara (L2)
+    participant L1 as Ethereum (L1)
+
+    User ->> L2: Executes transactions & interacts with the Appchain
+    L2 ->> L1: Settles blocks for finalization & security
+```
+
+### Settling when Madara is used as L3
+
+In the near future, Madara can also be used as an L3 (or any layer beyond 2) Appchain. The below diagram shows how settlement works when Madara is used as an L3 settling on Starknet L2.
+
+```mermaid
+sequenceDiagram
+    participant User as Users & Apps
+    participant L3 as Madara (L3)
+    participant L2 as Starknet (L2)
+    participant L1 as Ethereum (L1)
+
+    User ->> L3: Executes transactions & interacts with the Appchain
+    L3 ->> L2: Settles blocks for finalization & security
+    L2 ->> L1: Finalizes Starknet blocks
+```
 
 ### Transaction flow
 
@@ -55,26 +77,21 @@ A transaction in an Appchain follows the following flow:
 
 Once the block with our transaction is verified in the underlying blockchain, the transaction is considered settled - its validity is stored in the blockchain.
 
+You can check the full transaction flow in the [architecture page](/components/architecture).
+
 ### Escape hatch mechanism
 
-Appchains can be insecure. They may be centralized and unstable.
+Appchains can be insecure. They may be centralized, unstable, or even disappear entirely.
 
-What happens to your assets inside the Appchain if the Appchain simply disappears overnight? This is where we begin to understand the value of settling the transactions and how the underlying blockchain provides security.
+If the Appchain faces downtime or disappears altogether, users risk losing all assets within it. However, this is where the value of settling transactions on a secure underlying blockchain becomes meaningful.
 
-Because the underlying blockchain has verified the transaction's validity and knows the overall state of the Appchain, it's possible to prove transactions (and therefore, your assets) in the underlying blockchain - even if the Appchain no longer exists. What happens next depends on how the asset was created in the Appchain:
+Because all of the transactions are settled on the settlement layer, asset recovery may be possible, but only under specific conditions:
+1. Data availability. All required data must be accessible on the settlement layer or another data availability layer.
+1. Implementation. A functional recovery mechanism must exist and be available.
 
-1. If the asset was originally bridged from the underlying blockchain to the Appchain, you can recover the original asset in the underlying chain in the original asset contract address.
-1. If the asset originated in the Appchain and never existed in the underlying blockchain, you can still regain it in a new address and prove that it was part of the Appchain state. Depending on the case, it may be, however, difficult to convince others that the asset has any value or usage.
+In practice, very few Appchains implement a working escape hatch. While theoretically possible, it is difficult to design and execute effectively.
 
-This mechanism of recovering assets in the underlying chain is called the escape hatch mechanism. This is how the Appchain inherits security - it gains security guarantees from the underlying blockchain.
-
-### Security
-
-Because of the possibility to recover assets in the underlying chain, it is much safer to use a new Appchain than a new, independent blockchain. 
-
-However, everyone is still accountable for their own assets in the Appchain: if you lose your assets by, for example, doing bad trades, you can't just escape to the underlying blockchain with an older state. Only the latest state is valid for recovery.
-
-Therefore, you still have to maintain proper wallet security, just like in any blockchain.
+Despite these challenges, the concept of recovering assets through the underlying chain is known as the escape hatch mechanism. It represents a key way in which an Appchain can inherit security guarantees from its settlement layer.
 
 ## Also known as ZK rollups or Validity rollups
 

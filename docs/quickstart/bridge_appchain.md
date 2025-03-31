@@ -70,7 +70,7 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
  --value 345000001wei
 ```
 
-![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
+> ![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
 
 The assets should get bridged within about 10 seconds - the time it takes to form a new block.
 
@@ -102,7 +102,7 @@ sncast call \
 --calldata 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a
 ```
 
-![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
+> ![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
 
 You should get a response `[0x159, 0x0]`. The first value is `345` in hexadecimal format, the second zero is irrelevant for us.
 

@@ -9,8 +9,8 @@ sidebar_position: 20
 This quick-start guide helps you monitor your local Appchain. Please make sure you are [running a local Appchain](/quickstart/run_appchain) before continuing.
 
 Starting an Appchain launches multiple services. A few notable ones are:
-- Orchestrator
-- Blockchain
+- An [orchestrator](/components/orchestrator)
+- A blockchain
 - Performance monitoring
 
 We will demonstrate how you can query these services to see the status of your Appchain. Note that it may take a few minutes for the Appchain to start gathering data to display.
@@ -21,7 +21,7 @@ The orchestrator utilizes MongoDB database for storing job information.
 
 You can monitor your Appchain by connecting to the database and querying its tables. For this, you should download [MongoDB Compass](https://www.mongodb.com/try/download/compass). Install Compass and connect it to the default address, which should be `mongodb://localhost:27017`.
 
-The database displays four tables. Currently, we're most interested in the orchestrator job entries.
+The connection displays four databases. Currently, we're most interested in the orchestrator database's *jobs* table.
 
 ### Query jobs
 
@@ -31,7 +31,7 @@ The orchestrator is running various jobs all the time. We can query its logs to 
 1. Enter `Sort`: `{ "created_at": -1 }`.
 1. Hit `Find`.
 
-![Latest job](/img/pages/mongodb-latest-job.png "Latest job")
+> ![Latest job](/img/pages/mongodb-latest-job.png "Latest job")
 
 ## Blockchain
 
@@ -76,8 +76,8 @@ curl -X POST http://127.0.0.1:8545 -H "Content-Type: application/json" -d '{
 
 The Appchain utilizes [Grafana](https://grafana.com/) for log and metrics aggregation. We will later add a detailed guide on how to set up Grafana for your Appchain. Meanwhile, here are some examples on what you can monitor.
 
-![Block information](/img/pages/appchain_grafana1.png "Block information")
+> ![Block information](/img/pages/appchain_grafana1.png "Block information")
 *Monitoring block information*
 
-![Measuremenets](/img/pages/appchain_grafana2.png "Measuremenets")
+> ![Measuremenets](/img/pages/appchain_grafana2.png "Measuremenets")
 *Monitoring Appchain performance*

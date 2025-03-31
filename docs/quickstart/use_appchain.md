@@ -8,7 +8,7 @@ sidebar_position: 7
 
 This quick-start guide helps you interact with an Appchain. Please make sure you are [running a Madara Appchain](run_appchain) in a separate terminal before continuing.
 
-First, we will prepare an account and then interact with an example contract.
+We will prepare an account and use that to interact with an example contract.
 
 ## Prepare an account
 
@@ -17,9 +17,9 @@ Account creation in Madara, and the [SN Stack](https://www.starknet.io/sn-stack/
 1. Sending assets to the newly created address so the account can be deployed.
 1. Deploying the account from itself.
 
-Since the account must be funded before deployment, you first need to know its address to send assets. The required assets can be bridged from the settlement layer, since we are using an Appchain.
+Since the account must be funded before deployment, you first need to know its address to send assets. Since we are using an Appchain, the required assets can be bridged from the [settlement layer](/concepts/settlement). 
 
-### Create account data
+### Generate account data
 
 First, let's generate the account data.
 
@@ -46,7 +46,7 @@ sncast account create --type oz \
 --name account-for-guide --silent
 ```
 
-![Account created](/img/pages/use-appchain-account-created.png "Account created")
+> ![Account created](/img/pages/use-appchain-account-created.png "Account created")
 
 Note the returned account address. You will now need to bridge assets to this address.
 
@@ -78,7 +78,7 @@ The full command is:
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
 
-![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
+> ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
 
 ## Contract interaction
 
@@ -114,7 +114,7 @@ The full command is:
 sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name Balance
 ```
 
-![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
+> ![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
@@ -148,7 +148,7 @@ sncast --account account-for-guide deploy --salt 1 \
 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
-![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
+> ![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
 
 Note the deployed contract's address.
 
@@ -164,7 +164,7 @@ The required parameters for the command are:
   * This is the default URL.
 * Contract address
   * Used value: `0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a`
-  * The contract address deployed earlier.
+  * The contract address deployed earlier. You may need to change this to reflect the deployment address.
 * Function name
   * Used value: `get`
   * This is the name of the function we are calling inside the example smart contract.
@@ -193,7 +193,7 @@ The required parameters for the command are:
   * This is the default URL.
 * Contract address
   * Used value: `0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a`
-  * The contract address deployed earlier.
+  * The contract address deployed earlier. You may need to change this to reflect the deployment address.
 * Fee token
   * Used value: `eth`
   * Use Appchain version of Eth to pay for transaction fees.
