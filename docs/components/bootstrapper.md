@@ -8,7 +8,7 @@ sidebar_position: 16
 
 Madara Bootstrapper helps you initialize the essential contracts on your [Appchain](/concepts/appchain) and its [settlement layer](/concepts/settlement).
 
-Without the bootstrapper, your Appchain starts as an empty network with no accounts or assets, making it unusable for transactions.
+Without the bootstrapper, your Appchain starts as an empty network with no class hashes or bridges, making it unusable for transactions.
 
 The bootstrapper deploys key contracts and configurations, allowing you to quickly start using your new Appchain. It only needs to be executed once per Appchain deployment.
 

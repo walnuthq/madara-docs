@@ -104,7 +104,9 @@ If needed, remember to replace the following values in the command below:
 ```bash
 sncast account import --type oz --url http://localhost:9944 --silent --address 0x07484e8e3af210b2ead47fa08c96f8d18b616169b350a8b75fe0dc4d2e01d493 --private-key 0x0410c6eadd73918ea90b6658d24f5f2c828e39773819c1443d8602a3c72344c2
 ```
-![Account creation](/img/pages/quickstart-devnet-import.png "Account creation")
+
+> ![Account creation](/img/pages/quickstart-devnet-import.png "Account creation")
+
 Note the imported account name.
 
 :::warning
@@ -128,7 +130,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 declare --url http://localhost:9944 --contract-name Balance
 ```
 
-![Class hash](/img/pages/quickstart-devnet-classhash.png "Resulting class hash")
+> ![Class hash](/img/pages/quickstart-devnet-classhash.png "Resulting class hash")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the blockchain.
 
@@ -144,7 +146,7 @@ If needed, remember to replace the following values in the command below:
 sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
-![Contract address](/img/pages/quickstart-devnet-contract.png "Resulting class contract address")
+> ![Contract address](/img/pages/quickstart-devnet-contract.png "Resulting class contract address")
 
 Note the deployed contract's address.
 
@@ -179,4 +181,4 @@ If you now query the balance again, you should see value `8`. Congratulations, y
 
 ## Rerunning this quickstart
 
-If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
+If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to something else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
