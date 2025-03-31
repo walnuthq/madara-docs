@@ -46,7 +46,7 @@ sncast account create --type oz \
 --name account-for-guide --silent
 ```
 
-![Account created](/img/pages/use-appchain-account-created.png "Account created")
+> ![Account created](/img/pages/use-appchain-account-created.png "Account created")
 
 Note the returned account address. You will now need to bridge assets to this address.
 
@@ -78,7 +78,7 @@ The full command is:
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
 
-![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
+> ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
 
 ## Contract interaction
 
@@ -114,7 +114,7 @@ The full command is:
 sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name Balance
 ```
 
-![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
+> ![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
@@ -148,7 +148,7 @@ sncast --account account-for-guide deploy --salt 1 \
 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
 ```
 
-![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
+> ![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
 
 Note the deployed contract's address.
 
