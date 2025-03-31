@@ -181,4 +181,4 @@ If you now query the balance again, you should see value `8`. Congratulations, y
 
 ## Rerunning this quickstart
 
-If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to anything else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.
+If you want to try running this quickstart again you have to change the use `salt` value in contract deployment to something else - otherwise it will try to deploy to the same address and fail. Furthermore, you can reuse the existing account.

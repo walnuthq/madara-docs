@@ -2,7 +2,7 @@
 sidebar_position: 7
 ---
 
-# Run a local appchain
+# Run a local Appchain
 
 ## Overview
 
@@ -36,9 +36,9 @@ cd madara-cli
 
 The above will clone the repository into a new folder and enter it.
 
-### Step 2: Start the runner
+### Step 2: Start the CLI
 
-Next, in the `madara-cli` folder, run the following command to start the Madara runner:
+Next, in the `madara-cli` folder, run the following command to start the Madara Command Line Interface (CLI):
 
 ```bash
 cargo run create
@@ -90,16 +90,12 @@ It will require about 55 blocks (about 10 minutes) for the Appchain to be config
 Congratulations, you now have your own Appchain running!
 
 After running through the guide above, the CLI starts all of the required components automatically. Some of the main components are:
-- Madara [sequencer](/components/nodes). Your node for receiving transactions and building blocks.
-- [Orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer.
-- A prover. This generates (mock) proofs for your blocks.
+- A Madara [sequencer](/components/nodes). Your node for receiving transactions and building blocks.
+- An [orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer.
+- A [prover](/components/prover). This generates (mock) proofs for your blocks.
 - A local Ethereum blockchain for settlement.
 
-To ensure your chain runs properly, it's a good idea to [monitor](/quickstart/monitor_appchain) the Appchain.
-
-## Summary
-
-With the CLI it's easy to start your own Appchain. In the near future, we will post more guides on how to utilize and get familiar with your Appchain.
+Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/quickstart/monitor_appchain) the Appchain. 
 
 
 

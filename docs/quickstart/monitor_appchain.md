@@ -9,8 +9,8 @@ sidebar_position: 20
 This quick-start guide helps you monitor your local Appchain. Please make sure you are [running a local Appchain](/quickstart/run_appchain) before continuing.
 
 Starting an Appchain launches multiple services. A few notable ones are:
-- Orchestrator
-- Blockchain
+- An [orchestrator](/components/orchestrator)
+- A blockchain
 - Performance monitoring
 
 We will demonstrate how you can query these services to see the status of your Appchain. Note that it may take a few minutes for the Appchain to start gathering data to display.
@@ -21,7 +21,7 @@ The orchestrator utilizes MongoDB database for storing job information.
 
 You can monitor your Appchain by connecting to the database and querying its tables. For this, you should download [MongoDB Compass](https://www.mongodb.com/try/download/compass). Install Compass and connect it to the default address, which should be `mongodb://localhost:27017`.
 
-The database displays four tables. Currently, we're most interested in the orchestrator job entries.
+The connection displays four databases. Currently, we're most interested in the orchestrator database's *jobs* table.
 
 ### Query jobs
 
