@@ -5,10 +5,10 @@ sidebar_position: 2
 # Architecture
 
 A Madara [Appchain](/concepts/appchain) consists of the following components:
-- An [orchestrator](/components/orchestrator)
-- A sequencer
-- Starknet OS (SNOS)
-- A prover
+- An [orchestrator](orchestrator)
+- A [sequencer](nodes)
+- [Starknet OS](starknet_os) (SNOS)
+- A [prover](prover)
 - A [settlement layer](/concepts/settlement)
 
 Note that some components are left out, for now, for simplicity.
@@ -38,8 +38,6 @@ sequenceDiagram
     participant SNOS as Starknet OS (SNOS)
     participant Prover
     participant Verifier as Settlement Layer
-
-    Note over Sequencer: Madara in Sequencer mode (Solo chain) does not need SNOS.
 
     Sequencer ->> Sequencer: Execute transactions & generate state diff
     Sequencer ->> Sequencer: Assemble block
