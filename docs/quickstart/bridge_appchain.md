@@ -70,7 +70,7 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
  0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a
 ```
 
-![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
+> ![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
 
 The assets should get bridged within about 10 seconds - the time it takes to form a new block.
 
@@ -102,7 +102,7 @@ sncast call \
 --calldata 0xcdef2e5fe47da355316acc78ad8872a2ff9835c52939a62fa83b4d6ee56b3a
 ```
 
-![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
+> ![Sending assets](/img/pages/bridging-appchain-received.png "Sending assets")
 
 You should get a response `[0x159, 0x0]`. The first value is `345` in hexadecimal format, the second zero is irrelevant for us.
 
@@ -147,7 +147,7 @@ sncast account create --type oz \
 --name account-for-guide --silent
 ```
 
-![Account created](/img/pages/use-appchain-account-created.png "Account created")
+> ![Account created](/img/pages/use-appchain-account-created.png "Account created")
 
 Note the returned account address. This will be different every time you create an account. You will now need to bridge assets to this address.
 
@@ -177,7 +177,7 @@ The full command is:
 sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee-token eth
 ```
 
-![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
+> ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
 
 ### Step 4: Initiate bridging from the Appchain
 
