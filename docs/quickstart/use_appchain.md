@@ -79,7 +79,7 @@ sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee
 ```
 
 > ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
-0x07a676321e3059d65b513feb86c1be52abf4f5f1ae1d07da6f7d0e7bc96f77cd
+
 ## Contract interaction
 
 In this section you will learn how to deploy a contract and interact with it.
@@ -115,7 +115,6 @@ sncast --account account-for-guide declare --url http://localhost:9945 --fee-tok
 ```
 
 > ![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
-tx 0x0573d379e0ee9f3f9e69b5723d7b091b0a349b7013a3116c4d06ed4ff1f287e3
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
