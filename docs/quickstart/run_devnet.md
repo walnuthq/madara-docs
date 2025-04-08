@@ -28,13 +28,10 @@ The above will clone the repository into a new folder and enter it.
 You are now ready to run your own Madara devnet. Execute the following command:
 
 ```bash
-cargo run create
+cargo run create devnet
 ```
-The above will prompt you for various options. You should choose the following:
-1. Select Madara mode: `Devnet`.
-1. Input DB folder name: keep default.
 
-It may take half an hour to prepare the image for the first time, depending on your system performance. Wait for that to finish.
+The above will download the required Docker images and start a devnet.
 
 > ![Devnet running](/img/pages/quickstart-devnet-start.png "Devnet is running")
 
