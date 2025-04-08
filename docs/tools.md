@@ -45,8 +45,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.starkup.dev | sh -s -- --yes
 
 Now restart your terminal to take the tooling into use. Next, you have to set the correct versions that are compatible with Madara:
 ```bash
-asdf install scarb 2.9.2
-asdf set scarb 2.9.2
+asdf install scarb 2.9.4
+asdf set scarb 2.9.4
 asdf install starknet-foundry 0.36.0
 asdf set starknet-foundry 0.36.0
 ```
