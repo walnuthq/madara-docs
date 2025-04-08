@@ -57,7 +57,7 @@ Congratulations, you now have your own Appchain running!
 After running through the guide above, the CLI starts all of the required components automatically. Some of the main components are:
 - A Madara [sequencer](/components/nodes). Your node for receiving transactions and building blocks.
 - An [orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer.
-- A [prover](/components/prover). This generates (mock) proofs for your blocks.
+- A mock [prover](/components/prover). This generates mock proofs for your blocks.
 - A local Ethereum blockchain for settlement.
 
 Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/advanced/monitor_appchain) the Appchain. 
