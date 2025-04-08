@@ -95,7 +95,7 @@ After running through the guide above, the CLI starts all of the required compon
 - A [prover](/components/prover). This generates (mock) proofs for your blocks.
 - A local Ethereum blockchain for settlement.
 
-Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/quickstart/monitor_appchain) the Appchain. 
+Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/advanced/monitor_appchain) the Appchain. 
 
 
 

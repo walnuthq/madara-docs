@@ -6,7 +6,7 @@ sidebar_position: 20
 
 ## Overview
 
-This quick-start guide helps you monitor your local Appchain. Please make sure you are [running a local Appchain](/quickstart/run_appchain) before continuing.
+This guide helps you monitor your local Appchain. Please make sure you are [running a local Appchain](/quickstart/run_appchain) before continuing.
 
 Starting an Appchain launches multiple services. A few notable ones are:
 - An [orchestrator](/components/orchestrator)

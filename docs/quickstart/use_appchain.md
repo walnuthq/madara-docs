@@ -52,7 +52,7 @@ Note the returned account address. You will now need to bridge assets to this ad
 
 ### Bridge assets to the address
 
-Go to the [bridging guide](bridge_appchain) and bridge Eth to the address you received in the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
+Go to the [bridging guide](/advanced/bridge_appchain) and bridge Eth to the address you received in the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
 
 Once the address has Eth, we can start deploying an account to that address.
 
