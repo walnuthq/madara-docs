@@ -54,26 +54,37 @@ With this option, the Appchain's gas token functionality remains unchanged.
 
 Use this option if you want to have custom settlement layer functionality for the gas token. However, this is not a typical approach.
 
+## Prerequisites
+
+Before starting, please make sure you have all of the [required tools](/tools) installed.
+
+Remember to also check the [hardware requirements](/hardware) to make sure you can run an Appchain properly.
+
 ## Change the token in the Appchain
 
-
+This section helps you change the token through the Appchain directly. The settlement layer's respective token does not change.
 
 ### Step 1: Run the Appchain
 
+You should start by installing the Madara CLI and running your Appchain with the CLI:
 
+```bash
+git clone https://github.com/madara-alliance/madara-cli.git
+cd madara-cli
+cargo run create app-chain
+```
 
-## Prepare an account
+### Step 2: Wait for the Appchain to be configured
 
-Account creation in Madara, and the [SN Stack](https://www.starknet.io/sn-stack/) in general, works quite differently from traditional blockchains like Ethereum. In our Appchain, the process involves:
-1. Generating an account address.
-1. Sending assets to the newly created address so the account can be deployed.
-1. Deploying the account from itself.
+It will require about 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
 
-Since the account must be funded before deployment, you first need to know its address to send assets. Since we are using an Appchain, the required assets can be bridged from the [settlement layer](/concepts/settlement). 
+> ![Appchain is ready](/img/pages/quickstart-appchain-ready.png "Appchain is ready")
 
-### Generate account data
+Once the Appchain is ready, open a new terminal for interaction.
 
-First, let's generate the account data.
+### Step 3: Prepare an account
+
+An account needs to be prepared before it can be deployed.
 
 The required parameters for the command are:
 * Account type
@@ -100,17 +111,56 @@ sncast account create --type oz \
 
 > ![Account created](/img/pages/use-appchain-account-created.png "Account created")
 
-Note the returned account address. You will now need to bridge assets to this address.
+Note the returned account address. You should store this address as a variable for the current session - this will be used in subsequent interactions. You can store the address with (remember to change the actual value):
 
-### Bridge assets to the address
+```bash
+export MADARA_GUIDE_ACCOUNT="0xabc"
+```
 
-Go to the [bridging guide](/advanced/bridge_appchain) and bridge Eth to the address you received in the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
+### Step X: Bridge assets
 
-Once the address has Eth, we can start deploying an account to that address.
+You now need to bridge some Eth to the account. We need Eth to pay for transactions, since the Appchain doesn't (yet) have STRK for gas fees.
 
-Luckily, the account address is stored in an account file in your computer. From now on we can reference the account only by its name.
+First, you need to prepare parameters for the bridging transaction. Here are the ones used in the command:
+* Settlement layer bridge address.
+  * Used value: `0x8a791620dd6260079bf849dc5567adc3f2fdc318`
+  * This is the default bridge address.
+* A settlement layer RPC URL.
+  * Used value: `http://127.0.0.1:8545`
+  * This is the default URL.
+* A private key to the wallet with the assets.
+  * Used value: `0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80`
+  * This is the private key for a settlement layer wallet with Eth, provided by Anvil.
+* The bridge function's signature.
+  * Used value: `deposit(uint256,uint256)`
+  * This is static and doesn't change.
+* The amount to be bridged.
+  * Used value: `345000000`
+  * This denotes 345000000 weis.
+* An account on the Appchain to receive the assets.
+  * Used value: `$MADARA_GUIDE_ACCOUNT`
+  * This is the address that should receive the assets. This references the variable you set earlier.
+* Assets to send to the bridge.
+  * Used value: `345000001wei`
+  * This has to be larger than the amount we want to send for the receiver to cover bridging fees. Using value 345000001 is enough in our setup.
 
-### Deploy the account
+The full command is:
+
+```bash
+cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
+--rpc-url http://127.0.0.1:8545 \
+--private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 \
+--value 345000001wei \
+ "deposit(uint256,uint256)" \
+ 345000000 \
+ $MADARA_GUIDE_ACCOUNT
+```
+
+> ![Sending assets](/img/pages/bridging-sl-sent.png "Sending assets")
+
+The assets should get bridged within about 10 seconds - the time it takes to form a new block.
+
+### Step X: Deploy the account
 
 Once the account has been created and it has assets, it still needs to be deployed to the Appchain.
 
@@ -131,6 +181,161 @@ sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee
 ```
 
 > ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
+
+### Step X: Prepare your new token
+
+Since you are changing your gas token, you need a new token to replace the old one. If you already have your implementation ready, feel free to use that. Otherwise, you can use a simple example ERC20 token shown here. This example utilizes [OpenZeppelin's](https://www.openzeppelin.com/) ERC20 implementation.
+
+:::warning 
+The token used in this example is highly insecure since it allows anyone to mint any amount of tokens. This is meant only for educational purposes.
+:::
+
+#### Initialize a Scarb project
+
+You should initialize a new Scarb project with default settings in a new folder:
+```bash
+mkdir madara_token
+cd madara_token
+scarb init --no-vcs --test-runner cairo-test
+```
+
+#### Save the token contract locally
+
+Rreplace the contents of `src/lib.cairo` with:
+
+```rust
+#[starknet::contract]
+mod NewStrk {
+    use openzeppelin::token::erc20::{ERC20Component, ERC20HooksEmptyImpl};
+    use starknet::ContractAddress;
+
+    component!(path: ERC20Component, storage: erc20, event: ERC20Event);
+
+    // External
+    #[abi(embed_v0)]
+    impl ERC20MixinImpl = ERC20Component::ERC20MixinImpl<ContractState>;
+
+    // Internal
+    impl ERC20InternalImpl = ERC20Component::InternalImpl<ContractState>;
+
+    #[storage]
+    struct Storage {
+        #[substorage(v0)]
+        erc20: ERC20Component::Storage,
+    }
+
+    #[event]
+    #[derive(Drop, starknet::Event)]
+    enum Event {
+        #[flat]
+        ERC20Event: ERC20Component::Event,
+    }
+
+    #[constructor]
+    fn constructor(ref self: ContractState) {
+        self.erc20.initializer("NewStrk", "NSTRK");
+    }
+
+    #[generate_trait]
+    #[abi(per_item)]
+    impl ExternalImpl of ExternalTrait {
+        #[external(v0)]
+        fn mint(ref self: ContractState, recipient: ContractAddress, amount: u256) {
+            self.erc20.mint(recipient, amount);
+        }
+    }
+}
+```
+
+Next, replace the contents of `Scarb.toml` in the root of the project with:
+
+```rust
+[package]
+name = "madara_token"
+version = "0.1.0"
+edition = "2024_07"
+
+[dependencies]
+starknet = ">=2.9.4"
+openzeppelin = "1.0.0"
+
+[[target.starknet-contract]]
+```
+
+#### Compile the example contract
+
+Compile the contract with:
+
+```bash
+scarb build
+```
+
+### Step X: Declare the token
+
+You now have a ready token to declare to the network.
+
+The required parameters for the command are:
+* Account name
+  * Used value: `account-for-guide`
+  * This is the same name used above. The underlying address is not relevant.
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Fee token
+  * Used value: `eth`
+  * Use Appchain version of Eth to pay for transaction fees.
+* Contract name
+  * Used value: `NewStrk`
+  * Name of our token contract
+
+The full command is:
+
+```bash
+sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name NewStrk
+```
+
+TODO: add screenshot
+
+Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
+
+### Step X: Deploy the token
+
+You are now ready to deploy the token itself.
+
+The required parameters for the command are:
+* Account name
+  * Used value: `account-for-guide`
+  * This is the same name used above. The underlying address is not relevant.
+* Salt for contract deployment
+  * Used value: `1`
+  * Use a hardcoded salt value so the deployment address is deterministic.
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Fee token
+  * Used value: `eth`
+  * Use Appchain version of Eth to pay for transaction fees.
+* Class hash
+  * Used value: `0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75`
+  * The class hash declared earlier.
+
+The full command is:
+
+```bash
+sncast --account account-for-guide deploy --salt 1 \
+--url http://localhost:9945 \
+--fee-token eth \
+--class-hash 0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75
+```
+
+TODO: add screenshot
+
+Note the deployed contract's address. You should store this address as a variable for the current session - this will be used in subsequent interactions. You can store the address with (remember to change the actual value):
+
+```bash
+export MADARA_GUIDE_TOKEN_CONTRACT="0xabc"
+```
+
 
 ## Contract interaction
 
