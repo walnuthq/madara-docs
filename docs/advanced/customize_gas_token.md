@@ -293,7 +293,8 @@ The full command is:
 ```bash
 sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name NewStrk
 ```
-
+local 0x045df3793ede61fae826eedc55258d32031901078e98546033d32e0151e92b54
+azure 0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75 x2
 TODO: add screenshot
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
@@ -327,7 +328,8 @@ sncast --account account-for-guide deploy --salt 1 \
 --fee-token eth \
 --class-hash 0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75
 ```
-
+local 0x02d1c0407105272b28d395a351fea1f2a904a64cecc10981052d5468a13696b1
+azure 0x0626a0f65b77b24472ea339b7c754be50c7f86685d8d9805bf7f1472bb04a2da x2
 TODO: add screenshot
 
 Note the deployed contract's address. You should store this address as a variable for the current session - this will be used in subsequent interactions. You can store the address with (remember to change the actual value):
@@ -336,141 +338,62 @@ Note the deployed contract's address. You should store this address as a variabl
 export MADARA_GUIDE_TOKEN_CONTRACT="0xabc"
 ```
 
+### Step X: Stop and reset the Appchain
 
-## Contract interaction
+You now have the token address for your new gas token. At this point, the Appchain has to be stopped and reset so the new gas token can be taken into use.
 
-In this section you will learn how to deploy a contract and interact with it.
-
-### Prepare an example contract
-
-First we need to prepare an example smart contract.
-
-An example contract is introduced in the *use a running devnet* guide's section [prepare your contract](use_devnet#prepare-your-contract). Please follow that section for preparations and return here once you have compiled the contract.
-
-### Declare your contract
-
-At this point, the contract needs to be declared to the network.
-
-The required parameters for the command are:
-* Account name
-  * Used value: `account-for-guide`
-  * This is the same name as was used above.
-* Appchain RPC URL
-  * Used value: `http://localhost:9945`
-  * This is the default URL.
-* Fee token
-  * Used value: `eth`
-  * Use Appchain version of Eth to pay for transaction fees.
-* Contract name
-  * Used value: `Balance`
-  * The name of our example contract we want to declare.
-
-The full command is:
+To stop the Appchain, go back to its terminal and press *ctrl+c*. Once all of the containers have stopped gracefully, remove the Appchain data with: 
 
 ```bash
-sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name Balance
+sudo rm -rf deps/data
+sudo rm -rf data
 ```
 
-> ![Contract declared](/img/pages/use-appchain-contract-declared.png "Contract declared")
+The data removal is required because Appchains do not yet support continuation from the previous state upon a restart.
 
-Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
+### Step X: Generate a config file
 
-### Deploy it
-
-You are now ready to deploy the contract.
-
-The required parameters for the command are:
-* Account name
-  * Used value: `account-for-guide`
-  * This is the same name as was used above.
-* Salt for contract deployment
-  * Used value: `1`
-  * Use a hardcoded salt value so the deployment address is deterministic.
-* Appchain RPC URL
-  * Used value: `http://localhost:9945`
-  * This is the default URL.
-* Fee token
-  * Used value: `eth`
-  * Use Appchain version of Eth to pay for transaction fees.
-* Class hash
-  * Used value: `0x02666eeed059c91ebe80f6ca66bdb1d5ebb598d0e96e49383bf736c0f6bc7395`
-  * The class hash declared earlier.
-
-The full command is:
+Once the Appchain has fully stopped, you can generate a configuration file for it by running: 
 
 ```bash
-sncast --account account-for-guide deploy --salt 1 \
---url http://localhost:9945 \
---fee-token eth \
---class-hash 0x02666eeed059c91ebe80f6ca66bdb1d5ebb598d0e96e49383bf736c0f6bc7395
+cargo run init --default
 ```
 
-> ![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
+This will generate a default configuration file in folder *deps/data* called *my_custom_config.toml*.
 
-Note the deployed contract's address.
+### Step X: Change the default gas token in config
 
-### Issue transactions
-
-The contract keeps track of an imaginary balance. First, let's query the initial balance.
-
-#### Query balance
-
-The required parameters for the command are:
-* Appchain RPC URL
-  * Used value: `http://localhost:9945`
-  * This is the default URL.
-* Contract address
-  * Used value: `0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2`
-  * The contract address deployed earlier. You may need to change this to reflect the deployment address.
-* Function name
-  * Used value: `get`
-  * This is the name of the function we are calling inside the example smart contract.
-
-The full command is:
+Next, you should change the default gas token value in the config. Check the new token address deployed earlier. Unfortunately, we can't use the variable set earlier since we're in a different terminal session, so you'll have to modify the value (*0xabc*) by hand in the following command:
 
 ```bash
-sncast call \
---url http://localhost:9945 \
---contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2 \
---function get
+sed -i 's/^\(native_fee_token_address\s*=\s*\).*/\1"0xabc"/' deps/data/my_custom_config.toml
 ```
 
-You should see value `5` as the initial value (in hexadecimal format).
+The above command uses [sed](https://www.gnu.org/software/sed/manual/sed.html#Introduction) to modify the config file's *native_fee_token_address* entry.
 
-#### Increase balance
+### Step X: Start the Appchain with the config file
 
-Let's try to increase this value by a transaction.
+It's now time to start the Appchain with a custom gas token. Note that the token is not actually deployed in the Appchain yet since we removed its state - only the gas token address is changed.
 
-The required parameters for the command are:
-* Account name
-  * Used value: `account-for-guide`
-  * This is the same name as was used above.
-* Appchain RPC URL
-  * Used value: `http://localhost:9945`
-  * This is the default URL.
-* Contract address
-  * Used value: `0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2`
-  * The contract address deployed earlier. You may need to change this to reflect the deployment address.
-* Fee token
-  * Used value: `eth`
-  * Use Appchain version of Eth to pay for transaction fees.
-* Function name
-  * Used value: `increase`
-  * This is the name of the function we are calling inside the example smart contract.
-* Function arguments
-  * Used value: `3`
-  * This is the argument we are passing to the function. We pass *3* because we want to increment the counter by three.
-
-The full command is:
+Start the appchain with the config file:
 
 ```bash
-sncast --account account-for-guide invoke \
---url http://localhost:9945 \
---fee-token eth \
---contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2 \
---function increase --arguments "3"
+cargo run create app-chain --config-file deps/data/my_custom_config.toml
 ```
 
-If you query the balance again, you should see value `8`. 
+### Step X: Wait for the Appchain to be configured
 
-Congratulations, you have successfully modified the state of your contract and Appchain!
+Wait until the Appchain is ready. Check above for more information.
+
+Once it's ready, you should switch back to the earlier terminal session where you have your token project.
+
+### Redo steps TODO
+
+To get your account set up, you should now redo the steps TODO in this guide. Remember to also set the account address to the variable *MADARA_GUIDE_ACCOUNT*.
+
+
+
+
+
+
+
