@@ -184,7 +184,7 @@ sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee
 
 ### Step 6: Prepare your new token
 
-Since you are changing your gas token, you need a new token to replace the old one. If you already have your implementation ready, feel free to use that. Otherwise, you can use a simple example ERC20 token shown here. This example utilizes [OpenZeppelin's](https://www.openzeppelin.com/) ERC20 implementation.
+Since you're changing the gas token, you need a new one to replace it. If you already have your implementation ready, feel free to use that. Otherwise, you can use a simple example ERC20 token shown here. This example utilizes [OpenZeppelin's](https://www.openzeppelin.com/) ERC20 implementation.
 
 :::warning 
 The token used in this example is highly insecure since it allows anyone to mint any amount of tokens. This is meant only for educational purposes.
@@ -201,7 +201,7 @@ scarb init --no-vcs --test-runner cairo-test
 
 #### Save the token contract locally
 
-Rreplace the contents of `src/lib.cairo` with:
+Replace the contents of `src/lib.cairo` with:
 
 ```rust
 #[starknet::contract]
@@ -385,21 +385,21 @@ Wait until the Appchain is ready. Check step 2 for more information.
 
 Once it's ready, you should switch back to the earlier terminal session where you have your token project.
 
-### Step 14: Redo steps 4 and 5
+### Step 14: Repeat steps 4 and 5
 
-To get your account set up, you should now redo the steps 4 and 5 in this guide.
+To get your account set up, repeat steps 4 and 5 in this guide.
 
 Once those steps are done, continue from here.
 
-### Step 15: Redo steps 7 and 8
+### Step 15: Repeat steps 7 and 8
 
-To get your token deployed again, you should now redo the steps 7 and 8 in this guide. Note that the steps should result in the same contract class hash and address as earlier.
+To get your token deployed again, repeat steps 7 and 8 in this guide. Note that the steps should result in the same contract class hash and address as earlier.
 
 Once those steps are done, continue from here.
 
 ### Step 16: Mint yourself some tokens
 
-The new gas token has now been deployed and is in use. But you still need to get these tokens somehow. Because we left an insecure minting function in the contract, you can simple mint yourself some tokens now.
+The new gas token has now been deployed and is in use. But you still need to get these tokens somehow. Because we left an insecure minting function in the contract, you can simply mint yourself some tokens now.
 
 The required parameters for the command are:
 * Account name
