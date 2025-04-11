@@ -8,7 +8,7 @@ sidebar_position: 30
 
 This guide helps you change your Appchain's gas token.
 
-An Appchain's gas token is used to pay for transaction fees. Madara Appchains support both the traditional Eth gas token as well as the newer STRK gas token. This guide focuses on switching the used STRK token.
+An Appchain's gas token is used to pay for transaction fees. Madara Appchains support both the traditional Eth gas token and the newer STRK gas token. This guide focuses on switching the used STRK token.
 
 Changing the used gas token helps you customize the Appchain to suit your needs. It's one of the available [configuration options](appchain) when starting an Appchain.
 
@@ -22,7 +22,7 @@ Continuing an Appchain after a reset from a previous state is not yet supported.
 
 ### Two approaches
 
-The gas token can be changed in two ways.
+The Appchain's gas token can be changed in two ways.
 
 #### Option 1: Change directly in the Appchain
 
@@ -117,7 +117,7 @@ Note the returned account address. You should store this address as a variable f
 export MADARA_GUIDE_ACCOUNT="0xabc"
 ```
 
-### Step X: Bridge assets
+### Step 4: Bridge assets
 
 You now need to bridge some Eth to the account. We need Eth to pay for transactions, since the Appchain doesn't (yet) have STRK for gas fees.
 
@@ -160,7 +160,7 @@ cast send 0x8a791620dd6260079bf849dc5567adc3f2fdc318 \
 
 The assets should get bridged within about 10 seconds - the time it takes to form a new block.
 
-### Step X: Deploy the account
+### Step 5: Deploy the account
 
 Once the account has been created and it has assets, it still needs to be deployed to the Appchain.
 
@@ -182,7 +182,7 @@ sncast account deploy --url http://127.0.0.1:9945 --name account-for-guide --fee
 
 > ![Account deployed](/img/pages/use-appchain-account-deployed.png "Account deployed")
 
-### Step X: Prepare your new token
+### Step 6: Prepare your new token
 
 Since you are changing your gas token, you need a new token to replace the old one. If you already have your implementation ready, feel free to use that. Otherwise, you can use a simple example ERC20 token shown here. This example utilizes [OpenZeppelin's](https://www.openzeppelin.com/) ERC20 implementation.
 
@@ -270,7 +270,7 @@ Compile the contract with:
 scarb build
 ```
 
-### Step X: Declare the token
+### Step 7: Declare the token
 
 You now have a ready token to declare to the network.
 
@@ -293,13 +293,12 @@ The full command is:
 ```bash
 sncast --account account-for-guide declare --url http://localhost:9945 --fee-token eth --contract-name NewStrk
 ```
-local 0x045df3793ede61fae826eedc55258d32031901078e98546033d32e0151e92b54
-azure 0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75 x2
-TODO: add screenshot
+
+> ![Gas token declared](/img/pages/gastoken-declare-token.png "Gas token declared")
 
 Note the declared class hash. It may take up to a minute for the declaration to be available in the Appchain.
 
-### Step X: Deploy the token
+### Step 8: Deploy the token
 
 You are now ready to deploy the token itself.
 
@@ -318,7 +317,7 @@ The required parameters for the command are:
   * Use Appchain version of Eth to pay for transaction fees.
 * Class hash
   * Used value: `0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75`
-  * The class hash declared earlier.
+  * The class hash declared earlier. Adjust if needed.
 
 The full command is:
 
@@ -328,17 +327,16 @@ sncast --account account-for-guide deploy --salt 1 \
 --fee-token eth \
 --class-hash 0x02132f1600bbdb005de58f45719a8e65ea1ae418176484eadfac70f9e8b65c75
 ```
-local 0x02d1c0407105272b28d395a351fea1f2a904a64cecc10981052d5468a13696b1
-azure 0x0626a0f65b77b24472ea339b7c754be50c7f86685d8d9805bf7f1472bb04a2da x2
-TODO: add screenshot
 
-Note the deployed contract's address. You should store this address as a variable for the current session - this will be used in subsequent interactions. You can store the address with (remember to change the actual value):
+> ![Gas token deployed](/img/pages/gastoken-deploy-token.png "Gas token deployed")
+
+Note the deployed contract's address. You should store this address as a variable for the current session - this will be used in subsequent interactions. You can store the address with (remember to change the actual value if needed):
 
 ```bash
-export MADARA_GUIDE_TOKEN_CONTRACT="0xabc"
+export MADARA_GUIDE_TOKEN_CONTRACT="0x0626a0f65b77b24472ea339b7c754be50c7f86685d8d9805bf7f1472bb04a2da"
 ```
 
-### Step X: Stop and reset the Appchain
+### Step 9: Stop and reset the Appchain
 
 You now have the token address for your new gas token. At this point, the Appchain has to be stopped and reset so the new gas token can be taken into use.
 
@@ -351,7 +349,7 @@ sudo rm -rf data
 
 The data removal is required because Appchains do not yet support continuation from the previous state upon a restart.
 
-### Step X: Generate a config file
+### Step 10: Generate a config file
 
 Once the Appchain has fully stopped, you can generate a configuration file for it by running: 
 
@@ -361,7 +359,7 @@ cargo run init --default
 
 This will generate a default configuration file in folder *deps/data* called *my_custom_config.toml*.
 
-### Step X: Change the default gas token in config
+### Step 11: Change the default gas token in config
 
 Next, you should change the default gas token value in the config. Check the new token address deployed earlier. Unfortunately, we can't use the variable set earlier since we're in a different terminal session, so you'll have to modify the value (*0xabc*) by hand in the following command:
 
@@ -371,7 +369,7 @@ sed -i 's/^\(native_fee_token_address\s*=\s*\).*/\1"0xabc"/' deps/data/my_custom
 
 The above command uses [sed](https://www.gnu.org/software/sed/manual/sed.html#Introduction) to modify the config file's *native_fee_token_address* entry.
 
-### Step X: Start the Appchain with the config file
+### Step 12: Start the Appchain with the config file
 
 It's now time to start the Appchain with a custom gas token. Note that the token is not actually deployed in the Appchain yet since we removed its state - only the gas token address is changed.
 
@@ -381,19 +379,127 @@ Start the appchain with the config file:
 cargo run create app-chain --config-file deps/data/my_custom_config.toml
 ```
 
-### Step X: Wait for the Appchain to be configured
+### Step 13: Wait for the Appchain to be configured
 
-Wait until the Appchain is ready. Check above for more information.
+Wait until the Appchain is ready. Check step 2 for more information.
 
 Once it's ready, you should switch back to the earlier terminal session where you have your token project.
 
-### Redo steps TODO
+### Step 14: Redo steps 4 and 5
 
-To get your account set up, you should now redo the steps TODO in this guide. Remember to also set the account address to the variable *MADARA_GUIDE_ACCOUNT*.
+To get your account set up, you should now redo the steps 4 and 5 in this guide.
 
+Once those steps are done, continue from here.
 
+### Step 15: Redo steps 7 and 8
 
+To get your token deployed again, you should now redo the steps 7 and 8 in this guide. Note that the steps should result in the same contract class hash and address as earlier.
 
+Once those steps are done, continue from here.
 
+### Step 16: Mint yourself some tokens
 
+The new gas token has now been deployed and is in use. But you still need to get these tokens somehow. Because we left an insecure minting function in the contract, you can simple mint yourself some tokens now.
 
+The required parameters for the command are:
+* Account name
+  * Used value: `account-for-guide`
+  * This is the same name as was used above.
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Fee token
+  * Used value: `eth`
+  * Use Appchain version of Eth to pay for transaction fees.
+* Contract address
+  * Used value: `$MADARA_GUIDE_TOKEN_CONTRACT`
+  * The target contract address. ts. This references the variable you set earlier.
+* Function name
+  * Used value: `mint`
+  * This is the name of the function we are calling inside the token smart contract.
+* Function arguments
+  * Used value: `"$MADARA_GUIDE_ACCOUNT, 567000000"`
+  * These are the arguments we want to pass to the used function. The first denotes the address who should receive the tokens, the second is the minted token amount.
+
+```bash
+sncast --account account-for-guide invoke \
+--url http://localhost:9945 \
+--fee-token eth \
+--contract-address $MADARA_GUIDE_TOKEN_CONTRACT \
+--function mint --arguments "$MADARA_GUIDE_ACCOUNT, 567000000"
+```
+
+> ![Minted some tokens](/img/pages/gastoken-mint.png "Minted some tokens")
+
+### Step 17: Check your balance
+
+You can now check your balance to make sure you have the right amount of gas tokens.
+
+The required parameters for the command are:
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Contract address
+  * Used value: `$MADARA_GUIDE_TOKEN_CONTRACT`
+  * The target contract address. ts. This references the variable you set earlier.
+* Function name
+  * Used value: `balance_of`
+  * This is the name of the function we are calling inside the token smart contract.
+* Function arguments
+  * Used value: `"$MADARA_GUIDE_ACCOUNT"`
+  * This is the argument we want to pass to the used function. Since we want to check our own balance, we input our address.
+
+```bash
+sncast call \
+--url http://localhost:9945 \
+--contract-address $MADARA_GUIDE_TOKEN_CONTRACT \
+--function balance_of --arguments "$MADARA_GUIDE_ACCOUNT"
+```
+
+> ![Token balance](/img/pages/gastoken-token-balance.png "Token balance")
+
+The result should be the same balance you minted earlier, in hexadecimal format.
+
+### Step 18: Use new gas token to pay for transactions
+
+Since you now have some of the new gas tokens, you can use it to interact with the Appchain. The following is an example transaction that mints tokens to an arbitrary address - this helps verify that the new gas token is working as expected.
+
+The required parameters for the command are:
+* Account name
+  * Used value: `account-for-guide`
+  * This is the same name as was used above.
+* Appchain RPC URL
+  * Used value: `http://localhost:9945`
+  * This is the default URL.
+* Fee token
+  * Used value: `strk`
+  * Use the Appchain's gas token to pay for transaction fees.
+* Contract address
+  * Used value: `$MADARA_GUIDE_TOKEN_CONTRACT`
+  * The target contract address. ts. This references the variable you set earlier.
+* Function name
+  * Used value: `mint`
+  * This is the name of the function we are calling inside the token smart contract.
+* Function arguments
+  * Used value: `"$0x1, 123"`
+  * These are the arguments we want to pass to the used function. The first denotes the address who should receive the tokens, the second is the minted token amount.
+
+```bash
+sncast --account account-for-guide invoke \
+--url http://localhost:9945 \
+--fee-token strk \
+--contract-address $MADARA_GUIDE_TOKEN_CONTRACT \
+--function mint --arguments "0x1, 123"
+```
+
+> ![Minted some more tokens](/img/pages/gastoken-mint2.png "Minted some more tokens")
+
+You can now check your gas token balance again, from the previous step, and see it has gone down, since you paid for the gas fees.
+
+> ![New token balance](/img/pages/gastoken-token-balance2.png "New token balance")
+
+Congratulations, you have now successfully changed your Appchain's gas token!
+
+## Change the token through the settlement layer
+
+This option will be documented later.
