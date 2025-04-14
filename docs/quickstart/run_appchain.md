@@ -28,7 +28,7 @@ These instructions will walk you through setting up an Appchain.
 
 ### Step 1: Install Madara CLI
 
-You should start by installing the main tool for running Madara, the Madara CLI:
+You should start by installing the main tool for running Madara, the Madara Command Line Interface (CLI):
 ```bash
 git clone https://github.com/madara-alliance/madara-cli.git
 cd madara-cli
@@ -36,66 +36,31 @@ cd madara-cli
 
 The above will clone the repository into a new folder and enter it.
 
-### Step 2: Start the CLI
+### Step 2: Start the Appchain
 
-Next, in the `madara-cli` folder, run the following command to start the Madara Command Line Interface (CLI):
+Next, in the `madara-cli` folder, run the following command to start the Madara CLI that will setup the Appchain:
 
 ```bash
-cargo run create
+cargo run create app-chain
 ```
 
-### Step 3: Use Appchain mode
-
-The CLI will first ask you what Madara mode to run. Since we want an Appchain, you should choose *Appchain*.
-
-### Step 4: Deploy L2 contracts
-
-The CLI will next ask whether you want to deploy initial contracts to the Appchain (L2). The contracts to be deployed are:
-- Contracts related to bridging.
-- [Universal Deployer Contract](https://docs.starknet.io/architecture-and-concepts/accounts/universal-deployer/).
-- Wallet-specific account contracts (Argent and Braavos).
-
-You should choose *Yes*.
-
-### Step 5: Select the prover
-
-The CLI will next ask to choose the [prover](/components/prover). There are multiple options:
-
-1. `Dummy`. This will essentially skip proof generation and verification completely.
-2. `Atlantic`. A supported [prover service](https://atlanticprover.com/).
-3. `Stwo`. A new prover type. Not fully supported yet.
-
-For now, select `Dummy`.
-
-### Step 6: Choose whether to use local images
-
-Choosing *No* will download ready Docker images from a trusted registry. Choosing *Yes* builds the images locally - this can take quite some time.
-
-To get started quickly, you should choose *No*.
-
-### Step 7: Select the settlement layer (coming soon)
-
-When running your Appchain, selecting the settlement layer is an important consideration.
-
-At the moment, the CLI will automatically set up a new Ethereum chain (with Anvil) as the settlement layer. This will become customizable later.
-
-### Step 8: Wait for the Appchain to be configured
+### Step 3: Wait for the Appchain to be configured
 
 It will require about 55 blocks (about 10 minutes) for the Appchain to be configured properly - you should wait for that before interacting with it.
 
 > ![Appchain is ready](/img/pages/quickstart-appchain-ready.png "Appchain is ready")
 
-### Step 9: Your Appchain is ready
+### Step 4: Your Appchain is ready
 
 Congratulations, you now have your own Appchain running!
 
 After running through the guide above, the CLI starts all of the required components automatically. Some of the main components are:
 - A Madara [sequencer](/components/nodes). Your node for receiving transactions and building blocks.
 - An [orchestrator](/components/orchestrator). This manages a lot of the communications forward from your sequencer.
-- A [prover](/components/prover). This generates (mock) proofs for your blocks.
+- A mock [prover](/components/prover). This generates mock proofs for your blocks.
 - A local Ethereum blockchain for settlement.
 
-Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/quickstart/monitor_appchain) the Appchain. 
+Next, you should try [interacting](use_appchain) with your Appchain. Furthermore, to  ensure your chain runs properly, it's a good idea to [monitor](/advanced/monitor_appchain) the Appchain. 
 
 
 

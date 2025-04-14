@@ -74,7 +74,7 @@ version = "0.1.0"
 edition = "2024_07"
 
 [dependencies]
-starknet = ">=2.9.2"
+starknet = ">=2.9.4"
 
 [[target.starknet-contract]]
 ```
@@ -143,7 +143,7 @@ If needed, remember to replace the following values in the command below:
 - `class-hash`: the declared class hash
 :::
 ```bash
-sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
+sncast --account account-1 deploy --url http://localhost:9944 --salt 1 --class-hash 0x02666eeed059c91ebe80f6ca66bdb1d5ebb598d0e96e49383bf736c0f6bc7395
 ```
 
 > ![Contract address](/img/pages/quickstart-devnet-contract.png "Resulting class contract address")
@@ -160,7 +160,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast call --url http://localhost:9944 --function get --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a
+sncast call --url http://localhost:9944 --function get --contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2
 ```
 
 You should see value `5` as the initial value (in hexadecimal format).
@@ -174,7 +174,7 @@ If needed, remember to replace the following values in the command below:
 :::
 
 ```bash
-sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a --function increase --arguments "3"
+sncast --account account-1 invoke --url http://localhost:9944 --contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2 --function increase --arguments "3"
 ```
 
 If you now query the balance again, you should see value `8`. Congratulations, you have successfully modified the contract's state!

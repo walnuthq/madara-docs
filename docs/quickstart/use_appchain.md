@@ -52,7 +52,7 @@ Note the returned account address. You will now need to bridge assets to this ad
 
 ### Bridge assets to the address
 
-Go to the [bridging guide](bridge_appchain) and bridge Eth to the address you received in the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
+Go to the [bridging guide](/advanced/bridge_appchain) and bridge Eth to the address you received in the previous section. Remember to bridge from the settlement layer to the Appchain. You will need to modify the guide's default command to use a different target address.
 
 Once the address has Eth, we can start deploying an account to that address.
 
@@ -136,7 +136,7 @@ The required parameters for the command are:
   * Used value: `eth`
   * Use Appchain version of Eth to pay for transaction fees.
 * Class hash
-  * Used value: `0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90`
+  * Used value: `0x02666eeed059c91ebe80f6ca66bdb1d5ebb598d0e96e49383bf736c0f6bc7395`
   * The class hash declared earlier.
 
 The full command is:
@@ -145,7 +145,7 @@ The full command is:
 sncast --account account-for-guide deploy --salt 1 \
 --url http://localhost:9945 \
 --fee-token eth \
---class-hash 0x041de961fe39bbe6810532bb827b8aae10130262254f8c6ad70e38a565336d90
+--class-hash 0x02666eeed059c91ebe80f6ca66bdb1d5ebb598d0e96e49383bf736c0f6bc7395
 ```
 
 > ![Contract deployed](/img/pages/use-appchain-contract-deployed.png "Contract deployed")
@@ -163,7 +163,7 @@ The required parameters for the command are:
   * Used value: `http://localhost:9945`
   * This is the default URL.
 * Contract address
-  * Used value: `0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a`
+  * Used value: `0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2`
   * The contract address deployed earlier. You may need to change this to reflect the deployment address.
 * Function name
   * Used value: `get`
@@ -174,7 +174,7 @@ The full command is:
 ```bash
 sncast call \
 --url http://localhost:9945 \
---contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a \
+--contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2 \
 --function get
 ```
 
@@ -192,7 +192,7 @@ The required parameters for the command are:
   * Used value: `http://localhost:9945`
   * This is the default URL.
 * Contract address
-  * Used value: `0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a`
+  * Used value: `0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2`
   * The contract address deployed earlier. You may need to change this to reflect the deployment address.
 * Fee token
   * Used value: `eth`
@@ -210,7 +210,7 @@ The full command is:
 sncast --account account-for-guide invoke \
 --url http://localhost:9945 \
 --fee-token eth \
---contract-address 0x021e4332c06c31c764f023f404d6fc2af6f683dbb3e0f258600d7137401fee3a \
+--contract-address 0x0496048f48618558e0e0beef4c47d8c7f703210fbc548b864b03210b3547fed2 \
 --function increase --arguments "3"
 ```
 
